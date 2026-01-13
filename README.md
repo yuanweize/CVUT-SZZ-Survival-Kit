@@ -1,0 +1,1 @@
+# CVUT-SZZ-Survival-Kit
