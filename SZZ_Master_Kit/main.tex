@@ -76,7 +76,7 @@
 }
 
 % Thesis Connection Box (Orange)
-\newtcolorbox{thesisbox}[1][🎓 Thesis Connection / 论文关联]{
+\newtcolorbox{thesisbox}[1][Thesis Connection]{
     colback=orange!5!white,
     colframe=orange!75!black,
     fonttitle=\bfseries,
@@ -86,17 +86,16 @@
 }
 
 % Concept Study Box (The Main Format)
-\newtcolorbox{studybox}[2][]{
+\newtcolorbox{studybox}[1]{
     enhanced,
     colback=white,
     colframe=blue!50!black,
     fonttitle=\bfseries\large,
-    title=#2,
+    title={#1},
     attach boxed title to top left={yshift=-2mm, xshift=5mm},
     boxed title style={colback=blue!50!black, colframe=blue!50!black},
     arc=3mm,
-    boxrule=1pt,
-    #1
+    boxrule=1pt
 }
 
 % Formula Box (Gray with border)
@@ -107,6 +106,30 @@
     title=#1,
     arc=2mm,
     boxrule=0.5pt
+}
+
+% ============================================
+% BACKWARD COMPATIBILITY ENVIRONMENTS
+% (For old .tex files that use keywords/concept)
+% ============================================
+
+% Keywords Box (simple gray background)
+\newtcolorbox{keywords}{
+    colback=gray!10!white,
+    colframe=gray!50!black,
+    boxrule=0.5pt,
+    arc=2mm
+}
+
+% Concept Box (same as studybox but simpler syntax)
+\newtcolorbox{concept}[1]{
+    enhanced,
+    colback=white,
+    colframe=blue!50!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
 }
 
 % ============================================
