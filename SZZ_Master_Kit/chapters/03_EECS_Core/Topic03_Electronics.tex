@@ -1,26 +1,90 @@
-\section{Analog \& Digital Circuits (ELP)}
+% ============================================
+% Topic 03: Analog Electronics / 模拟电路
+% SOURCE: KY-037 Datasheet (OpAmp + Comparator)
+% ============================================
+\section{模拟与数字电路 / Analog \& Digital Electronics (BE5B34MIE)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+% --------------------------------------------
+% 1. Operational Amplifiers (Op-Amps)
+% --------------------------------------------
+\begin{studybox}{运算放大器 (Op-Amp)}
+
+\textbf{Ideal Properties (理想特性)}:
 \begin{itemize}
-    \item \textbf{Core Concept}: 模拟与数字电路。重点是放大器（Op-Amp）配置和基本逻辑门电路。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+    \item $R_{in} = \infty$ (输入阻抗无穷大 $\to$ 不吸取电流)
+    \item $R_{out} = 0$ (输出阻抗为零 $\to$ 理想电压源)
+    \item $A_{OL} = \infty$ (开环增益无穷大)
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Operational Amplifier, Gain, Logic Gates, CMOS}
-\end{keywords}
-模拟与数字电路。重点是放大器（Op-Amp）配置和基本逻辑门电路。
+\textbf{Golden Rules}:
+\begin{enumerate}
+    \item \textbf{Virtual Short}: $V_+ = V_-$ (负反馈状态下)
+    \item \textbf{Virtual Open}: $I_+ = I_- = 0$
+\end{enumerate}
 
-\subsection{Formulas / 公式}
+\tcblower
+
+\textbf{Common Configs}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Inverting}: $V_{out} = -\frac{R_f}{R_{in}} V_{in}$
+    \item \textbf{Non-Inverting}: $V_{out} = (1 + \frac{R_f}{R_g}) V_{in}$
+    \item \textbf{Buffer (Follower)}: $V_{out} = V_{in}$ ($R_in \to \infty$)
+\end{itemize}
+
+\end{studybox}
+
+% --------------------------------------------
+% 2. Comparators (比较器)
+% --------------------------------------------
+\begin{formulabox}
+\textbf{比较器原理}:
+不使用负反馈，Op-Amp 运行在开环模式。
+
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    V_{out} = 
+    \begin{cases} 
+      V_{CC} & \text{if } V_+ > V_- \\
+      GND & \text{if } V_+ < V_- 
+    \end{cases}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
+\textbf{应用}: 将模拟信号转换为数字信号 (e.g., 阈值触发)。
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[Project Application: KY-037 Microphone]
+你的 \textbf{KY-037 声音传感器} 完美展示了模拟电子技术 (Source: \texttt{ky-037.md}):
+
+\textbf{1. 信号放大 (Amplifier)}:
 \begin{itemize}
-    \item Define ...
-    \item Calculate ...
+    \item 麦克风信号微弱 (mV 级)，模块包含一个放大器 (Amplifier unit)。
+    \item 增益通过电位器 (Potentiometer) 调节。
+    \item 输出: \texttt{Analog Out} (连接到 ESP32 ADC)。
 \end{itemize}
+
+\textbf{2. 阈值比较 (Comparator)}:
+\begin{itemize}
+    \item 模块包含一个独立比较器 (Component 3)。
+    \item 功能: 当 $V_{mic} > V_{threshold}$ 时，翻转数字输出。
+    \item 输出: \texttt{Digital Out} (连接到 GPIO 为了中断触发)。
+\end{itemize}
+
+\textbf{3. ADC 接口}:
+\begin{itemize}
+    \item ESP32 内部集成 12-bit SAR ADC。
+    \item 读取: \texttt{analogRead(pin)} 将 0-3.3V 映射为 0-4095。
+\end{itemize}
+\end{thesisbox}
+
+% --------------------------------------------
+% 4. Filters (Passive)
+% --------------------------------------------
+\begin{studybox}{滤波器 (Filters)}
+\textbf{RC Low Pass Filter}:
+\begin{equation}
+    f_c = \frac{1}{2\pi R C}
+\end{equation}
+用于电源去耦 (Decoupling) 和传感器噪声平滑。
+\end{studybox}

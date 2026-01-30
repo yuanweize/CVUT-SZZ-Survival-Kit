@@ -1,26 +1,92 @@
-\section{Semiconductors (ELP)}
+% ============================================
+% Topic 02: Semiconductors / 半导体
+% SOURCE: Thesis (TCS34725 Photodiodes, LEDs)
+% ============================================
+\section{半导体物理 / Semiconductors (BE5B34ELP)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 半导体物理。重点是PN结（PN Junction）、二极管和晶体管（MOSFET/BJT）的工作区。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+% --------------------------------------------
+% 1. PN Junction
+% --------------------------------------------
+\begin{studybox}{PN 结 (PN Junction)}
+
+\textbf{Concept}: The fundamental building block of modern electronics. joins P-type (holes) and N-type (electrons) silicon.
+
+\tcblower
+
+\textbf{关键特性}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Depletion Region (耗尽层)}: 界面处无自由载流子，形成内建电场。
+    \item \textbf{Forward Bias (正向偏置)}: $V > V_{th}$ (Si $\approx 0.7V$)，电流导通。
+    \item \textbf{Reverse Bias (反向偏置)}: 电流截止，直到击穿 (Breakdown)。
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{PN Junction, Forward Bias, Depletion Region, MOSFET}
-\end{keywords}
-半导体物理。重点是PN结（PN Junction）、二极管和晶体管（MOSFET/BJT）的工作区。
-
-\subsection{Formulas / 公式}
+\textbf{公式 (Shockley Equation)}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    I = I_S \left( e^{\frac{V}{n V_T}} - 1 \right)
 \end{equation}
+Where $V_T \approx 26mV$ at room temperature.
 
-\subsection{Exam Questions / 常考题型}
+\end{studybox}
+
+% --------------------------------------------
+% 2. Transistors (BJT & MOSFET)
+% --------------------------------------------
+\begin{formulabox}
+\textbf{晶体管对比 (BJT vs MOSFET)}:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{BJT (e.g., NPN)} & \textbf{MOSFET (e.g., NMOS)} \\
+\midrule
+Control & Current ($I_B$) & Voltage ($V_{GS}$) \\
+Carriers & Bipolar (Holes + Electrons) & Unipolar (Electrons or Holes) \\
+Input Impedance & Low & Very High (Gate oxide) \\
+App Usage & Amplifiers (Linear) & Switches (Digital Logic) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{MOSFET 工作区}:
 \begin{itemize}
-    \item Define ...
-    \item Calculate ...
+    \item \textbf{Cutoff}: $V_{GS} < V_{th}$ (OFF)
+    \item \textbf{Linear (Ohmic)}: $V_{DS} < V_{GS} - V_{th}$ (Resistor)
+    \item \textbf{Saturation}: $V_{DS} > V_{GS} - V_{th}$ (Amplifier/Current Source)
 \end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[Project Application]
+你的项目中使用了多种半导体器件：
+
+\textbf{1. 光电二极管 (Photodiodes)}:
+\begin{itemize}
+    \item \textbf{Device}: TCS34725 Color Sensor (Thesis \texttt{esp32.yaml})
+    \item \textbf{Principle}: 光子轰击 PN 结产生电子-空穴对 (Photocurrent $\propto$ Light Intensity)。
+\end{itemize}
+
+\textbf{2. 发光二极管 (LED)}:
+\begin{itemize}
+    \item \textbf{Device}: KY-037 模块上的状态指示灯 (LED1/LED2)。
+    \item \textbf{Logic}: 正向偏置时光复合释放能量 ($E_g = h\nu$)。
+\end{itemize}
+
+\textbf{3. CMOS 工艺}:
+\begin{itemize}
+    \item \textbf{Device}: ESP32-S3 Chip (Xtensa LX7)。
+    \item \textbf{Tech}: 使用互补 MOS (PMOS + NMOS) 构成逻辑门，静态功耗低。
+\end{itemize}
+\end{thesisbox}
+
+% --------------------------------------------
+% 4. Exam Pitfalls
+% --------------------------------------------
+\begin{warnbox}
+\begin{itemize}
+    \item \textbf{温度影响}: 温度升高，本征载流子浓度 $n_i$ 增加，二极管反向漏电流增大。
+    \item \textbf{MOSFET 符号}: 注意箭头方向。NMOS 箭头向内 (Source)，PMOS 箭头向外。
+    \item \textbf{单位}: $V_T = kT/q$ 不是阈值电压，是热电压 (Thermal Voltage)！
+\end{itemize}
+\end{warnbox}

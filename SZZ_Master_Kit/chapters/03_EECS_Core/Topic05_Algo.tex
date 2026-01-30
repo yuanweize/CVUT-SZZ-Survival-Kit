@@ -1,26 +1,80 @@
-\section{Algorithms (PRG/PGE)}
+% ============================================
+% Topic 05: Algorithms / 算法
+% SOURCE: Thesis Implementation (O(1) Check, Moving Average)
+% ============================================
+\section{算法与复杂性 / Algorithms \& Complexity (BE5B33ALG)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+% --------------------------------------------
+% 1. Complexity Class (Big O)
+% --------------------------------------------
+\begin{studybox}{时间与空间复杂度 (Complexity)}
+
+\textbf{Big O Notation}:
 \begin{itemize}
-    \item \textbf{Core Concept}: 基本算法与数据结构。重点是排序（Sorting）、链表（Linked List）和复杂度分析（Big-O）。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+    \item $O(1)$: Constant time (Index lookup)
+    \item $O(\log n)$: Logarithmic (Binary Search)
+    \item $O(n)$: Linear (Iteration)
+    \item $O(n^2)$: Quadratic (Bubble Sort)
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Time Complexity, Sorting, Recursion, Stack, Queue}
-\end{keywords}
-基本算法与数据结构。重点是排序（Sorting）、链表（Linked List）和复杂度分析（Big-O）。
+\tcblower
 
-\subsection{Formulas / 公式}
-\begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-\end{equation}
+\textbf{常见排序算法}:
+\begin{center}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Algorithm} & \textbf{Time} & \textbf{Notes} \\
+\midrule
+Quick Sort & $O(n \log n)$ & Unstable, Divide \& Conquer \\
+Merge Sort & $O(n \log n)$ & Stable, Extra Space \\
+Heap Sort & $O(n \log n)$ & In-place \\
+Bubble Sort & $O(n^2)$ & Simple, Slow \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\subsection{Exam Questions / 常考题型}
+\end{studybox}
+
+% --------------------------------------------
+% 2. Thesis Connection: Sensor Algorithms
+% --------------------------------------------
+\begin{thesisbox}[Project Algorithms]
+你的论文中涉及了嵌入式常用的实时算法：
+
+\textbf{1. 移动平均滤波 (Moving Average Filter)}:
 \begin{itemize}
-    \item Define ...
-    \item Calculate ...
+    \item \textbf{Source}: \texttt{esp32s3.yaml} filters (\texttt{sliding\_window\_moving\_average}).
+    \item \textbf{Logic}: $y[n] = \frac{1}{N} \sum_{i=0}^{N-1} x[n-i]$
+    \item \textbf{Complexity}: $O(N)$ per sample (naive) or $O(1)$ (recursive implementation).
+    \item \textbf{Space}: $O(N)$ buffer size.
 \end{itemize}
+
+\textbf{2. 跌倒检测算法 (Fall Detection Logic)}:
+\begin{itemize}
+    \item \textbf{Source}: Dual-threshold (Huynh et al.).
+    \item \textbf{Logic}:
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily\scriptsize]
+if (SMV > Threshold_Acc && Omega > Threshold_Gyro) {
+    return true;
+}
+    \end{lstlisting}
+    \item \textbf{Complexity}: $O(1)$ - Constant time per sensor sample. Critical for real-time safety systems.
+\end{itemize}
+
+\textbf{3. I2C Bus Arbitration}:
+\begin{itemize}
+    \item 硬件级别的仲裁算法 (Hardware Arbitration)，允许多主设备共存。
+\end{itemize}
+\end{thesisbox}
+
+% --------------------------------------------
+% 3. Graph Algorithms (Basic)
+% --------------------------------------------
+\begin{formulabox}
+\textbf{图搜索 (Graph Search)}:
+\begin{itemize}
+    \item \textbf{BFS (广度优先)}: Queue, Shortest Path in unweighted graph.
+    \item \textbf{DFS (深度优先)}: Stack (Recursion), Backtracking.
+    \item \textbf{Dijkstra}: Priority Queue, Shortest Path in weighted graph ($E \ge 0$).
+\end{itemize}
+\end{formulabox}
