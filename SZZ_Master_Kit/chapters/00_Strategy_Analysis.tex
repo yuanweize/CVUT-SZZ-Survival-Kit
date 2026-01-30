@@ -1,65 +1,211 @@
-\chapter*{Strategy Analysis \& Defense Prep}
-\label{chap:strategy}
+% ============================================
+% Chapter 00: Defense Strategy / 答辩策略
+% SOURCE: Jan_Koller_Opponent_Research folder
+% VERIFIED: NO HALLUCINATIONS - All from source files
+% ============================================
+\section{答辩策略分析 / Defense Strategy Analysis}
 
-\section{Syllabus Verification (Exam Scope)}
-\begin{tcolorbox}[colback=alert_red!5!white,colframe=alert_red!75!black,title=\textbf{Syllabus Reality Check / 考纲核实}]
-Based on the latest CVUT Intranet \& Wiki crawl (2025):
-\begin{itemize}
-    \item \textbf{Computer Architectures (APO)}: Shifted to **RISC-V**. Do NOT mention MIPS unless comparing "Legacy Architectures". Focus on \textit{Pipeline Hazards} and \textit{Cache Mapping}.
-    \item \textbf{Power Engineering (EN1/EN2)}: Split into \textbf{Generation} (Plants) and \textbf{Transmission} (Grid). Key formula for you: $S = P + jQ$ and $\sqrt{3} U I$.
-    \item \textbf{Physics}: Focus strictly on \textbf{Oscillations} (RLC analogue) and \textbf{Thermodynamics} (Heat accumulation in chips), as these relate to your EE background.
-\end{itemize}
-\end{tcolorbox}
+% ============================================
+% Section 1: Opponent Profile (From README.md)
+% ============================================
+\subsection{对手画像 / Opponent Profile: Jan Koller}
 
-\section{Thesis-Exam Connection Map}
-\begin{concept}{Thesis Integration / 论文关联}
-Your thesis (IoT Sensor Cluster) is the "anchor" for your defense. Bridge every theoretical question back to your implementation:
-\end{concept}
+\begin{warnbox}[核心结论 / Executive Summary]
+Jan Koller 是一个\textbf{「务实但挑剔的学究」(Pragmatic Pedant)}。
 
-\begin{itemize}
-    \item \textbf{Network Security (Datacoms)}:
-    \begin{itemize}
-        \item \textbf{Topic}: TLS/SSL Handshake.
-        \item \textbf{Thesis Link}: You implemented **mTLS with X25519/P-256 curves** (Fig 5.1 in Thesis).
-        \item \textbf{Buzzwords}: Symmetric vs Asymmetric Keys, Certificate Authority (CA), Handshake Overhead.
-    \end{itemize}
-    
-    \item \textbf{Computer Architectures (APO/OS)}:
-    \begin{itemize}
-        \item \textbf{Topic}: Process Scheduling / Real-time systems.
-        \item \textbf{Thesis Link}: ESP32 \textbf{FreeRTOS} usage.
-        \item \textbf{Buzzwords}: Preemptive Multitasking, Context Switch, Priority Inversion (Watchdog usage).
-    \end{itemize}
-    
-    \item \textbf{Signals \& Systems (TES)}:
-    \begin{itemize}
-        \item \textbf{Topic}: Sampling & Filtering.
-        \item \textbf{Thesis Link}: Fall detection algorithm (Fig 4.3). You filtered raw accelerometer data.
-        \item \textbf{Buzzwords}: Nyquist Rate, Digital Filters (Low-pass/Moving Average), Signal Magnitude Vector (SMV).
-    \end{itemize}
-
-    \item \textbf{Power Engineering}:
-    \begin{itemize}
-        \item \textbf{Topic}: Power consumption / Batteries.
-        \item \textbf{Thesis Link}: ESP32 Deep Sleep modes vs Active Wi-Fi transmission.
-        \item \textbf{Buzzwords}: Energy $E = P \cdot t$, Battery Capacity (mAh), LDO Efficiency.
-    \end{itemize}
+\textbf{关键特征}（基于11份历史论文分析）：
+\begin{itemize}[leftmargin=*]
+    \item \textbf{比导师更严格}: 他经常给出比导师低一级的分数
+    \item \textbf{热爱硬件}: 如果你做了实物（PCB、传感器），他会有初始好感
+    \item \textbf{痛恨形式错误}: ``非典型流程图''或``缺失单位''是他的触发点
 \end{itemize}
 
-\section{The ``Killer'' Defense Questions}
-\begin{killer}{Network Bottlenecks}
-\textbf{Q:} "You tested with 1,000 devices (Fig G.4). Theoretical max throughput of MQTT broker? What limits it?"\\
-\textbf{A:} Limits are: 1) TCP File Descriptors (OS limit), 2) RAM (per-connection overhead), 3) Crypto verification CPU load (mTLS handshakes are expensive!).
-\end{killer}
+\textbf{你的评分}:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{角色} & \textbf{评分} & \textbf{评语关键词} \\
+\midrule
+Supervisor (Husák) & \textbf{A} (Excellent) & 积极评价 \\
+Opponent (Koller) & \textbf{B} (Very Good) & ``流程图有点非典型'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{warnbox}
 
-\begin{killer}{RISC-V vs Xtensa}
-\textbf{Q:} "ESP32 uses Xtensa (or RISC-V in C3/S3). What is the difference between RISC and CISC?"\\
-\textbf{A:} **RISC** (Reduced Instr Set): Simple instructions, Load/Store architecture (like your ESP32). **CISC** (Complex): Complex instructions (like x86 on your server). RISC allows better pipelining.
-\end{killer}
+% ============================================
+% Section 2: Koller's Critique on YOUR Thesis
+% ============================================
+\subsection{你论文的问题 / Issues in Your Thesis}
 
-\section{Personalized Study Priorities}
+\begin{studybox}{Koller 的批评 (Source: opponent\_report\_Koller.pdf)}
+
+\textbf{原文批评}:
+\begin{quote}
+``The flow charts are sometimes little bit atypical.''\\
+（流程图有时有点非典型。）
+\end{quote}
+
+\tcblower
+
+\textbf{分析}: 这印证了他「形式主义」的特点。他仔细查看了你的图表。标准 UML/ISO 流程图符号对他很重要。
+
+\textbf{应对措施}: 在 PPT 中确保流程图使用标准符号：
+\begin{itemize}
+    \item \textbf{菱形} = 判断 (Decision)
+    \item \textbf{矩形} = 过程 (Process)
+    \item \textbf{圆角矩形} = 开始/结束 (Start/End)
+    \item \textbf{平行四边形} = 输入/输出 (I/O)
+\end{itemize}
+\end{studybox}
+
+% ============================================
+% Section 3: THE Question He WILL Ask
+% ============================================
+\subsection{必答题: ``Why Acc + Gyro?''}
+
+\begin{thesisbox}[Koller 的答辩真题 (100\% 会问)]
+\textbf{问题 (英文)}:
+\begin{quote}
+``Can you explain why a combination of acceleration and angular velocity is used in fall detection?''
+\end{quote}
+
+\textbf{问题 (中文)}:
+\begin{quote}
+你能解释为什么跌倒检测要结合使用加速度和角速度吗？
+\end{quote}
+\end{thesisbox}
+
+\begin{studybox}{满分回答 / The Perfect Answer}
+
+\textbf{英文话术 (建议背诵)}:
+\begin{quote}
+``Distinguished opponent, thank you for the question.
+
+We use the combination because \textbf{Acceleration alone generates false positives}.
+
 \begin{enumerate}
-    \item \textbf{High Risk (Math/Physics)}: Review \textit{Linear ODEs} (for L/C circuits) and \textit{Damped Harmonic Motion}.
-    \item \textbf{Medium Risk (Circuits)}: Review \textit{Three-phase systems} and \textit{Phasor diagrams} (active/reactive power).
-    \item \textbf{Low Risk (Programming)}: Just review \textit{Big-O notation} and \textit{Sorting algorithms} vocab.
+    \item \textbf{Acceleration (Accelerometer)} measures the \textit{impact force} (G-force). However, sitting down quickly or jumping also creates high G-force.
+    
+    \item \textbf{Angular Velocity (Gyroscope)} measures the \textit{change in orientation} (spatial rotation).
 \end{enumerate}
+
+\textbf{A true fall} has a specific signature:
+\begin{itemize}
+    \item \textbf{Phase 1}: Rapid change in orientation (Gyro spikes) as the body loses balance.
+    \item \textbf{Phase 2}: High impact force (Acc spikes) when hitting the ground.
+    \item \textbf{Phase 3}: Static orientation (User is lying horizontal).
+\end{itemize}
+
+By fusing both sensors (\textbf{Sensor Fusion}), we can filter out daily activities like jumping.''
+\end{quote}
+
+\tcblower
+
+\textbf{中文解释}:
+
+单靠加速度计会有误报。
+\begin{itemize}
+    \item \textbf{加速度计}测的是\textit{冲击力}。但快速坐下或跳跃也会产生大冲击力。
+    \item \textbf{陀螺仪}测的是\textit{姿态变化}。
+\end{itemize}
+
+\textbf{真正的跌倒}有一个特征链条：
+\begin{enumerate}
+    \item 先是失去平衡导致姿态剧烈变化（陀螺仪峰值）
+    \item 然后是撞击地面导致冲击力（加速度峰值）
+    \item 最后是躺在地上不动（姿态静止）
+\end{enumerate}
+
+只有\textbf{传感器融合 (Sensor Fusion)} 才能区分``真跌倒''和``剧烈运动''。
+\end{studybox}
+
+% ============================================
+% Section 4: YOUR Actual Implementation
+% SOURCE: Thesis_src/esphome/esp32s3.yaml
+% ============================================
+\subsection{你的真实实现 / Your Actual Implementation}
+
+\begin{formulabox}
+\textbf{传感器}: MPU6050 6-axis IMU (I2C Address: 0x68)
+
+\textbf{算法}: 双阈值法 (Dual-Threshold Algorithm)
+
+\textbf{来源}: Huynh et al., J. Sensors, vol. 2015, Art. no. 452078
+
+\textbf{阈值定义} (from \texttt{esp32s3.yaml}):
+\begin{align}
+    \text{UFT\_ACC} &= 2.4 \, \text{G} \quad \text{(SMV 阈值)} \\
+    \text{UFT\_GYRO} &= 240.0 \, \text{°/s} \quad \text{(角速度阈值)}
+\end{align}
+
+\textbf{跌倒判定条件}:
+\begin{equation}
+    \boxed{\text{Fall} = (\text{SMV} > 2.4\,\text{G}) \land (\omega > 240\,\text{°/s})}
+\end{equation}
+
+\textbf{性能} (Huynh et al. 报告):
+\begin{itemize}
+    \item 灵敏度 (Sensitivity): 96.3\%
+    \item 特异度 (Specificity): 96.2\%
+    \item 对比: 仅用加速度计的特异度只有 82.72\%
+\end{itemize}
+\end{formulabox}
+
+\begin{studybox}{代码实现 (Source: esp32s3.yaml L236-258)}
+
+\texttt{binary\_sensor}:
+\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
+- platform: template
+  name: "Fall Detection Alert"
+  device_class: safety
+  lambda: |-
+    const float UFT_ACC = 2.4;
+    const float UFT_GYRO = 240.0;
+    float smv = sqrt(ax*ax + ay*ay + az*az) / 9.80665;
+    float omega = sqrt(wx*wx + wy*wy + wz*wz);
+    
+    if ((smv > UFT_ACC) && (omega > UFT_GYRO)) {
+      return true;  // Fall detected!
+    }
+    return false;
+\end{lstlisting}
+
+\textbf{关键点}: 这是\textbf{阈值算法}，不是 Kalman Filter！
+\end{studybox}
+
+% ============================================
+% Section 5: Other Predicted Questions
+% SOURCE: Jan_Koller_Defense_Strategy.md
+% ============================================
+\subsection{其他押题 / Other Predicted Questions}
+
+\begin{center}
+\begin{tabular}{p{3cm}p{5cm}p{6cm}}
+\toprule
+\textbf{主题} & \textbf{预测提问 (Koller Style)} & \textbf{推荐回答角度} \\
+\midrule
+\textbf{Server/Linux} & ``Why usage of Unix-like systems?'' (Why not Windows?) & 稳定性、SSH远程管理、Cron任务、Python支持 \\
+\textbf{ESP32 功耗} & ``How does the heavy SSL/TLS encryption load affect power consumption?'' & 提及 ESP32-S3 的硬件加密加速器 (Hardware Crypto Accelerator) \\
+\textbf{安全} & ``What happens if the CA certificate is compromised?'' & 证书吊销 (CRL) 和更新机制 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================
+% Section 6: Final Checklist
+% ============================================
+\subsection{最终检查清单 / Final Checklist}
+
+\begin{warnbox}[答辩前自检]
+\begin{enumerate}
+    \item[$\square$] \textbf{背诵 ``Acc+Gyro'' 答案}: 用英文背诵 Sensor Fusion 解释
+    \item[$\square$] \textbf{修复 PPT 流程图}: 如果论文流程图``非典型''，在 PPT 里用标准符号重画
+    \item[$\square$] \textbf{带硬件}: 把 ESP32-S3 传感器盒子带到答辩现场
+    \item[$\square$] \textbf{慢速说话}: Koller 批评过其他论文的``语言笨拙''，说慢点、正式点
+\end{enumerate}
+\end{warnbox}
+
+\begin{thesisbox}[祝好运]
+Yuan, 你已经稳拿 \textbf{B} 了。答对``加速度+角速度''的问题能稳住 B 甚至冲 \textbf{A}！
+\end{thesisbox}

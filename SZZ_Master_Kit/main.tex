@@ -30,6 +30,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
@@ -41,6 +42,15 @@
     breaklines=true,
     frame=single,
     backgroundcolor=\color{gray!10}
+}
+% Define YAML language for listings
+\lstdefinelanguage{yaml}{
+    keywords={true,false,null,y,n},
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]"
 }
 
 % ============================================
@@ -153,6 +163,12 @@
 \maketitle
 \tableofcontents
 \newpage
+
+% ============================================
+% PART 0: DEFENSE STRATEGY
+% ============================================
+\part{答辩策略 / Defense Strategy}
+\input{chapters/00_Strategy_Analysis}
 
 % ============================================
 % PART 1: MATHEMATICS

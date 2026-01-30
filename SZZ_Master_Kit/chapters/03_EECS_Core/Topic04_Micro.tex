@@ -1,223 +1,256 @@
 % ============================================
 % Topic 04: Microprocessors / 微处理器
+% SOURCE: Thesis_src/esphome/esp32s3.yaml
+% VERIFIED: ESP32-S3 + MPU6050
 % ============================================
-\section{微处理器 / Microprocessors}
+\section{微处理器与嵌入式系统 / Microprocessors \& Embedded Systems}
 
 % --------------------------------------------
-% 1. Von Neumann vs Harvard Architecture
+% 1. CPU Architecture
 % --------------------------------------------
-\begin{studybox}{冯诺依曼 vs 哈佛架构 (Von Neumann vs Harvard)}
+\begin{studybox}{处理器架构 (CPU Architecture)}
 
-\textbf{概念 (CN)}: 计算机体系结构的两种基本模型
+\textbf{概念 (CN)}: CPU 的基本组成和工作原理
 
-\textbf{Term (EN)}: Von Neumann Architecture, Harvard Architecture
+\textbf{Term (EN)}: Von Neumann, Harvard, ALU, Control Unit, Registers
 
 \tcblower
 
-\textbf{冯诺依曼架构}:
+\textbf{冯诺依曼架构 (Von Neumann)}:
 \begin{itemize}[leftmargin=*]
-    \item 程序和数据共享同一存储器和总线
-    \item 简单，成本低
-    \item 瓶颈：内存带宽有限（冯诺依曼瓶颈）
-    \item 例：x86 PC
+    \item 程序和数据共享同一内存
+    \item 通过同一总线访问
+    \item 优点: 设计简单
+    \item 缺点: 冯诺依曼瓶颈 (Bottleneck)
 \end{itemize}
 
-\textbf{哈佛架构}:
+\textbf{哈佛架构 (Harvard)}:
 \begin{itemize}[leftmargin=*]
-    \item 程序和数据分开存储，有独立总线
-    \item 可同时取指令和取数据
-    \item 例：ARM Cortex-M, ESP32
+    \item 程序和数据使用独立内存
+    \item 可同时读取指令和数据
+    \item 优点: 更高带宽，常用于 DSP/嵌入式
 \end{itemize}
 
-\textbf{Key Insight}: Harvard architecture allows simultaneous instruction fetch and data access = faster execution.
+\textbf{Key Insight}: ESP32 使用修改版哈佛架构 (Modified Harvard)。
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{CPU 核心组件}:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{组件} & \textbf{功能} \\
+\midrule
+ALU (算术逻辑单元) & 执行算术和逻辑运算 \\
+Control Unit (控制单元) & 指令解码和执行控制 \\
+Registers (寄存器) & 快速临时存储 \\
+Program Counter (PC) & 下一条指令地址 \\
+Stack Pointer (SP) & 栈顶地址 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{指令周期}: Fetch $\to$ Decode $\to$ Execute $\to$ Write-back
+\end{formulabox}
+
+% --------------------------------------------
+% 2. ESP32-S3 (YOUR Platform)
+% SOURCE: Thesis_src/esphome/esp32s3.yaml
+% --------------------------------------------
+\begin{studybox}{ESP32-S3 平台 (Your Thesis Platform)}
+
+\textbf{概念 (CN)}: 论文使用的实际微控制器
+
+\textbf{Term (EN)}: ESP32-S3, Xtensa LX7, Dual-Core, Wi-Fi, Bluetooth
+
+\tcblower
+
+\textbf{ESP32-S3 规格} (Source: \texttt{esp32s3.yaml}):
+\begin{itemize}[leftmargin=*]
+    \item \textbf{CPU}: Xtensa LX7 双核 @ 240 MHz
+    \item \textbf{内存}: 512 KB SRAM + PSRAM 支持
+    \item \textbf{Flash}: 通常 4-16 MB
+    \item \textbf{无线}: Wi-Fi 802.11 b/g/n + BLE 5.0
+    \item \textbf{特性}: 硬件加密加速器 (AES, SHA, RSA, ECC)
+\end{itemize}
+
+\textbf{你的配置} (from \texttt{esp32s3.yaml} L5-18):
+\begin{itemize}[leftmargin=*]
+    \item Board: \texttt{esp32-s3-devkitc-1}
+    \item Framework: ESP-IDF
+    \item TLS: ECDSA P-256 + X25519 + TLS 1.3
+\end{itemize}
 
 \end{studybox}
 
 % --------------------------------------------
-% 2. Interrupts
+% 3. I2C Protocol (Sensor Communication)
+% SOURCE: Thesis_src/esphome/esp32s3.yaml L88-93
 % --------------------------------------------
-\begin{studybox}{中断系统 (Interrupts)}
+\begin{studybox}{I2C 通信协议 (I2C Protocol)}
 
-\textbf{概念 (CN)}: 外部或内部事件触发 CPU 暂停当前任务，转去执行中断服务程序 (ISR)
+\textbf{概念 (CN)}: 两线制同步串行通信
 
-\textbf{Term (EN)}: Interrupt, ISR (Interrupt Service Routine), IRQ, NVIC
+\textbf{Term (EN)}: I2C, SDA, SCL, Master, Slave, Address
+
+\tcblower
+
+\textbf{基本结构}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{SDA}: Serial Data (数据线)
+    \item \textbf{SCL}: Serial Clock (时钟线)
+    \item 主从模式: Master 发起通信，Slave 响应
+    \item 7位地址: 最多 128 个设备
+\end{itemize}
+
+\textbf{你的配置} (Source: \texttt{esp32s3.yaml} L88-93):
+\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
+i2c:
+  sda: GPIO5
+  scl: GPIO4
+  scan: true
+  id: bus_a
+  frequency: 100kHz
+\end{lstlisting}
+
+\textbf{设备地址}:
+\begin{itemize}
+    \item MPU6050: \texttt{0x68}
+    \item BMP180: \texttt{0x77}
+\end{itemize}
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{I2C 通信时序}:
+
+\begin{enumerate}
+    \item \textbf{START}: SDA $\downarrow$ while SCL = HIGH
+    \item \textbf{Address}: 7-bit 设备地址 + R/W bit
+    \item \textbf{ACK}: Slave 拉低 SDA 表示确认
+    \item \textbf{Data}: 8-bit 数据传输
+    \item \textbf{STOP}: SDA $\uparrow$ while SCL = HIGH
+\end{enumerate}
+
+\textbf{标准速度}:
+\begin{itemize}
+    \item Standard Mode: 100 kHz (你的配置)
+    \item Fast Mode: 400 kHz
+    \item Fast Mode Plus: 1 MHz
+\end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Interrupts (Sensor Sampling)
+% --------------------------------------------
+\begin{studybox}{中断系统 (Interrupt System)}
+
+\textbf{概念 (CN)}: 硬件事件触发 CPU 响应
+
+\textbf{Term (EN)}: Interrupt, ISR, IRQ, Priority, Nesting
 
 \tcblower
 
 \textbf{中断类型}:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{外部中断}: GPIO 电平变化、定时器溢出
-    \item \textbf{内部中断}: 软件中断、异常（如除零）
-    \item \textbf{NMI}: 不可屏蔽中断（最高优先级）
+    \item \textbf{外部中断}: GPIO 电平变化 (如按钮、传感器)
+    \item \textbf{定时器中断}: 周期性定时事件
+    \item \textbf{通信中断}: UART/I2C/SPI 数据就绪
+    \item \textbf{软件中断}: 程序主动触发
 \end{itemize}
 
-\textbf{中断处理流程}:
-\begin{enumerate}
-    \item 保存现场（寄存器入栈）
-    \item 跳转到 ISR
-    \item 执行 ISR
-    \item 恢复现场（寄存器出栈）
-    \item 返回原程序
-\end{enumerate}
-
-\textbf{Key Insight}: Interrupts allow real-time response to events without polling.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{中断延迟}:
-\begin{equation}
-    T_{latency} = T_{recognition} + T_{context\_save} + T_{ISR\_entry}
-\end{equation}
-
-\textbf{ESP32 中断优先级}: 1-7 级（7 最高，NMI）
-
-\textbf{关键寄存器}:
+\textbf{中断服务例程 (ISR)}:
 \begin{itemize}[leftmargin=*]
-    \item \texttt{IE} (Interrupt Enable): 中断使能
-    \item \texttt{IF} (Interrupt Flag): 中断标志
-    \item \texttt{NVIC\_IPR}: 优先级寄存器
-\end{itemize}
-\end{formulabox}
-
-% --------------------------------------------
-% 3. GPIO and Peripherals
-% --------------------------------------------
-\begin{studybox}{GPIO 与外设 (GPIO \& Peripherals)}
-
-\textbf{概念 (CN)}: 通用输入输出引脚及其配置
-
-\textbf{Term (EN)}: GPIO, Pull-up, Pull-down, Open-drain, Push-pull
-
-\tcblower
-
-\textbf{GPIO 模式}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{输入模式}: 浮空、上拉、下拉
-    \item \textbf{输出模式}: 推挽输出、开漏输出
+    \item 必须快速执行
+    \item 避免阻塞操作
+    \item 使用 volatile 变量通信
 \end{itemize}
 
-\textbf{推挽 vs 开漏}:
-\begin{center}
-\begin{tabular}{lcc}
-\toprule
-\textbf{特性} & \textbf{推挽 (Push-Pull)} & \textbf{开漏 (Open-Drain)} \\
-\midrule
-高电平驱动 & 有 & 无（需外部上拉） \\
-低电平驱动 & 有 & 有 \\
-线与功能 & 无 & 有 \\
-典型应用 & LED驱动 & I2C总线 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{Key Insight}: Open-drain allows multiple devices to share a bus (like I2C).
+\textbf{Key Insight}: ESP32 传感器采样使用定时器中断实现周期性读取。
 
 \end{studybox}
 
 % --------------------------------------------
-% 4. Communication Buses
+% 5. YOUR Sensor Configuration
+% SOURCE: Thesis_src/esphome/esp32s3.yaml L107-155
 % --------------------------------------------
-\begin{studybox}{通信总线 (Communication Buses)}
+\begin{studybox}{你的传感器配置 / Your Sensor Configuration}
 
-\textbf{概念 (CN)}: 微处理器与外设通信的标准接口
+\textbf{MPU6050 IMU} (Source: \texttt{esp32s3.yaml} L107-155):
 
-\textbf{Term (EN)}: I2C, SPI, UART, CAN
+\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
+- platform: mpu6050
+  i2c_id: bus_a
+  address: 0x68
+  accel_x:
+    name: "Acceleration X"
+    filters:
+      - offset: -0.877  # Calibration
+      - throttle: 0.3s
+  gyro_x:
+    name: "Angular Velocity X"
+    filters:
+      - offset: 2.53    # Calibration
+      - throttle: 0.3s
+  update_interval: 0.1s  # 10 Hz sampling
+\end{lstlisting}
 
 \tcblower
 
-\textbf{比较表}:
+\textbf{关键参数}:
 \begin{center}
-\begin{tabular}{lcccc}
+\begin{tabular}{lll}
 \toprule
-\textbf{协议} & \textbf{线数} & \textbf{速度} & \textbf{拓扑} & \textbf{典型应用} \\
+\textbf{传感器} & \textbf{采样率} & \textbf{用途} \\
 \midrule
-I2C & 2 (SDA, SCL) & 100k-3.4M & 多主多从 & 传感器 \\
-SPI & 4 (MOSI, MISO, SCK, CS) & 10M+ & 一主多从 & Flash, LCD \\
-UART & 2 (TX, RX) & 115200 & 点对点 & 调试串口 \\
-CAN & 2 (CANH, CANL) & 1M & 总线型 & 汽车电子 \\
+MPU6050 & 10 Hz (0.1s) & 跌倒检测 \\
+BMP180 & 0.2 Hz (5s) & 环境温压 \\
+KY-037 & 5 Hz (0.2s) & 声音检测 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\textbf{Key Insight}: I2C uses fewer wires but is slower; SPI is faster but needs more pins.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{I2C 地址格式}:
-\begin{equation}
-    \text{7-bit address} + \text{R/W bit} = \text{8-bit frame}
-\end{equation}
-
-\textbf{SPI 时钟配置}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{CPOL}: 时钟极性（空闲时高/低）
-    \item \textbf{CPHA}: 时钟相位（第一/二边沿采样）
-    \item 四种模式: Mode 0 (CPOL=0, CPHA=0), Mode 1, Mode 2, Mode 3
+\textbf{校准偏移} (Calibration Offsets):
+\begin{itemize}
+    \item Acc X: -0.877, Y: -0.145, Z: -0.564 m/s²
+    \item Gyro X: +2.53, Y: -2.68, Z: +2.44 °/s
 \end{itemize}
-
-\textbf{UART 波特率}:
-\begin{equation}
-    \text{Baud Rate} = \frac{f_{clk}}{16 \times \text{Divisor}}
-\end{equation}
-\end{formulabox}
-
-% --------------------------------------------
-% 5. Memory Types
-% --------------------------------------------
-\begin{studybox}{存储器类型 (Memory Types)}
-
-\textbf{概念 (CN)}: 不同类型存储器的特性
-
-\textbf{Term (EN)}: SRAM, DRAM, Flash, EEPROM, ROM
-
-\tcblower
-
-\begin{center}
-\begin{tabular}{lccc}
-\toprule
-\textbf{类型} & \textbf{易失性} & \textbf{可写} & \textbf{典型用途} \\
-\midrule
-SRAM & 易失 & 读写 & Cache, 寄存器文件 \\
-DRAM & 易失 & 读写 & 主内存 \\
-Flash & 非易失 & 读/块写 & 程序存储, SSD \\
-EEPROM & 非易失 & 读/字节写 & 配置存储 \\
-ROM & 非易失 & 只读 & Bootloader \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{Key Insight}: ESP32 uses Flash for program storage and SRAM for runtime data.
 
 \end{studybox}
 
 % --------------------------------------------
 % Thesis Connection
-% --------------------------------------------
+% ============================================
 \begin{thesisbox}
-\textbf{ESP32-S3 与微处理器}:
+\textbf{论文实现总结 (VERIFIED from source)}:
 
-你的论文使用 \textbf{ESP32-S3}，它是一个双核 Xtensa LX7 处理器。
-
-\textbf{架构}: 修改版哈佛架构（指令和数据分开，但共享部分总线）
-
-\textbf{通信总线使用}:
+\textbf{硬件}:
 \begin{itemize}
-    \item \textbf{I2C}: SHT40 温湿度传感器, MPU-6050 加速度计
-    \item \textbf{SPI}: 未使用（无外部 Flash）
-    \item \textbf{UART}: 调试串口
+    \item MCU: ESP32-S3 DevKitC-1 (Xtensa LX7 双核 @ 240 MHz)
+    \item IMU: MPU6050 (I2C @ 0x68, 采样 10 Hz)
+    \item 环境: BMP180 (温度/气压)
+    \item 声音: KY-037 (ADC)
 \end{itemize}
 
-\textbf{中断应用}:
+\textbf{通信}:
 \begin{itemize}
-    \item GPIO 中断: PIR 运动传感器触发
-    \item 定时器中断: 定期采集传感器数据
+    \item 传感器 $\leftrightarrow$ MCU: I2C (100 kHz)
+    \item MCU $\leftrightarrow$ Server: MQTT over TLS 1.3 (mTLS)
+    \item 加密: ECDSA P-256 + X25519 (硬件加速)
 \end{itemize}
 
-\textbf{Jan Koller 问题}: "How does ESP32 handle multiple sensors on I2C?"
+\textbf{算法} (NOTKalman Filter!):
+\begin{itemize}
+    \item 方法: 双阈值法 (Huynh et al. 2015)
+    \item 条件: $\text{SMV} > 2.4G \land \omega > 240°/s$
+    \item 性能: 96.3\% 灵敏度, 96.2\% 特异度
+\end{itemize}
 
-\textbf{答案}: 每个 I2C 设备有唯一的 7-bit 地址。Master (ESP32) 先发送地址，只有匹配的 Slave 响应。
+\textbf{Jan Koller 问题}: ``How does the I2C bus handle multiple sensors?''
+
+\textbf{答案}: I2C 是多主从总线。每个设备有唯一地址（MPU6050: 0x68, BMP180: 0x77）。Master (ESP32) 发送 7-bit 地址选择设备，然后进行读写。我配置了 100 kHz 标准模式，足够处理 10 Hz 传感器采样。
 \end{thesisbox}
 
 % --------------------------------------------
@@ -225,8 +258,9 @@ ROM & 非易失 & 只读 & Bootloader \\
 % --------------------------------------------
 \begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
 \begin{enumerate}
-    \item \textbf{I2C 地址冲突}: 同一地址的两个设备不能挂在同一总线上。
-    \item \textbf{中断嵌套}: 高优先级中断可以打断低优先级 ISR。
-    \item \textbf{GPIO 浮空}: 未配置上拉/下拉的输入引脚读取值不确定。
+    \item \textbf{哈佛 vs 冯诺依曼}: ESP32 是修改版哈佛架构（指令/数据缓存分离）
+    \item \textbf{I2C 地址}: 7-bit 地址，不是 8-bit！第8位是 R/W 标志
+    \item \textbf{中断延迟}: ISR 必须快，不能做 printf 或 delay
+    \item \textbf{采样率}: 奈奎斯特定理要求采样率 $\geq$ 2×信号频率
 \end{enumerate}
 \end{warnbox}
