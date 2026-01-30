@@ -1,201 +1,105 @@
 % ============================================
-% Topic 03: Physical Fields / 物理场
-% Course: BE5B02PH1
+% Topic 03: Fields / 电磁场
+% Course: BE5B02PH2
 % ============================================
-\section{物理场 / Physical Fields (BE5B02PH1)}
+\section{电场与磁场 / Electric \& Magnetic Fields (BE5B02PH2)}
 
 % --------------------------------------------
-% 1. Gravitational Field
+% 1. Electric Field
 % --------------------------------------------
-\begin{studybox}{引力场 (Gravitational Field)}
-
-\textbf{概念 (CN)}: 质量周围存在的场，对其他质量产生引力
-
-\textbf{Term (EN)}: Gravitational Field, Newton's Law of Gravitation
-
-\tcblower
-
-\textbf{万有引力定律}:
-\begin{equation}
-    F = G\frac{m_1 m_2}{r^2}
-\end{equation}
-其中 $G = 6.674 \times 10^{-11} \, \text{N}\cdot\text{m}^2/\text{kg}^2$
-
-\textbf{引力场强度}:
-\begin{equation}
-    \vec{g} = -G\frac{M}{r^2}\hat{r}
-\end{equation}
-
-\textbf{地表重力加速度}: $g = 9.81 \, \text{m/s}^2$
-
-\textbf{Key Insight}: Accelerometer measures $g$ when stationary.
-
-\end{studybox}
-
-% --------------------------------------------
-% 2. Electric Field
-% --------------------------------------------
-\begin{studybox}{电场 (Electric Field)}
-
-\textbf{概念 (CN)}: 电荷周围存在的场，对其他电荷产生力
-
-\textbf{Term (EN)}: Electric Field, Coulomb's Law, Superposition
-
-\tcblower
-
-\textbf{库仑定律}:
-\begin{equation}
-    F = k_e\frac{q_1 q_2}{r^2}, \quad k_e = \frac{1}{4\pi\varepsilon_0} \approx 8.99 \times 10^9 \, \text{N}\cdot\text{m}^2/\text{C}^2
-\end{equation}
-
-\textbf{电场强度}:
-\begin{equation}
-    \vec{E} = \frac{\vec{F}}{q} = k_e\frac{Q}{r^2}\hat{r}
-\end{equation}
-
-\textbf{电场叠加原理}: 多个电荷的电场矢量相加
-
-\textbf{Key Insight}: Capacitive touch sensors detect changes in electric field.
-
+\begin{studybox}{静电场 / Electrostatics}
+    \textbf{[CN] 定义}: 
+    电荷周围存在的场，对其他电荷产生力。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{库仑定律 (Coulomb's Law)}: 点电荷间的力 $F = k \frac{q_1 q_2}{r^2}$.
+        \item \textbf{电场强度 (E-Field)}: 单位电荷受到的力 $\vec{E} = \vec{F}/q$.
+        \item \textbf{电势 (Potential)}: 单位电荷的电势能 $V = E_p/q$.
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Field around charges exerting force on other charges.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Coulomb's Law}: Force between point charges.
+        \item \textbf{Electric Field ($\vec{E}$)}: Force per unit charge ($\vec{E} = \vec{F}/q$). Vector.
+        \item \textbf{Electric Potential ($V$)}: Potential energy per unit charge. Scalar.
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{电势 (Electric Potential)}:
+\textbf{高斯定律 / Gauss's Law}:
 \begin{equation}
-    V = \frac{U}{q} = k_e\frac{Q}{r}
+    \oint \vec{E} \cdot d\vec{A} = \frac{Q_{enc}}{\epsilon_0}
 \end{equation}
+电通量等于包围的净电荷除以介电常数。
 
-\textbf{电场与电势关系}:
+\textbf{电容 / Capacitance}:
 \begin{equation}
-    \vec{E} = -\nabla V = -\frac{dV}{dx}\hat{x}
-\end{equation}
-
-\textbf{点电荷势能}:
-\begin{equation}
-    U = k_e\frac{q_1 q_2}{r}
-\end{equation}
-
-\textbf{均匀电场中}:
-\begin{equation}
-    V = -\int \vec{E} \cdot d\vec{l} = Ed
+    C = \frac{Q}{V} = \epsilon_0 \frac{A}{d} \quad \text{(平行板)}
 \end{equation}
 \end{formulabox}
 
 % --------------------------------------------
-% 3. Magnetic Field
+% 2. Magnetic Field
 % --------------------------------------------
-\begin{studybox}{磁场 (Magnetic Field)}
-
-\textbf{概念 (CN)}: 运动电荷或电流周围存在的场
-
-\textbf{Term (EN)}: Magnetic Field, Lorentz Force, Biot-Savart Law
-
-\tcblower
-
-\textbf{洛伦兹力}:
-\begin{equation}
-    \vec{F} = q\vec{v} \times \vec{B}
-\end{equation}
-
-\textbf{电流受力}:
-\begin{equation}
-    \vec{F} = I\vec{L} \times \vec{B}
-\end{equation}
-
-\textbf{毕奥-萨伐尔定律}:
-\begin{equation}
-    d\vec{B} = \frac{\mu_0}{4\pi}\frac{I d\vec{l} \times \hat{r}}{r^2}
-\end{equation}
-
-\textbf{Key Insight}: Hall effect sensors measure magnetic fields for position sensing.
-
+\begin{studybox}{静磁场 / Magnetostatics}
+    \textbf{[CN] 定义}: 
+    由运动电荷 (电流) 产生的场。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{洛伦兹力 (Lorentz Force)}: 运动电荷在磁场中受到的力 $\vec{F} = q(\vec{v} \times \vec{B})$.
+        \item \textbf{安培定律 (Ampere's Law)}: 电流产生磁场 $\oint \vec{B} \cdot d\vec{l} = \mu_0 I$.
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Field produced by moving charges (currents).
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Lorentz Force}: Force on a moving charge ($\vec{F} = q(\vec{v} \times \vec{B})$). Always perpendicular to velocity (does no work!).
+        \item \textbf{Ampere's Law}: Current generates magnetic field.
+    \end{itemize}
 \end{studybox}
 
-\begin{formulabox}
-\textbf{常见磁场}:
-
-\textbf{长直导线}: $B = \frac{\mu_0 I}{2\pi r}$
-
-\textbf{螺线管中心}: $B = \mu_0 n I$ (n = 匝数/长度)
-
-\textbf{圆环中心}: $B = \frac{\mu_0 I}{2R}$
-
-\textbf{磁通量 (Magnetic Flux)}:
-\begin{equation}
-    \Phi_B = \int \vec{B} \cdot d\vec{A}
-\end{equation}
-
-\textbf{安培环路定律}:
-\begin{equation}
-    \oint \vec{B} \cdot d\vec{l} = \mu_0 I_{enc}
-\end{equation}
-\end{formulabox}
-
 % --------------------------------------------
-% 4. Electromagnetic Induction
+% 3. Electromagnetic Induction
 % --------------------------------------------
-\begin{studybox}{电磁感应 (Electromagnetic Induction)}
-
-\textbf{概念 (CN)}: 变化的磁场产生电动势
-
-\textbf{Term (EN)}: Faraday's Law, Lenz's Law, Induced EMF
-
-\tcblower
-
-\textbf{法拉第定律}:
-\begin{equation}
-    \mathcal{E} = -\frac{d\Phi_B}{dt}
-\end{equation}
-
-\textbf{楞次定律}: 感应电流的方向总是阻止产生它的磁通量变化
-
-\textbf{自感 (Self-Inductance)}:
-\begin{equation}
-    \mathcal{E} = -L\frac{dI}{dt}
-\end{equation}
-
-\textbf{Key Insight}: Wireless charging uses electromagnetic induction.
-
+\begin{studybox}{电磁感应 / EM Induction}
+    \textbf{[CN] 定义}: 
+    磁通量变化产生感应电动势。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{法拉第定律 (Faraday's Law)}: 感应电动势等于磁通量变化率的负值。
+        \item \textbf{楞次定律 (Lenz's Law)}: 感应电流的方向总是阻碍磁通量的变化 (那个负号)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Changing magnetic flux induces EMF.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Faraday's Law}: $\mathcal{E} = -\frac{d\Phi_B}{dt}$.
+        \item \textbf{Lenz's Law}: The induced current flows in a direction that opposes the change in magnetic flux (Conservation of Energy).
+    \end{itemize}
 \end{studybox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{物理场与传感器}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{PCB 设计 (EMC)}: 快速变化的电流 (如 SPI/I2C 时钟) 会产生磁场辐射 (安培定律)。这是电磁干扰 (EMI) 的来源。
+        \item \textbf{去耦电容}: 为高频电流提供回路，减小环路面积，从而减小辐射 (EMI reduction)。
+        \item \textbf{无线通信}: ESP32 的 Wi-Fi 天线发射电磁波 (EM Waves)，即变化的电场产生磁场，变化的磁场产生电场。
+    \end{itemize}
 
-\textbf{电容式传感器 (Capacitive Sensors)}:
-电场原理用于湿度传感器和触摸屏：
-\begin{equation}
-    C = \varepsilon_0 \varepsilon_r \frac{A}{d}
-\end{equation}
+    \tcblower
 
-\textbf{霍尔效应传感器 (Hall Effect)}:
-检测磁场强度和方向：
-\begin{equation}
-    V_H = \frac{I B}{n e t}
-\end{equation}
-
-\textbf{电磁干扰 (EMI)}:
-变化的磁场可能在导线中感应噪声电压（法拉第定律）。
-
-\textbf{Jan Koller 问题}: "How do you minimize EMI in PCB design?"
-
-\textbf{答案}: 
-1. 使用差分信号（共模抑制）
-2. 地平面提供磁场屏蔽
-3. 减小环路面积减少磁通量耦合
-4. 走线远离开关电源
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{PCB EMC}: High-speed currents (clock lines) generate Magnetic Fields (Ampere's Law), causing Electromagnetic Interference (EMI).
+        \item \textbf{Decoupling}: Reduces loop area for high-frequency currents, minimizing radiated emissions.
+        \item \textbf{Antenna}: ESP32 Wi-Fi works by radiating EM waves (Maxwell's Equations).
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{符号}: 电场力 $F = qE$，磁场力 $F = qvB\sin\theta$。
-    \item \textbf{磁力不做功}: 洛伦兹力垂直于速度，不改变动能。
-    \item \textbf{楞次定律}: 感应电流的磁场方向反抗磁通量变化。
-    \item \textbf{法拉第定律负号}: 表示楞次定律方向。
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Magnetic Work}: 磁力 $\vec{F} \perp \vec{v}$，所以恒定磁场\textbf{不对}电荷做功！(Work = 0).
+        \item \textbf{Field Liens}: 电场线起于正止于负；磁场线是闭合曲线 (无磁单极子)。
+    \end{itemize}
 \end{warnbox}

@@ -7,86 +7,78 @@
 % --------------------------------------------
 % 1. PN Junction
 % --------------------------------------------
-\begin{studybox}{PN 结 (PN Junction)}
+\begin{studybox}{PN 结 / PN Junction}
+    \textbf{[CN] 定义}: PN 结是现代电子学的基石，由 P 型半导体 (空穴为主) 和 N 型半导体 (电子为主) 结合而成。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{耗尽层 (Depletion Region)}: 接触面上载流子扩散复合，形成无自由载流子的区域和内建电场。
+        \item \textbf{正向偏置 (Forward Bias)}: 外接电压对抗内建电场 ($V > V_{th} \approx 0.7V$)，导通电流。
+        \item \textbf{反向偏置 (Reverse Bias)}: 外接电压增强内建电场，电流截止。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: A PN junction is formed by joining P-type and N-type semiconductors.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Depletion Region}: A region devoid of free carriers at the interface, creating a built-in electric field.
+        \item \textbf{Forward Bias}: Voltage applied against the built-in potential allowing current flow ($V > 0.7V$).
+        \item \textbf{Reverse Bias}: Voltage applied supporting the built-in potential, blocking current flow.
+    \end{itemize}
+\end{studybox}
 
-\textbf{Concept}: The fundamental building block of modern electronics. joins P-type (holes) and N-type (electrons) silicon.
-
-\tcblower
-
-\textbf{关键特性}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Depletion Region (耗尽层)}: 界面处无自由载流子，形成内建电场。
-    \item \textbf{Forward Bias (正向偏置)}: $V > V_{th}$ (Si $\approx 0.7V$)，电流导通。
-    \item \textbf{Reverse Bias (反向偏置)}: 电流截止，直到击穿 (Breakdown)。
-\end{itemize}
-
-\textbf{公式 (Shockley Equation)}:
+\begin{formulabox}
+\textbf{肖克利方程 / Shockley Equation}:
 \begin{equation}
     I = I_S \left( e^{\frac{V}{n V_T}} - 1 \right)
 \end{equation}
-Where $V_T \approx 26mV$ at room temperature.
-
-\end{studybox}
+$V_T \approx 26mV$ (热电压 / Thermal Voltage).
+\end{formulabox}
 
 % --------------------------------------------
 % 2. Transistors (BJT & MOSFET)
 % --------------------------------------------
+\begin{studybox}{晶体管 / Transistors}
+    \textbf{[CN] 定义}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{BJT (双极性结型晶体管)}: 电流控制电流设备 ($I_C = \beta I_B$)。输入阻抗低，线性性能好。
+        \item \textbf{MOSFET (场效应管)}: 电压控制电流设备 ($I_D \propto V_{GS}$)。输入阻抗极高 (栅极绝缘)。ESP32 使用 CMOS (互补 MOS) 工艺。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{BJT}: Current-controlled device. Low input impedance. Good for analog amplification.
+        \item \textbf{MOSFET}: Voltage-controlled device. Very high input impedance (Gate Oxide). Used in digital logic (CMOS).
+    \end{itemize}
+\end{studybox}
+
 \begin{formulabox}
-\textbf{晶体管对比 (BJT vs MOSFET)}:
-
-\begin{center}
-\begin{tabular}{lll}
-\toprule
-\textbf{Feature} & \textbf{BJT (e.g., NPN)} & \textbf{MOSFET (e.g., NMOS)} \\
-\midrule
-Control & Current ($I_B$) & Voltage ($V_{GS}$) \\
-Carriers & Bipolar (Holes + Electrons) & Unipolar (Electrons or Holes) \\
-Input Impedance & Low & Very High (Gate oxide) \\
-App Usage & Amplifiers (Linear) & Switches (Digital Logic) \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{MOSFET 工作区}:
-\begin{itemize}
-    \item \textbf{Cutoff}: $V_{GS} < V_{th}$ (OFF)
-    \item \textbf{Linear (Ohmic)}: $V_{DS} < V_{GS} - V_{th}$ (Resistor)
-    \item \textbf{Saturation}: $V_{DS} > V_{GS} - V_{th}$ (Amplifier/Current Source)
-\end{itemize}
+\textbf{MOSFET 工作区 / Regions of Operation}:
+\begin{enumerate}
+    \item \textbf{截止 (Cutoff)}: $V_{GS} < V_{th}$ (Switch OFF)
+    \item \textbf{线性 (Linear/Ohmic)}: $V_{DS} < V_{GS} - V_{th}$ (Voltage controlled Resistor)
+    \item \textbf{饱和 (Saturation)}: $V_{DS} > V_{GS} - V_{th}$ (Constant Current / Amplifier)
+\end{enumerate}
 \end{formulabox}
 
 % --------------------------------------------
 % 3. Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}[Project Application]
-你的项目中使用了多种半导体器件：
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 你的项目使用了多种半导体器件：
+    \begin{itemize}
+        \item \textbf{光电二极管 (Photodiode)}: TCS34725 颜色传感器内部含有光电二极管阵列。光子撞击 PN 结产生电子-空穴对，产生光电流 (Photocurrent)。
+        \item \textbf{LED}: KY-037 模块上的指示灯。正向偏置时，电子与空穴复合释放能量 ($E = h\nu$)。
+    \end{itemize}
 
-\textbf{1. 光电二极管 (Photodiodes)}:
-\begin{itemize}
-    \item \textbf{Device}: TCS34725 Color Sensor (Thesis \texttt{esp32.yaml})
-    \item \textbf{Principle}: 光子轰击 PN 结产生电子-空穴对 (Photocurrent $\propto$ Light Intensity)。
-\end{itemize}
+    \tcblower
 
-\textbf{2. 发光二极管 (LED)}:
-\begin{itemize}
-    \item \textbf{Device}: KY-037 模块上的状态指示灯 (LED1/LED2)。
-    \item \textbf{Logic}: 正向偏置时光复合释放能量 ($E_g = h\nu$)。
-\end{itemize}
-
-\textbf{3. CMOS 工艺}:
-\begin{itemize}
-    \item \textbf{Device}: ESP32-S3 Chip (Xtensa LX7)。
-    \item \textbf{Tech}: 使用互补 MOS (PMOS + NMOS) 构成逻辑门，静态功耗低。
-\end{itemize}
+    \textbf{[EN]}: Your project utilizes various semiconductor devices:
+    \begin{itemize}
+        \item \textbf{Photodiode}: Inside the TCS34725. Photons striking the PN junction generate electron-hole pairs, creating a photocurrent proportional to light intensity.
+        \item \textbf{Light Emitting Diode (LED)}: On the KY-037 module. Recombination of electrons and holes releases energy as light when forward-biased.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% 4. Exam Pitfalls
-% --------------------------------------------
-\begin{warnbox}
-\begin{itemize}
-    \item \textbf{温度影响}: 温度升高，本征载流子浓度 $n_i$ 增加，二极管反向漏电流增大。
-    \item \textbf{MOSFET 符号}: 注意箭头方向。NMOS 箭头向内 (Source)，PMOS 箭头向外。
-    \item \textbf{单位}: $V_T = kT/q$ 不是阈值电压，是热电压 (Thermal Voltage)！
-\end{itemize}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Saturation Region}: MOSFET 的"饱和区"对应于恒流源特性（用于放大），而 BJT 的"饱和区"对应于开关导通（开关应用）。这两个术语在 BJT 和 MOSFET 中是反义的！
+        \item \textbf{Threshold Voltage}: $V_{th}$ 是开启 MOSFET 的门槛电压，不要和 $V_T$ (热电压, 26mV) 混淆。
+    \end{itemize}
 \end{warnbox}

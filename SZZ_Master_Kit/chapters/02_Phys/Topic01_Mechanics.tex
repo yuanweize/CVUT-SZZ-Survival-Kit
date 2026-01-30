@@ -7,238 +7,128 @@
 % --------------------------------------------
 % 1. Kinematics
 % --------------------------------------------
-\begin{studybox}{运动学 (Kinematics)}
-
-\textbf{概念 (CN)}: 描述物体运动，不考虑力
-
-\textbf{Term (EN)}: Position, Velocity, Acceleration, Trajectory
-
-\tcblower
-
-\textbf{基本量}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{位移 (Displacement)}: $\vec{r}(t)$ - 矢量
-    \item \textbf{速度 (Velocity)}: $\vec{v} = \frac{d\vec{r}}{dt}$ - 位移的导数
-    \item \textbf{加速度 (Acceleration)}: $\vec{a} = \frac{d\vec{v}}{dt}$ - 速度的导数
-\end{itemize}
-
-\textbf{匀加速运动}:
-\begin{itemize}[leftmargin=*]
-    \item 直线运动：$a = \text{const}$
-    \item 抛体运动：$\vec{a} = -g\hat{j}$
-    \item 圆周运动：向心加速度 $a_c = \frac{v^2}{r}$
-\end{itemize}
-
-\textbf{Key Insight}: Accelerometer measures acceleration; integrating twice gives position.
-
+\begin{studybox}{运动学 / Kinematics}
+    \textbf{[CN] 定义}: 
+    运动学描述物体的运动而不考虑其成因 (力)。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{基本量}: 
+        位移 (Displacement) $\vec{r}$, 
+        速度 (Velocity) $\vec{v} = d\vec{r}/dt$, 
+        加速度 (Acceleration) $\vec{a} = d\vec{v}/dt$.
+        \item \textbf{圆周运动}: 线速度 $v=\omega r$, 向心加速度 $a_c = v^2/r$.
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Kinematics describes motion without considering the forces that cause it.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Basic Quantities}: 
+        Displacement $\vec{r}$, 
+        Velocity $\vec{v} = \dot{\vec{r}}$, 
+        Acceleration $\vec{a} = \dot{\vec{v}}$.
+        \item \textbf{Circular Motion}: Linear vel $v=\omega r$, Centripetal acc $a_c = v^2/r$.
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{匀加速运动公式}:
+\textbf{匀加速直线运动 / Uniformly Accelerated Motion}:
 \begin{align}
     v &= v_0 + at \\
     x &= x_0 + v_0 t + \frac{1}{2}at^2 \\
     v^2 &= v_0^2 + 2a(x - x_0)
 \end{align}
-
-\textbf{圆周运动}:
-\begin{align}
-    v &= \omega r \quad \text{(线速度)} \\
-    a_c &= \omega^2 r = \frac{v^2}{r} \quad \text{(向心加速度)}
-\end{align}
-
-\textbf{角加速度}: $\alpha = \frac{d\omega}{dt}$
+\textbf{应用}: 计算自由落体距离 (Free fall distance).
 \end{formulabox}
 
 % --------------------------------------------
 % 2. Newton's Laws
 % --------------------------------------------
-\begin{studybox}{牛顿运动定律 (Newton's Laws)}
-
-\textbf{概念 (CN)}: 力与运动的基本关系
-
-\textbf{Term (EN)}: Force, Mass, Inertia, Momentum
-
-\tcblower
-
-\textbf{三大定律}:
-
-\textbf{第一定律 (惯性定律)}:
-物体在没有外力作用时保持静止或匀速直线运动。
-
-\textbf{第二定律 (运动定律)}:
-\begin{equation}
-    \boxed{\vec{F} = m\vec{a}}
-\end{equation}
-
-\textbf{第三定律 (作用-反作用)}:
-作用力与反作用力大小相等、方向相反。
-\begin{equation}
-    \vec{F}_{12} = -\vec{F}_{21}
-\end{equation}
-
-\textbf{Key Insight}: $F = ma$ is the foundation of accelerometer-based motion detection.
-
+\begin{studybox}{牛顿定律 / Newton's Laws}
+    \textbf{[CN] 定义}: 
+    动力学的基础。
+    \begin{enumerate}
+        \item \textbf{第一定律 (惯性)}: 物体保持静止或匀速直线运动，除非有力作用。
+        \item \textbf{第二定律}: 力等于质量乘以加速度 ($\vec{F}=m\vec{a}$)。这是整个力学的核心方程。
+        \item \textbf{第三定律}: 作用力与反作用力大小相等、方向相反。
+    \end{enumerate}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    The foundation of dynamics.
+    \begin{enumerate}
+        \item \textbf{1st (Inertia)}: An object remains at rest or uniform motion unless acted upon by a force.
+        \item \textbf{2nd}: Force equals mass times acceleration ($\vec{F}=m\vec{a}$). The core equation.
+        \item \textbf{3rd}: Action and reaction are equal in magnitude and opposite in direction.
+    \end{enumerate}
 \end{studybox}
 
-\begin{formulabox}
-\textbf{常见力}:
-
-\textbf{重力}: $\vec{F}_g = m\vec{g}$, $g \approx 9.81 \, \text{m/s}^2$
-
-\textbf{摩擦力}: $f = \mu N$ (静摩擦/动摩擦)
-
-\textbf{弹簧力 (Hooke's Law)}: $F = -kx$
-
-\textbf{向心力}: $F_c = m\frac{v^2}{r} = m\omega^2 r$
-
-\textbf{动量}: $\vec{p} = m\vec{v}$
-
-\textbf{动量定理}: $\vec{F} = \frac{d\vec{p}}{dt}$
-\end{formulabox}
-
 % --------------------------------------------
-% 3. Energy and Work
+% 3. Energy
 % --------------------------------------------
-\begin{studybox}{功与能 (Work and Energy)}
-
-\textbf{概念 (CN)}: 能量是做功的能力
-
-\textbf{Term (EN)}: Work, Kinetic Energy, Potential Energy, Conservation
-
-\tcblower
-
-\textbf{功 (Work)}:
-\begin{equation}
-    W = \int \vec{F} \cdot d\vec{r} = F \cdot d \cdot \cos\theta
-\end{equation}
-
-\textbf{动能 (Kinetic Energy)}:
-\begin{equation}
-    E_k = \frac{1}{2}mv^2
-\end{equation}
-
-\textbf{势能 (Potential Energy)}:
-\begin{itemize}[leftmargin=*]
-    \item 重力势能: $E_p = mgh$
-    \item 弹性势能: $E_p = \frac{1}{2}kx^2$
-\end{itemize}
-
-\textbf{Key Insight}: Energy conservation helps analyze fall detection thresholds.
-
+\begin{studybox}{功与能 / Work and Energy}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{功 (Work)}: 力在位移方向上的累积 ($W = \int \vec{F} \cdot d\vec{r}$).
+        \item \textbf{动能 (Kinetic Energy)}: 运动物体具有的能量 ($E_k = \frac{1}{2}mv^2$).
+        \item \textbf{势能 (Potential Energy)}: 位置决定的储能 (重力 $mgh$, 弹簧 $\frac{1}{2}kx^2$).
+    \end{itemize}
+    \textbf{守恒律}: 在只有保守力做功时，机械能守恒。
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Work}: Integration of force over distance ($W = \vec{F} \cdot \vec{d}$).
+        \item \textbf{Kinetic Energy}: Energy of motion ($E_k = \frac{1}{2}mv^2$).
+        \item \textbf{Potential Energy}: Stored energy by position (Gravity $mgh$, Spring $\frac{1}{2}kx^2$).
+    \end{itemize}
+    \textbf{Conservation}: Total mechanical energy is constant if only conservative forces act.
 \end{studybox}
 
-\begin{formulabox}
-\textbf{功-能定理}: $W_{net} = \Delta E_k$
-
-\textbf{机械能守恒} (仅保守力做功):
-\begin{equation}
-    E_k + E_p = \text{const}
-\end{equation}
-
-\textbf{功率 (Power)}:
-\begin{equation}
-    P = \frac{dW}{dt} = \vec{F} \cdot \vec{v}
-\end{equation}
-
-\textbf{自由落体能量}:
-\begin{equation}
-    mgh = \frac{1}{2}mv^2 \quad \Rightarrow \quad v = \sqrt{2gh}
-\end{equation}
-\end{formulabox}
-
 % --------------------------------------------
-% 4. Rigid Body Mechanics
+% 4. Rigid Body
 % --------------------------------------------
-\begin{studybox}{刚体力学 (Rigid Body Mechanics)}
-
-\textbf{概念 (CN)}: 有体积和形状的物体的运动
-
-\textbf{Term (EN)}: Torque, Moment of Inertia, Angular Momentum
-
-\tcblower
-
-\textbf{力矩 (Torque)}:
-\begin{equation}
-    \vec{\tau} = \vec{r} \times \vec{F}
-\end{equation}
-
-\textbf{转动惯量 (Moment of Inertia)}: 
-\begin{equation}
-    I = \sum m_i r_i^2 \quad \text{or} \quad I = \int r^2 dm
-\end{equation}
-
-\textbf{转动定律}:
-\begin{equation}
-    \vec{\tau} = I\vec{\alpha}
-\end{equation}
-
-\textbf{Key Insight}: Gyroscope measures angular velocity $\omega$ of rotation.
-
+\begin{studybox}{刚体力学 / Rigid Body Mechanics}
+    \textbf{[CN] 定义}: 
+    描述具有形状大小物体的转动。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{力矩 (Torque)}: 使物体转动的"力" ($\tau = r \times F$).
+        \item \textbf{转动惯量 (Moment of Inertia)}: 转动中的"质量" ($I = \sum mr^2$).
+        \item \textbf{转动定律}: $\tau = I \alpha$ (类比 $F=ma$).
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Describing rotation of extended bodies.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Torque ($\tau$)}: The rotational equivalent of force ($\tau = r \times F$).
+        \item \textbf{Moment of Inertia ($I$)}: Rotational mass, resistance to angular acceleration.
+        \item \textbf{Newton's 2nd Law for Rotation}: $\tau = I \alpha$.
+    \end{itemize}
 \end{studybox}
-
-\begin{formulabox}
-\textbf{常见转动惯量}:
-
-\begin{center}
-\begin{tabular}{lc}
-\toprule
-\textbf{物体} & \textbf{转动惯量 (绕中心轴)} \\
-\midrule
-细棒 (Rod) & $\frac{1}{12}ML^2$ \\
-圆盘 (Disk) & $\frac{1}{2}MR^2$ \\
-圆环 (Ring) & $MR^2$ \\
-实心球 (Solid Sphere) & $\frac{2}{5}MR^2$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{平行轴定理}: $I = I_{cm} + Md^2$
-
-\textbf{角动量}: $L = I\omega$
-
-\textbf{角动量守恒}: $\tau_{ext} = 0 \Rightarrow L = \text{const}$
-\end{formulabox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{力学与可穿戴传感器}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    你的跌倒检测算法直接基于力学原理：
+    \begin{itemize}
+        \item \textbf{MPU6050 加速度计}: 测量 $\vec{F}/m$。静止时测量重力加速度 $g$。自由落体时读数为 0 (失重)。
+        \item \textbf{冲击检测}: 跌倒撞击地面时，系统经历巨大的负加速度 (减速)，导致读数飙升 ($a \gg g$)。
+        \item \textbf{陀螺仪}: 测量角速度 $\omega$，辅助判断人体姿态变化。
+    \end{itemize}
 
-你的论文使用加速度计检测跌倒，直接应用了牛顿第二定律：
+    \tcblower
 
-\textbf{加速度计原理}:
-\begin{equation}
-    F = ma \quad \Rightarrow \quad a = \frac{F}{m}
-\end{equation}
-MEMS 加速度计测量作用在悬浮质量块上的惯性力。
-
-\textbf{跌倒检测}:
-\begin{itemize}
-    \item 自由落体阶段: $a \approx 0$ (失重)
-    \item 撞击阶段: $a >> g$ (冲击)
-\end{itemize}
-
-\textbf{陀螺仪原理}:
-测量角速度 $\omega$，基于科里奥利力：
-\begin{equation}
-    F_{Coriolis} = -2m(\vec{\omega} \times \vec{v})
-\end{equation}
-
-\textbf{Jan Koller 问题}: "How does your accelerometer work?"
-
-\textbf{答案}: MEMS 加速度计使用悬浮质量块。当设备加速时，质量块由于惯性 ($F = ma$) 产生相对位移。这个位移改变电容，转换为电信号。它测量的是「真实加速度 + 重力」的叠加。
+    \textbf{[EN]}: 
+    Your fall detection relies on mechanics:
+    \begin{itemize}
+        \item \textbf{Accelerometer}: Measures proper acceleration. Reads $1g$ when static. Reads $\approx 0g$ during free fall (weightlessness).
+        \item \textbf{Impact}: Upon impact, the body decelerates rapidly, causing a spike in accelerometer reading ($a \gg g$).
+        \item \textbf{Gyroscope}: Measures angular velocity $\omega$ to detect orientation changes.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{矢量方向}: 力、速度、加速度都是矢量，注意正负号！
-    \item \textbf{圆周运动}: 向心力 $\neq$ 实际力，是合力的效果。
-    \item \textbf{能量守恒}: 只有保守力（重力、弹力）做功时适用。
-    \item \textbf{转动 vs 平动}: 转动用 $\tau = I\alpha$，平动用 $F = ma$。
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Weight vs Mass}: 质量 ($m$) 是不变的，重量 ($mg$) 随重力场变化。
+        \item \textbf{Centripetal Force}: 向心力不是一种独立的力，而是重力、张力等的合力。
+        \item \textbf{Force Pairs}: 牛顿第三定律的作用力和反作用力作用在\textbf{不同}的物体上，永远不会互相抵消！
+    \end{itemize}
 \end{warnbox}

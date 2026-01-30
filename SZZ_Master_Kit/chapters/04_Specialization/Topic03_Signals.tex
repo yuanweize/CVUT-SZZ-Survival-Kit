@@ -1,45 +1,45 @@
-\section{Signals \& Systems (TES)}
+% ============================================
+% Topic 03: Signals / 信号与系统
+% Course: BE5B31SAS
+% ============================================
+\section{信号与系统 / Signals \& Systems (BE5B31SAS)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Transforms}: Laplace ($s$-domain) for Continuous; Z-transform ($z$-domain) for Discrete.
-    \item \textbf{Sampling}: $f_s \ge 2 f_{max}$ (Nyquist). Aliasing happens if violated.
-    \item \textbf{Convolution}: Output $y(t) = x(t) * h(t)$.
-    \item \textbf{Thesis Link}: Your accelerometer data is sampled at discrete intervals (e.g., 50Hz).
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Fourier Transform
+% --------------------------------------------
+\begin{studybox}{傅里叶变换 / Fourier Transform}
+    \textbf{[CN] 定义}: 
+    将信号从时域 (Time Domain) 转换到频域 (Frequency Domain)。
+    任何周期信号都可以分解为正弦波的叠加。
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Transforms a signal from Time Domain to Frequency Domain.
+    States that any periodic function can be expressed as a sum of sines and cosines.
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{LTI Systems, Impulse Response, Frequency Response, Pole-Zero Plot, DFT/FFT}
-\end{keywords}
-
-\begin{concept}{LTI Systems / 线性时不变系统}
-Linear Time-Invariant systems are characterized completely by their **Impulse Response** $h(t)$.
-\begin{itemize}
-    \item \textbf{Linear}: $S(a x_1 + b x_2) = a S(x_1) + b S(x_2)$.
-    \item \textbf{Time-Invariant}: Shift in input causes same shift in output.
-\end{itemize}
-\end{concept}
-
-\begin{concept}{Fourier Series \& Transform / 傅里叶变换}
-Decomposing a signal into sine waves.
-\begin{itemize}
-    \item \textbf{Periodic}: Fourier Series (discrete spectrum).
-    \item \textbf{Aperiodic}: Fourier Transform (continuous spectrum).
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
+\begin{formulabox}
+\textbf{采样定理 / Nyquist-Shannon Theorem}:
 \begin{equation}
-    X(\omega) = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt \quad \text{(CTFT)}
+    f_s \ge 2 f_{max}
 \end{equation}
-\begin{equation}
-    y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] \quad \text{(Discrete Convolution)}
-\end{equation}
+采样率必须至少是信号最高频率的两倍，否则会发生混叠 (Aliasing)。
+\end{formulabox}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "What happens if you sample a 100Hz signal at 150Hz?" (A: Aliasing. You "see" a 50Hz ghost signal. $150 - 100 = 50$).
-    \item "Explain the relationship between the s-plane and z-plane." (A: Left Half Plane in s $\leftrightarrow$ Unit Circle Interior in z).
-\end{itemize}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{采样率选择}: 你的 MPU6050 采样率为 10Hz。这意味着只能准确捕捉 5Hz 以下的运动（人体正常运动通常 $< 2\text{Hz}$）。
+        \item \textbf{滤波}: 你的移动平均滤波器实际上是一个低通滤波器 (Low Pass Filter)，切断了高频噪声。
+    \end{itemize}
+
+    \tcblower
+
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Sampling}: MPU6050 @ 10Hz. Nyquist limit is 5Hz, sufficient for human motion ($<2\text{Hz}$).
+        \item \textbf{Filtering}: The Moving Average Filter acts as an FIR Low Pass Filter, attenuating high-frequency noise.
+    \end{itemize}
+\end{thesisbox}

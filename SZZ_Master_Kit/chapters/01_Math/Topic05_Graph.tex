@@ -1,26 +1,59 @@
-\section{Graph Theory (DMG)}
+% ============================================
+% Topic 05: Graph Theory / 图论
+% Course: BE5B01DMA
+% ============================================
+\section{图论 / Graph Theory (BE5B01DMA)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+% --------------------------------------------
+% 1. Basic Concepts
+% --------------------------------------------
+\begin{studybox}{图的概念 / Graph Concepts}
+    \textbf{[CN] 定义}: 
+    图 $G = (V, E)$ 由顶点集合 $V$ 和边集合 $E$ 组成。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{度 (Degree)}: 连接到一个顶点的边的数量。
+        \item \textbf{路径 (Path)}: 顶点序列。
+        \item \textbf{连通图 (Connected)}: 任意两点间都存在路径。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Graph $G = (V, E)$ consists of Vertices $V$ and Edges $E$.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Degree}: Number of edges incident to a vertex.
+        \item \textbf{Path}: Sequence of adjacent vertices.
+        \item \textbf{Connected}: Path exists between any pair of vertices.
+    \end{itemize}
+\end{studybox}
+
+\begin{formulabox}
+\textbf{树 (Tree)}:
+无环连通图 (Connected Acyclic Graph)。
+性质:
 \begin{itemize}
-    \item \textbf{Core Concept}: 图论基础。重点是树（Trees）、最短路径（Dijkstra）、遍历（BFS/DFS）和图的连通性。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+    \item 任意两点间只有\textbf{唯一}路径。
+    \item $|E| = |V| - 1$ (边数 = 顶点数 - 1)。
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Vertex, Edge, Path, Cycle, Tree, Component}
-\end{keywords}
-图论基础。重点是树（Trees）、最短路径（Dijkstra）、遍历（BFS/DFS）和图的连通性。
+\textbf{欧拉路径 (Euler Path)}: 经过每条边恰好一次。条件: 奇度数顶点为 0 或 2 个。
+\end{formulabox}
 
-\subsection{Formulas / 公式}
-\begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-\end{equation}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{网络拓扑}: 你的智能家居采用\textbf{星型拓扑} (Star Topology)。WiFi 路由器是中心节点 (Hub)，所有 ESP32 设备是叶子节点 (Leaves)。
+        \item \textbf{MQTT 主题}: MQTT 的 Topic 层级结构 (e.g., `home/livingroom/temp`) 实际上构成了一棵\textbf{树} (Topic Tree)。
+        \item \textbf{状态机}: 状态转移图 (State Transition Graph) 是有向图 (Directed Graph)。
+    \end{itemize}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
-\end{itemize}
+    \tcblower
+
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Network Topology}: Star Topology. Router is the Hub; ESP32s are Leaves.
+        \item \textbf{MQTT Topics}: Form a Topic Tree hierarchy.
+        \item \textbf{FSM}: Represented as a Directed Graph where nodes are states and edges are transitions.
+    \end{itemize}
+\end{thesisbox}

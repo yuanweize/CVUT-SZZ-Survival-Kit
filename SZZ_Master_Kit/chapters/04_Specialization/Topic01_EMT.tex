@@ -1,38 +1,56 @@
-\section{Electromagnetic Field Theory (EMT)}
+% ============================================
+% Topic 01: EMT / 电磁场理论
+% Course: BE5B17MT1
+% ============================================
+\section{电磁场理论 / Electromagnetic Theory (BE5B17MT1)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Foundation}: Maxwell's 4 Equations. Memorize Integral AND Differential forms.
-    \item \textbf{Static vs Dynamic}: Electrostatics ($\partial/\partial t = 0$) vs Electrodynamics (Time-varying B creates E).
-    \item \textbf{Thesis Link}: Signals on your PCB. High frequency = Transmission line effects (Reflections) if traces are long.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Maxwell Equations
+% --------------------------------------------
+\begin{studybox}{麦克斯韦方程组 / Maxwell's Equations}
+    \textbf{[CN] 定义}: 
+    经典电磁学的核心，包含四个方程：
+    \begin{enumerate}
+        \item \textbf{高斯电场定律}: 电荷产生散开的电场 ($\nabla \cdot E = \rho/\epsilon_0$).
+        \item \textbf{高斯磁场定律}: 无磁单极子 ($\nabla \cdot B = 0$).
+        \item \textbf{法拉第定律}: 变化的磁场产生电场 ($\nabla \times E = -\partial B/\partial t$).
+        \item \textbf{安培定律}: 电流和变化的电场产生磁场 ($\nabla \times B = \mu_0 J + \mu_0\epsilon_0 \partial E/\partial t$).
+    \end{enumerate}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    The core of classical electromagnetism:
+    \begin{enumerate}
+        \item \textbf{Gauss's Law}: Electric charges produce diverging E-fields.
+        \item \textbf{Gauss's Law for Magnetism}: No magnetic monopoles.
+        \item \textbf{Faraday's Law}: Changing B-field induces E-field.
+        \item \textbf{Ampere's Law}: Currents and changing E-fields produce B-fields.
+    \end{enumerate}
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Gauss Law, Ampere Law, Faraday Law, Biot-Savart Law, Displacement Current}
-\end{keywords}
-
-\begin{concept}{Maxwell's Equations / 麦克斯韦方程组}
-The "Standard Model" of Electrical Engineering:
-\begin{itemize}
-    \item \textbf{Gauss's Law}: $\oint \vec{D} \cdot d\vec{S} = Q_{enc}$ (Charge creates Electric Field).
-    \item \textbf{Gauss's Law (Mag)}: $\oint \vec{B} \cdot d\vec{S} = 0$ (No magnetic monopoles).
-    \item \textbf{Faraday's Law}: $\oint \vec{E} \cdot d\vec{l} = -\frac{d\Phi_B}{dt}$ (Changing B-field creates Voltage). **Key for Induction Machines!**
-    \item \textbf{Ampere-Maxwell}: $\oint \vec{H} \cdot d\vec{l} = I_{enc} + \frac{d\Phi_D}{dt}$ (Current + Changing E-field creates B-field).
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
+\begin{formulabox}
+\textbf{传输线 / Transmission Lines}:
+特性阻抗 (Characteristic Impedance):
 \begin{equation}
-    \vec{F} = q(\vec{E} + \vec{v} \times \vec{B}) \quad \text{(Lorentz Force)}
+    Z_0 = \sqrt{\frac{L}{C}} \approx 50\Omega
 \end{equation}
-\begin{equation}
-    C = \frac{\varepsilon A}{d} \quad \text{(Parallel Plate Capacitor)}
-\end{equation}
+为了防止反射 (Reflection)，负载阻抗必须匹配 $Z_L = Z_0$。
+\end{formulabox}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Explain Skin Effect." (A: AC current flows only on the surface of conductor at high freq. Increases effective Resistance).
-    \item "Derive the capacitance of a coaxial cable using Gauss's law."
-\end{itemize}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{阻抗匹配}: ESP32 的天线输出被设计为 $50\Omega$。PCB 走线宽度必须精确计算以保持此阻抗，防止信号向源端反射。
+        \item \textbf{去耦}: 在电源线上放置电容是为了提供高频信号的低阻抗返回路径，减小辐射回路面积。
+    \end{itemize}
+
+    \tcblower
+
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Impedance Matching}: ESP32 antenna output requires $50\Omega$. PCB traces are dimensioned to match this to prevent signal reflection ($S_{11}$).
+        \item \textbf{Decoupling}: Capacitors provide a low-impedance return path for high-frequency currents, reducing the loop area and EMI.
+    \end{itemize}
+\end{thesisbox}

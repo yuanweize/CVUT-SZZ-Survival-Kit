@@ -1,266 +1,79 @@
 % ============================================
 % Topic 04: Microprocessors / 微处理器
-% SOURCE: Thesis_src/esphome/esp32s3.yaml
-% VERIFIED: ESP32-S3 + MPU6050
+% SOURCE: Thesis Source (ESP32-S3)
 % ============================================
-\section{微处理器与嵌入式系统 / Microprocessors \& Embedded Systems}
+\section{微处理器 / Microprocessors (BE5B34MIE)}
 
 % --------------------------------------------
-% 1. CPU Architecture
+% 1. Architecture
 % --------------------------------------------
-\begin{studybox}{处理器架构 (CPU Architecture)}
-
-\textbf{概念 (CN)}: CPU 的基本组成和工作原理
-
-\textbf{Term (EN)}: Von Neumann, Harvard, ALU, Control Unit, Registers
-
-\tcblower
-
-\textbf{冯诺依曼架构 (Von Neumann)}:
-\begin{itemize}[leftmargin=*]
-    \item 程序和数据共享同一内存
-    \item 通过同一总线访问
-    \item 优点: 设计简单
-    \item 缺点: 冯诺依曼瓶颈 (Bottleneck)
-\end{itemize}
-
-\textbf{哈佛架构 (Harvard)}:
-\begin{itemize}[leftmargin=*]
-    \item 程序和数据使用独立内存
-    \item 可同时读取指令和数据
-    \item 优点: 更高带宽，常用于 DSP/嵌入式
-\end{itemize}
-
-\textbf{Key Insight}: ESP32 使用修改版哈佛架构 (Modified Harvard)。
-
+\begin{studybox}{处理器架构 / CPU Architecture}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{冯诺依曼 (Von Neumann)}: 指令和数据共享同一内存和总线。瓶颈在于无法同时读写。（如传统 x86）。
+        \item \textbf{哈佛 (Harvard)}: 指令和数据拥有独立的物理内存和总线。可以同时读取指令和访问数据。（如 ESP32, AVR）。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Von Neumann}: Shared memory and bus for both instructions and data. Suffers from the "Von Neumann Bottleneck".
+        \item \textbf{Harvard}: Separate memory and buses for instructions and data. Allows simultaneous instruction fetching and data access (Common in embedded systems like ESP32).
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{CPU 核心组件}:
-
-\begin{center}
-\begin{tabular}{ll}
-\toprule
-\textbf{组件} & \textbf{功能} \\
-\midrule
-ALU (算术逻辑单元) & 执行算术和逻辑运算 \\
-Control Unit (控制单元) & 指令解码和执行控制 \\
-Registers (寄存器) & 快速临时存储 \\
-Program Counter (PC) & 下一条指令地址 \\
-Stack Pointer (SP) & 栈顶地址 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{指令周期}: Fetch $\to$ Decode $\to$ Execute $\to$ Write-back
-\end{formulabox}
-
-% --------------------------------------------
-% 2. ESP32-S3 (YOUR Platform)
-% SOURCE: Thesis_src/esphome/esp32s3.yaml
-% --------------------------------------------
-\begin{studybox}{ESP32-S3 平台 (Your Thesis Platform)}
-
-\textbf{概念 (CN)}: 论文使用的实际微控制器
-
-\textbf{Term (EN)}: ESP32-S3, Xtensa LX7, Dual-Core, Wi-Fi, Bluetooth
-
-\tcblower
-
-\textbf{ESP32-S3 规格} (Source: \texttt{esp32s3.yaml}):
-\begin{itemize}[leftmargin=*]
-    \item \textbf{CPU}: Xtensa LX7 双核 @ 240 MHz
-    \item \textbf{内存}: 512 KB SRAM + PSRAM 支持
-    \item \textbf{Flash}: 通常 4-16 MB
-    \item \textbf{无线}: Wi-Fi 802.11 b/g/n + BLE 5.0
-    \item \textbf{特性}: 硬件加密加速器 (AES, SHA, RSA, ECC)
-\end{itemize}
-
-\textbf{你的配置} (from \texttt{esp32s3.yaml} L5-18):
-\begin{itemize}[leftmargin=*]
-    \item Board: \texttt{esp32-s3-devkitc-1}
-    \item Framework: ESP-IDF
-    \item TLS: ECDSA P-256 + X25519 + TLS 1.3
-\end{itemize}
-
-\end{studybox}
-
-% --------------------------------------------
-% 3. I2C Protocol (Sensor Communication)
-% SOURCE: Thesis_src/esphome/esp32s3.yaml L88-93
-% --------------------------------------------
-\begin{studybox}{I2C 通信协议 (I2C Protocol)}
-
-\textbf{概念 (CN)}: 两线制同步串行通信
-
-\textbf{Term (EN)}: I2C, SDA, SCL, Master, Slave, Address
-
-\tcblower
-
-\textbf{基本结构}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{SDA}: Serial Data (数据线)
-    \item \textbf{SCL}: Serial Clock (时钟线)
-    \item 主从模式: Master 发起通信，Slave 响应
-    \item 7位地址: 最多 128 个设备
-\end{itemize}
-
-\textbf{你的配置} (Source: \texttt{esp32s3.yaml} L88-93):
-\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
-i2c:
-  sda: GPIO5
-  scl: GPIO4
-  scan: true
-  id: bus_a
-  frequency: 100kHz
-\end{lstlisting}
-
-\textbf{设备地址}:
+\textbf{CPU 主要组件 / Core Components}:
 \begin{itemize}
-    \item MPU6050: \texttt{0x68}
-    \item BMP180: \texttt{0x77}
-\end{itemize}
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{I2C 通信时序}:
-
-\begin{enumerate}
-    \item \textbf{START}: SDA $\downarrow$ while SCL = HIGH
-    \item \textbf{Address}: 7-bit 设备地址 + R/W bit
-    \item \textbf{ACK}: Slave 拉低 SDA 表示确认
-    \item \textbf{Data}: 8-bit 数据传输
-    \item \textbf{STOP}: SDA $\uparrow$ while SCL = HIGH
-\end{enumerate}
-
-\textbf{标准速度}:
-\begin{itemize}
-    \item Standard Mode: 100 kHz (你的配置)
-    \item Fast Mode: 400 kHz
-    \item Fast Mode Plus: 1 MHz
+    \item \textbf{ALU}: Arithmetic Logic Unit (算术逻辑单元) - 执行加减乘除和逻辑运算。
+    \item \textbf{Registers}: 寄存器 - CPU 内部的最快存储单元 (PC, SP, Status Reg)。
+    \item \textbf{CU}: Control Unit (控制单元) - 解码指令并指挥数据流。
 \end{itemize}
 \end{formulabox}
 
 % --------------------------------------------
-% 4. Interrupts (Sensor Sampling)
+% 2. Interrupts
 % --------------------------------------------
-\begin{studybox}{中断系统 (Interrupt System)}
-
-\textbf{概念 (CN)}: 硬件事件触发 CPU 响应
-
-\textbf{Term (EN)}: Interrupt, ISR, IRQ, Priority, Nesting
-
-\tcblower
-
-\textbf{中断类型}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{外部中断}: GPIO 电平变化 (如按钮、传感器)
-    \item \textbf{定时器中断}: 周期性定时事件
-    \item \textbf{通信中断}: UART/I2C/SPI 数据就绪
-    \item \textbf{软件中断}: 程序主动触发
-\end{itemize}
-
-\textbf{中断服务例程 (ISR)}:
-\begin{itemize}[leftmargin=*]
-    \item 必须快速执行
-    \item 避免阻塞操作
-    \item 使用 volatile 变量通信
-\end{itemize}
-
-\textbf{Key Insight}: ESP32 传感器采样使用定时器中断实现周期性读取。
-
+\begin{studybox}{中断系统 / Interrupt System}
+    \textbf{[CN] 定义}: 中断 (Interrupt) 是一种允许硬件信号打断 CPU 当前执行流，转而去执行特定处理程序 (ISR) 的机制。这比轮询 (Polling) 更高效，因为 CPU 不需要不断检查状态。
+    \tcblower
+    \textbf{[EN] Definition}: An Interrupt is a mechanism where a hardware signal suspends the CPU's current activity to execute an Interrupt Service Routine (ISR). It is more efficient than Polling because the CPU reacts only when an event occurs.
 \end{studybox}
 
 % --------------------------------------------
-% 5. YOUR Sensor Configuration
-% SOURCE: Thesis_src/esphome/esp32s3.yaml L107-155
+% 3. Peripherals (I2C)
 % --------------------------------------------
-\begin{studybox}{你的传感器配置 / Your Sensor Configuration}
-
-\textbf{MPU6050 IMU} (Source: \texttt{esp32s3.yaml} L107-155):
-
-\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
-- platform: mpu6050
-  i2c_id: bus_a
-  address: 0x68
-  accel_x:
-    name: "Acceleration X"
-    filters:
-      - offset: -0.877  # Calibration
-      - throttle: 0.3s
-  gyro_x:
-    name: "Angular Velocity X"
-    filters:
-      - offset: 2.53    # Calibration
-      - throttle: 0.3s
-  update_interval: 0.1s  # 10 Hz sampling
-\end{lstlisting}
-
-\tcblower
-
-\textbf{关键参数}:
-\begin{center}
-\begin{tabular}{lll}
-\toprule
-\textbf{传感器} & \textbf{采样率} & \textbf{用途} \\
-\midrule
-MPU6050 & 10 Hz (0.1s) & 跌倒检测 \\
-BMP180 & 0.2 Hz (5s) & 环境温压 \\
-KY-037 & 5 Hz (0.2s) & 声音检测 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{校准偏移} (Calibration Offsets):
-\begin{itemize}
-    \item Acc X: -0.877, Y: -0.145, Z: -0.564 m/s²
-    \item Gyro X: +2.53, Y: -2.68, Z: +2.44 °/s
-\end{itemize}
-
+\begin{studybox}{I2C 通信协议 / I2C Protocol}
+    \textbf{[CN] 定义}: I2C (Inter-Integrated Circuit) 是一种同步、半双工、多主从架构的通信协议。
+    它只需要两根线：\textbf{SDA} (数据) 和 \textbf{SCL} (时钟)。设备通过 7位或10位地址区分。
+    \tcblower
+    \textbf{[EN] Definition}: I2C is a synchronous, half-duplex, multi-master/slave communication protocol. It uses two lines: \textbf{SDA} (Serial Data) and \textbf{SCL} (Serial Clock). Devices are addressed via 7-bit or 10-bit unique IDs.
 \end{studybox}
 
 % --------------------------------------------
 % Thesis Connection
-% ============================================
-\begin{thesisbox}
-\textbf{论文实现总结 (VERIFIED from source)}:
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 你的智能家居项目是嵌入式系统的典型应用：
+    \begin{itemize}
+        \item \textbf{MCU}: 使用了 ESP32-S3 (Xtensa LX7 双核)。它结合了高性能计算和低功耗模式。
+        \item \textbf{I2C 总线}:  IMU 传感器 (MPU6050, 地址 0x68) 和气压计 (BMP180, 地址 0x77) 挂载在同一个 I2C 总线上 (GPIO 4/5)。
+        \item \textbf{中断}: 定时器中断 (Timer Interrupt) 用于保证以精确的 10Hz 频率采样传感器数据，确保跌倒检测算法的输入稳定性。
+    \end{itemize}
 
-\textbf{硬件}:
-\begin{itemize}
-    \item MCU: ESP32-S3 DevKitC-1 (Xtensa LX7 双核 @ 240 MHz)
-    \item IMU: MPU6050 (I2C @ 0x68, 采样 10 Hz)
-    \item 环境: BMP180 (温度/气压)
-    \item 声音: KY-037 (ADC)
-\end{itemize}
+    \tcblower
 
-\textbf{通信}:
-\begin{itemize}
-    \item 传感器 $\leftrightarrow$ MCU: I2C (100 kHz)
-    \item MCU $\leftrightarrow$ Server: MQTT over TLS 1.3 (mTLS)
-    \item 加密: ECDSA P-256 + X25519 (硬件加速)
-\end{itemize}
-
-\textbf{算法} (NOTKalman Filter!):
-\begin{itemize}
-    \item 方法: 双阈值法 (Huynh et al. 2015)
-    \item 条件: $\text{SMV} > 2.4G \land \omega > 240°/s$
-    \item 性能: 96.3\% 灵敏度, 96.2\% 特异度
-\end{itemize}
-
-\textbf{Jan Koller 问题}: ``How does the I2C bus handle multiple sensors?''
-
-\textbf{答案}: I2C 是多主从总线。每个设备有唯一地址（MPU6050: 0x68, BMP180: 0x77）。Master (ESP32) 发送 7-bit 地址选择设备，然后进行读写。我配置了 100 kHz 标准模式，足够处理 10 Hz 传感器采样。
+    \textbf{[EN]}: Your Smart Home project demonstrates embedded system principles:
+    \begin{itemize}
+        \item \textbf{MCU}: Utilizes ESP32-S3 (Xtensa LX7 Dual-core), balancing performance and power efficiency.
+        \item \textbf{I2C Bus}: Connects sensors like MPU6050 (0x68) and BMP180 (0x77) on shared lines (GPIO 4/5).
+        \item \textbf{Interrupts}: A rigid Timer Interrupt ensures precise 10Hz sampling for the fall detection algorithm, avoiding jitter issues.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{哈佛 vs 冯诺依曼}: ESP32 是修改版哈佛架构（指令/数据缓存分离）
-    \item \textbf{I2C 地址}: 7-bit 地址，不是 8-bit！第8位是 R/W 标志
-    \item \textbf{中断延迟}: ISR 必须快，不能做 printf 或 delay
-    \item \textbf{采样率}: 奈奎斯特定理要求采样率 $\geq$ 2×信号频率
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Interrupts vs Polling}: 为什么用中断？为了节省 CPU 资源并保证实时性 (Real-time response)。
+        \item \textbf{I2C Pull-up}: I2C 是开漏输出 (Open-drain)，必须需要在 SDA/SCL 上接上拉电阻 (Pull-up Resistors)，否则无法输出高电平。
+        \item \textbf{Volatile}: 在中断服务程序 (ISR) 和主程序共享变量时，必须声明为 \texttt{volatile}，防止编译器优化。
+    \end{itemize}
 \end{warnbox}

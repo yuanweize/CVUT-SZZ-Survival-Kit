@@ -5,76 +5,87 @@
 \section{算法与复杂性 / Algorithms \& Complexity (BE5B33ALG)}
 
 % --------------------------------------------
-% 1. Complexity Class (Big O)
+% 1. Complexity
 % --------------------------------------------
-\begin{studybox}{时间与空间复杂度 (Complexity)}
-
-\textbf{Big O Notation}:
-\begin{itemize}
-    \item $O(1)$: Constant time (Index lookup)
-    \item $O(\log n)$: Logarithmic (Binary Search)
-    \item $O(n)$: Linear (Iteration)
-    \item $O(n^2)$: Quadratic (Bubble Sort)
-\end{itemize}
-
-\tcblower
-
-\textbf{常见排序算法}:
-\begin{center}
-\begin{tabular}{lcl}
-\toprule
-\textbf{Algorithm} & \textbf{Time} & \textbf{Notes} \\
-\midrule
-Quick Sort & $O(n \log n)$ & Unstable, Divide \& Conquer \\
-Merge Sort & $O(n \log n)$ & Stable, Extra Space \\
-Heap Sort & $O(n \log n)$ & In-place \\
-Bubble Sort & $O(n^2)$ & Simple, Slow \\
-\bottomrule
-\end{tabular}
-\end{center}
-
+\begin{studybox}{算法复杂性 / Computational Complexity}
+    \textbf{[CN] 定义}: 大 O 符号 ($O(\cdot)$) 描述了算法在最坏情况下的运行时间或空间需求随输入规模 $N$ 增长的趋势。
+    \begin{itemize}[leftmargin=*]
+        \item $O(1)$: 常数时间 (如数组索引)。
+        \item $O(\log N)$: 对数时间 (如二分查找)。
+        \item $O(N)$: 线性时间 (如遍历链表)。
+        \item $O(N^2)$: 平方时间 (如冒泡排序)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: Big-O notation describes the worst-case growth rate of an algorithm's time or space requirements relative to input size $N$.
+    \begin{itemize}[leftmargin=*]
+        \item $O(1)$: Constant Time (e.g., Array Access).
+        \item $O(\log N)$: Logarithmic (e.g., Binary Search).
+        \item $O(N)$: Linear (e.g., Iterating a list).
+        \item $O(N \log N)$: Linearithmic (e.g., QuickSort/MergeSort).
+    \end{itemize}
 \end{studybox}
 
 % --------------------------------------------
-% 2. Thesis Connection: Sensor Algorithms
+% 2. Sorting
 % --------------------------------------------
-\begin{thesisbox}[Project Algorithms]
-你的论文中涉及了嵌入式常用的实时算法：
+\begin{studybox}{排序算法 / Sorting Algorithms}
+    \textbf{[CN] 定义}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{快速排序 (QuickSort)}: 分治法。平均 $O(N \log N)$，但不稳定。
+        \item \textbf{归并排序 (MergeSort)}: 分治法。保证 $O(N \log N)$，稳定，但需要额外空间。
+        \item \textbf{堆排序 (HeapSort)}: 利用二叉堆。$O(N \log N)$，原地排序。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{QuickSort}: Divide and Conquer. Avg $O(N \log N)$. Unstable.
+        \item \textbf{MergeSort}: Stable, $O(N \log N)$, requires $O(N)$ extra space.
+        \item \textbf{HeapSort}: Uses Binary Heap structure. In-place $O(N \log N)$.
+    \end{itemize}
+\end{studybox}
 
-\textbf{1. 移动平均滤波 (Moving Average Filter)}:
-\begin{itemize}
-    \item \textbf{Source}: \texttt{esp32s3.yaml} filters (\texttt{sliding\_window\_moving\_average}).
-    \item \textbf{Logic}: $y[n] = \frac{1}{N} \sum_{i=0}^{N-1} x[n-i]$
-    \item \textbf{Complexity}: $O(N)$ per sample (naive) or $O(1)$ (recursive implementation).
-    \item \textbf{Space}: $O(N)$ buffer size.
-\end{itemize}
+% --------------------------------------------
+% Thesis Connection: Algorithms
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Algorithms]
+    \textbf{[CN]}: 你的固件中实施了特定的实时算法：
+    \begin{itemize}
+        \item \textbf{移动平均滤波 (Moving Average)}: 
+        公式: $y[n] = y[n-1] + \frac{x[n] - x[n-N]}{N}$ (递归实现)。
+        复杂度: $O(1)$ (如果递归) 或 $O(N)$ (如果每次由头求和)。用于平滑传感器噪音。
+        
+        \item \textbf{跌倒检测 (Fall Detection)}: 
+        逻辑: \texttt{if (acc > 2.4G \&\& gyro > 240 deg/s)}.
+        复杂度: $O(1)$。这是实时系统的关键，保证了在资源受限的 ESP32 上极低的延迟。
+    \end{itemize}
 
-\textbf{2. 跌倒检测算法 (Fall Detection Logic)}:
-\begin{itemize}
-    \item \textbf{Source}: Dual-threshold (Huynh et al.).
-    \item \textbf{Logic}:
-    \begin{lstlisting}[language=C, basicstyle=\ttfamily\scriptsize]
-if (SMV > Threshold_Acc && Omega > Threshold_Gyro) {
-    return true;
-}
-    \end{lstlisting}
-    \item \textbf{Complexity}: $O(1)$ - Constant time per sensor sample. Critical for real-time safety systems.
-\end{itemize}
+    \tcblower
 
-\textbf{3. I2C Bus Arbitration}:
-\begin{itemize}
-    \item 硬件级别的仲裁算法 (Hardware Arbitration)，允许多主设备共存。
-\end{itemize}
+    \textbf{[EN]}: Your firmware implements real-time algorithms:
+    \begin{itemize}
+        \item \textbf{Moving Average Filter}: 
+        Used to smooth sensor noise. 
+        Complexity: $O(1)$ (Recursive implementation) or $O(N)$ (Naive sum).
+        
+        \item \textbf{Fall Detection}: 
+        Logic: Threshold comparison.
+        Complexity: $O(1)$ (Constant time). Critical for low latency on the ESP32.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% 3. Graph Algorithms (Basic)
-% --------------------------------------------
 \begin{formulabox}
-\textbf{图搜索 (Graph Search)}:
+\textbf{图搜索算法 / Graph Search}:
 \begin{itemize}
-    \item \textbf{BFS (广度优先)}: Queue, Shortest Path in unweighted graph.
-    \item \textbf{DFS (深度优先)}: Stack (Recursion), Backtracking.
-    \item \textbf{Dijkstra}: Priority Queue, Shortest Path in weighted graph ($E \ge 0$).
+    \item \textbf{BFS (广度优先)}: 使用队列 (Queue)。寻找无权图最短路径。
+    \item \textbf{DFS (深度优先)}: 使用栈 (Stack) 或递归。用于回溯法。
+    \item \textbf{Dijkstra}: 使用优先队列 (Priority Queue)。寻找加权图最短路径。
 \end{itemize}
 \end{formulabox}
+
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Binary Search Requirements}: 二分查找要求数据必须是\textbf{有序}的 (Sorted)。
+        \item \textbf{Stack vs Queue}: Stack is LIFO (Last In First Out); Queue is FIFO (First In First Out).
+        \item \textbf{Recursion Risk}: 递归虽然代码简洁，但深度过大时会导致栈溢出 (Stack Overflow)，在嵌入式中需谨慎。
+    \end{itemize}
+\end{warnbox}

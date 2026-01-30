@@ -1,45 +1,58 @@
-\section{Electrical Machines (SP1)}
+% ============================================
+% Topic 04: Electrical Machines / 电机学
+% Course: BE5B14ESP
+% ============================================
+\section{电机学 / Electrical Machines (BE5B14ESP)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Transformer}: Static theoretical basis ($U_1/U_2 = N_1/N_2$). Hysteresis \& Eddy Current losses.
-    \item \textbf{Induction Machine}: Asynchronous. Key param: **Slip ($s$)**.
-    \item \textbf{Synchronous Machine}: Constant speed $n_s = 60f/p$. Used in power plants.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Transformers
+% --------------------------------------------
+\begin{studybox}{变压器 / Transformer}
+    \textbf{[CN] 定义}: 
+    基于电磁感应，只转换交流电压/电流，不改变频率。
+    $V_1/V_2 = N_1/N_2$。
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Static device transferring AC energy via induction. 
+    Steps up/down voltage ($V_p/V_s = N_p/N_s$) without changing frequency.
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Magnetic Circuits, Transformer Equivalent Circuit, Induction Motor Torque, Slip, Commutator (DC)}
-\end{keywords}
+% --------------------------------------------
+% 2. Motors
+% --------------------------------------------
+\begin{studybox}{电动机 / Electric Motors}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{直流电机 (DC Motor)}: 使用换向器 (Brushed) 或电子换向 (BLDC)。速度 $\propto$ 电压。
+        \item \textbf{感应电机 (Induction Motor)}: 异步。转子速度总是落后于旋转磁场 (Slip)。
+        \item \textbf{同步电机 (Synchronous Motor)}: 转子速度锁定于电源频率。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{DC Motor}: Speed $\propto$ Voltage. Brushed or Brushless (BLDC).
+        \item \textbf{Induction (Asynchronous)}: Rotor "slips" behind the rotating magnetic field.
+        \item \textbf{Synchronous}: Rotor rotates in lock-step with supply frequency.
+    \end{itemize}
+\end{studybox}
 
-\begin{concept}{Induction Motor / 感应电机}
-The most common industrial motor.
-\begin{itemize}
-    \item \textbf{Slip ($s$)}: Difference between Stator field speed ($n_s$) and Rotor mechanical speed ($n$).
-    \item \textbf{Start-up}: High current ($5-7 \times I_n$). Needs Star-Delta starter or Soft Starter.
-\end{itemize}
-\end{concept}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    虽然你的项目主要是传感器节点，但智能家居通常控制电机负载：
+    \begin{itemize}
+        \item \textbf{继电器控制}: 你的 ESP32 可以驱动继电器来开启/关闭大功率交流电机（如风扇、水泵）。
+        \item \textbf{感性负载}: 电机是感性负载，关闭时会产生反电动势 (Back EMF)。需要反向二极管 (Flyback Diode) 保护电路。
+    \end{itemize}
 
-\begin{concept}{Transformer Equivalent Circuit / 变压器等效电路}
-Include:
-\begin{itemize}
-    \item Series: $R_1, X_{\sigma 1}$ (Primary winding loss/leakage).
-    \item Shunt: $R_{Fe}$ (Core loss), $X_{\mu}$ (Magnetizing reactance).
-    \item Ideal Transformer: Ratios $N_1:N_2$.
-\end{itemize}
-\end{concept}
+    \tcblower
 
-\subsection{Formulas / 公式}
-\begin{equation}
-    n_s = \frac{60 f}{p} \quad (\text{Sync Speed, } p = \text{pole pairs})
-\end{equation}
-\begin{equation}
-    s = \frac{n_s - n}{n_s} \times 100\%
-\end{equation}
-
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Why does a transformer heat up?" (A: Joule losses $I^2 R$ in windings + Iron losses in core).
-    \item "Sketch the Torque-Slip ($M-s$) characteristic of an induction motor." (Identify Starting Torque, Breakdown Torque, Nominal Point).
-\end{itemize}
+    \textbf{[EN]}: 
+    Smart homes often control motors:
+    \begin{itemize}
+        \item \textbf{Relays}: ESP32 drives relays to switch AC motors (fans, pumps).
+        \item \textbf{Inductive Load}: Motors generate Back EMF when switched off. A Flyback Diode is required to protect the control circuitry.
+    \end{itemize}
+\end{thesisbox}

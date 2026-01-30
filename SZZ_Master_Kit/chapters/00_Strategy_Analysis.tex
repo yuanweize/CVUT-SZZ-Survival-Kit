@@ -1,211 +1,127 @@
 % ============================================
 % Chapter 00: Defense Strategy / 答辩策略
 % SOURCE: Jan_Koller_Opponent_Research folder
-% VERIFIED: NO HALLUCINATIONS - All from source files
 % ============================================
 \section{答辩策略分析 / Defense Strategy Analysis}
 
 % ============================================
-% Section 1: Opponent Profile (From README.md)
+% Section 1: The Golden Rule
 % ============================================
-\subsection{对手画像 / Opponent Profile: Jan Koller}
+\begin{warnbox}[黄金法则 / Golden Rule]
+    \textbf{老师并不想挂你。} (Teachers don't want to fail you.)
+    他们问基础题是为了确认你具备基本的工程师素养。
+    如果你遇到难题卡住了，\textbf{立刻}把话题引导到你熟悉的这些"保命题"上。
+\end{warnbox}
 
-\begin{warnbox}[核心结论 / Executive Summary]
+% ============================================
+% Section 2: SZZ Committee FAQ (Life-Saving Questions)
+% ============================================
+\section{国考委员会常问基础题 / SZZ Committee FAQ}
+\textit{Note: These are "Safe Questions" (保命题). Memorize these simple definitions.}
+
+% --------------------------------------------
+% 2.1 Mathematics
+% --------------------------------------------
+\subsection{数学 / Mathematics}
+\begin{studybox}{导数与积分 / Derivative \& Integral}
+    \textbf{[CN]}: 老师可能会问：“什么是导数？”
+    \textbf{回答}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{导数 (Derivative)}: 是\textbf{变化率} (Rate of Change)。例如：速度是位置的导数 ($v = dx/dt$)。
+        \item \textbf{积分 (Integral)}: 是\textbf{累积量} (Accumulation) 或曲线下的面积。例如：距离是速度的积分。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Derivative}: Represents the \textbf{Rate of Change}. (e.g., Velocity is the derivative of Position).
+        \item \textbf{Integral}: Represents \textbf{Accumulation} or Area under the curve. (e.g., Distance is the integral of Velocity).
+    \end{itemize}
+\end{studybox}
+
+\begin{studybox}{线性代数 / Linear Algebra}
+    \textbf{[CN]}: “矩阵是什么？”
+    \textbf{回答}: 矩阵是一个\textbf{线性变换} (Linear Transformation)。它可以表示旋转、缩放或平移。特征值 (Eigenvalue) 表示变换中方向不变的向量的缩放比例。
+    \tcblower
+    \textbf{[EN]}: A Matrix represents a \textbf{Linear Transformation} (Rotation, Scaling, Translation). Eigenvalues represent the scaling factor of vectors that do not change direction.
+\end{studybox}
+
+% --------------------------------------------
+% 2.2 Microcontrollers (MIK)
+% --------------------------------------------
+\subsection{微控制器 / Microcontrollers}
+\begin{studybox}{哈佛 vs 冯诺依曼 / Harvard vs Von Neumann}
+    \textbf{[CN]}: 这是 MIK 必问的基础题。
+    \textbf{回答}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{冯诺依曼 (Von Neumann)}: 指令和数据共享\textbf{同一个}存储器和总线。瓶颈在于无法同时读写。（如 PC x86）。
+        \item \textbf{哈佛 (Harvard)}: 指令和数据拥有\textbf{物理分离}的存储器和总线。速度更快。ESP32 使用哈佛架构。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Von Neumann}: Instructions and Data share the \textbf{SAME} memory and bus. (Bottleneck: Cannot fetch and write simultaneously).
+        \item \textbf{Harvard}: Instructions and Data have \textbf{SEPARATE} memories and buses. (Faster). \textbf{ESP32 uses Harvard architecture}.
+    \end{itemize}
+\end{studybox}
+
+\begin{studybox}{中断 / Interrupt vs Polling}
+    \textbf{[CN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{轮询 (Polling)}: CPU 既然不断检查外设状态（浪费资源）。
+        \item \textbf{中断 (Interrupt)}: 外设主动通知 CPU。CPU 暂停当前任务，处理中断服务程序 (ISR)，然后返回。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Polling}: CPU constantly checks peripheral status (Wastes cycles).
+        \item \textbf{Interrupt}: Peripheral signals the CPU. CPU pauses, executes ISR (Interrupt Service Routine), and resumes.
+    \end{itemize}
+\end{studybox}
+
+% --------------------------------------------
+% 2.3 Physics & Circuits
+% --------------------------------------------
+\subsection{物理与电路 / Physics \& Circuits}
+\begin{studybox}{基本定律 / Laws of Physics}
+    \textbf{[CN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{牛顿第二定律}: $F=ma$。力等于质量乘以加速度。这是加速度计的基础。
+        \item \textbf{欧姆定律}: $V=IR$。电压等于电流乘以电阻。
+        \item \textbf{基尔霍夫定律 (KCL/KVL)}: 电荷守恒 ($\sum I=0$) 和能量守恒 ($\sum V=0$)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN]}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Newton's 2nd Law}: $F=ma$. Force equals Mass times Acceleration. (Basis of Accelerometers).
+        \item \textbf{Ohm's Law}: $V=IR$.
+        \item \textbf{Kirchhoff's Laws}: Conservation of Charge (KCL) and Energy (KVL).
+    \end{itemize}
+\end{studybox}
+
+% ============================================
+% Section 3: Opponent Profile (Jan Koller)
+% ============================================
+\section{对手画像 / Opponent Profile: Jan Koller}
+
+\begin{warnbox}[核心特征: 务实但挑剔]
 Jan Koller 是一个\textbf{「务实但挑剔的学究」(Pragmatic Pedant)}。
-
-\textbf{关键特征}（基于11份历史论文分析）：
 \begin{itemize}[leftmargin=*]
-    \item \textbf{比导师更严格}: 他经常给出比导师低一级的分数
-    \item \textbf{热爱硬件}: 如果你做了实物（PCB、传感器），他会有初始好感
-    \item \textbf{痛恨形式错误}: ``非典型流程图''或``缺失单位''是他的触发点
+    \item \textbf{痛恨形式错误}: ``非典型流程图'' (Atypical flowcharts) 是他的触发点。
+    \item \textbf{关注单位}: 必须有物理单位 (Does 2.4 mean Volts or Amps?)。
+    \item \textbf{你的评分}: 他给了你 \textbf{B (Very Good)}。只要回答好问题，稳 B 冲 A。
 \end{itemize}
-
-\textbf{你的评分}:
-\begin{center}
-\begin{tabular}{lcc}
-\toprule
-\textbf{角色} & \textbf{评分} & \textbf{评语关键词} \\
-\midrule
-Supervisor (Husák) & \textbf{A} (Excellent) & 积极评价 \\
-Opponent (Koller) & \textbf{B} (Very Good) & ``流程图有点非典型'' \\
-\bottomrule
-\end{tabular}
-\end{center}
 \end{warnbox}
 
 % ============================================
-% Section 2: Koller's Critique on YOUR Thesis
+% Section 4: THE Question He WILL Ask
 % ============================================
-\subsection{你论文的问题 / Issues in Your Thesis}
+\section{必答题: Acc + Gyro}
 
-\begin{studybox}{Koller 的批评 (Source: opponent\_report\_Koller.pdf)}
+\begin{thesisbox}[Koller 的真题 (100\% 会问)]
+\textbf{Q}: "Can you explain why a combination of acceleration and angular velocity is used in fall detection?"
 
-\textbf{原文批评}:
-\begin{quote}
-``The flow charts are sometimes little bit atypical.''\\
-（流程图有时有点非典型。）
-\end{quote}
-
+\textbf{A (Concept)}:
+\textbf{[CN]}: 单靠加速度计会有误报（如跳跃）。陀螺仪测量姿态变化。真正的跌倒 = 剧烈姿态变化 (Gyro) + 剧烈撞击 (Acc) + 静止。
 \tcblower
-
-\textbf{分析}: 这印证了他「形式主义」的特点。他仔细查看了你的图表。标准 UML/ISO 流程图符号对他很重要。
-
-\textbf{应对措施}: 在 PPT 中确保流程图使用标准符号：
-\begin{itemize}
-    \item \textbf{菱形} = 判断 (Decision)
-    \item \textbf{矩形} = 过程 (Process)
-    \item \textbf{圆角矩形} = 开始/结束 (Start/End)
-    \item \textbf{平行四边形} = 输入/输出 (I/O)
-\end{itemize}
-\end{studybox}
-
-% ============================================
-% Section 3: THE Question He WILL Ask
-% ============================================
-\subsection{必答题: ``Why Acc + Gyro?''}
-
-\begin{thesisbox}[Koller 的答辩真题 (100\% 会问)]
-\textbf{问题 (英文)}:
-\begin{quote}
-``Can you explain why a combination of acceleration and angular velocity is used in fall detection?''
-\end{quote}
-
-\textbf{问题 (中文)}:
-\begin{quote}
-你能解释为什么跌倒检测要结合使用加速度和角速度吗？
-\end{quote}
-\end{thesisbox}
-
-\begin{studybox}{满分回答 / The Perfect Answer}
-
-\textbf{英文话术 (建议背诵)}:
-\begin{quote}
-``Distinguished opponent, thank you for the question.
-
-We use the combination because \textbf{Acceleration alone generates false positives}.
-
-\begin{enumerate}
-    \item \textbf{Acceleration (Accelerometer)} measures the \textit{impact force} (G-force). However, sitting down quickly or jumping also creates high G-force.
-    
-    \item \textbf{Angular Velocity (Gyroscope)} measures the \textit{change in orientation} (spatial rotation).
-\end{enumerate}
-
-\textbf{A true fall} has a specific signature:
-\begin{itemize}
-    \item \textbf{Phase 1}: Rapid change in orientation (Gyro spikes) as the body loses balance.
-    \item \textbf{Phase 2}: High impact force (Acc spikes) when hitting the ground.
-    \item \textbf{Phase 3}: Static orientation (User is lying horizontal).
-\end{itemize}
-
-By fusing both sensors (\textbf{Sensor Fusion}), we can filter out daily activities like jumping.''
-\end{quote}
-
-\tcblower
-
-\textbf{中文解释}:
-
-单靠加速度计会有误报。
-\begin{itemize}
-    \item \textbf{加速度计}测的是\textit{冲击力}。但快速坐下或跳跃也会产生大冲击力。
-    \item \textbf{陀螺仪}测的是\textit{姿态变化}。
-\end{itemize}
-
-\textbf{真正的跌倒}有一个特征链条：
-\begin{enumerate}
-    \item 先是失去平衡导致姿态剧烈变化（陀螺仪峰值）
-    \item 然后是撞击地面导致冲击力（加速度峰值）
-    \item 最后是躺在地上不动（姿态静止）
-\end{enumerate}
-
-只有\textbf{传感器融合 (Sensor Fusion)} 才能区分``真跌倒''和``剧烈运动''。
-\end{studybox}
-
-% ============================================
-% Section 4: YOUR Actual Implementation
-% SOURCE: Thesis_src/esphome/esp32s3.yaml
-% ============================================
-\subsection{你的真实实现 / Your Actual Implementation}
-
-\begin{formulabox}
-\textbf{传感器}: MPU6050 6-axis IMU (I2C Address: 0x68)
-
-\textbf{算法}: 双阈值法 (Dual-Threshold Algorithm)
-
-\textbf{来源}: Huynh et al., J. Sensors, vol. 2015, Art. no. 452078
-
-\textbf{阈值定义} (from \texttt{esp32s3.yaml}):
-\begin{align}
-    \text{UFT\_ACC} &= 2.4 \, \text{G} \quad \text{(SMV 阈值)} \\
-    \text{UFT\_GYRO} &= 240.0 \, \text{°/s} \quad \text{(角速度阈值)}
-\end{align}
-
-\textbf{跌倒判定条件}:
-\begin{equation}
-    \boxed{\text{Fall} = (\text{SMV} > 2.4\,\text{G}) \land (\omega > 240\,\text{°/s})}
-\end{equation}
-
-\textbf{性能} (Huynh et al. 报告):
-\begin{itemize}
-    \item 灵敏度 (Sensitivity): 96.3\%
-    \item 特异度 (Specificity): 96.2\%
-    \item 对比: 仅用加速度计的特异度只有 82.72\%
-\end{itemize}
-\end{formulabox}
-
-\begin{studybox}{代码实现 (Source: esp32s3.yaml L236-258)}
-
-\texttt{binary\_sensor}:
-\begin{lstlisting}[language=yaml, basicstyle=\ttfamily\small]
-- platform: template
-  name: "Fall Detection Alert"
-  device_class: safety
-  lambda: |-
-    const float UFT_ACC = 2.4;
-    const float UFT_GYRO = 240.0;
-    float smv = sqrt(ax*ax + ay*ay + az*az) / 9.80665;
-    float omega = sqrt(wx*wx + wy*wy + wz*wz);
-    
-    if ((smv > UFT_ACC) && (omega > UFT_GYRO)) {
-      return true;  // Fall detected!
-    }
-    return false;
-\end{lstlisting}
-
-\textbf{关键点}: 这是\textbf{阈值算法}，不是 Kalman Filter！
-\end{studybox}
-
-% ============================================
-% Section 5: Other Predicted Questions
-% SOURCE: Jan_Koller_Defense_Strategy.md
-% ============================================
-\subsection{其他押题 / Other Predicted Questions}
-
-\begin{center}
-\begin{tabular}{p{3cm}p{5cm}p{6cm}}
-\toprule
-\textbf{主题} & \textbf{预测提问 (Koller Style)} & \textbf{推荐回答角度} \\
-\midrule
-\textbf{Server/Linux} & ``Why usage of Unix-like systems?'' (Why not Windows?) & 稳定性、SSH远程管理、Cron任务、Python支持 \\
-\textbf{ESP32 功耗} & ``How does the heavy SSL/TLS encryption load affect power consumption?'' & 提及 ESP32-S3 的硬件加密加速器 (Hardware Crypto Accelerator) \\
-\textbf{安全} & ``What happens if the CA certificate is compromised?'' & 证书吊销 (CRL) 和更新机制 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-% ============================================
-% Section 6: Final Checklist
-% ============================================
-\subsection{最终检查清单 / Final Checklist}
-
-\begin{warnbox}[答辩前自检]
-\begin{enumerate}
-    \item[$\square$] \textbf{背诵 ``Acc+Gyro'' 答案}: 用英文背诵 Sensor Fusion 解释
-    \item[$\square$] \textbf{修复 PPT 流程图}: 如果论文流程图``非典型''，在 PPT 里用标准符号重画
-    \item[$\square$] \textbf{带硬件}: 把 ESP32-S3 传感器盒子带到答辩现场
-    \item[$\square$] \textbf{慢速说话}: Koller 批评过其他论文的``语言笨拙''，说慢点、正式点
-\end{enumerate}
-\end{warnbox}
-
-\begin{thesisbox}[祝好运]
-Yuan, 你已经稳拿 \textbf{B} 了。答对``加速度+角速度''的问题能稳住 B 甚至冲 \textbf{A}！
+\textbf{[EN]}: \textbf{Sensor Fusion}. Acceleration alone creates false positives (e.g., Jumping). Gyroscope measures orientation change. A Fall = Rotation (Gyro) + Impact (Acc) + Inactivity.
 \end{thesisbox}

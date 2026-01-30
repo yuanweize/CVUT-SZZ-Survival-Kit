@@ -1,44 +1,47 @@
-\section{Materials (MVE)}
+% ============================================
+% Topic 05: Materials / 材料学
+% Course: BE5B13MAT
+% ============================================
+\section{材料科学 / Materials (BE5B13MAT)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Classes}: Conductors (Metals), Semiconductors (Si, Ge), Insulators (Dielectrics).
-    \item \textbf{Band Theory}: Energy gap ($E_g$). Metals: overlap. Semi: small gap. Insulators: large gap.
-    \item \textbf{Thesis Link}: PCB substrate (FR4) is a dielectric. Copper traces are conductors.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Material Classes
+% --------------------------------------------
+\begin{studybox}{材料分类 / Classification}
+    \textbf{[CN] 定义}: 
+    根据导电性能分类 (能带理论)：
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{导体 (Conductor)}: 电子自由移动 (如铜 Cu)。价带与导带重叠。
+        \item \textbf{半导体 (Semiconductor)}: 导电性介于导体和绝缘体之间 (如硅 Si)。带隙较小 ($E_g \approx 1.1\text{eV}$)。
+        \item \textbf{绝缘体 (Insulator)}: 电子被束缚 (如玻璃)。带隙很大。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Based on energy bands:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Conductor}: Free electron movement (Copper). Overlapping bands.
+        \item \textbf{Semiconductor}: Intermediate conductivity (Silicon). Small Bandgap.
+        \item \textbf{Dielectric (Insulator)}: No free charges (Glass, FR4). Large Bandgap.
+    \end{itemize}
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Resistivity, Permittivity, Permeability, Polarization, Breakdown Voltage}
-\end{keywords}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{PCB 基板 (FR4)}: 玻璃纤维环氧树脂。它是绝缘体 (介电材料)，其介电常数 ($\epsilon_r \approx 4.4$) 影响阻抗匹配。
+        \item \textbf{导线 (Copper)}: PCB 走线是铜箔，具有非零电阻。大电流走线需要足够的宽度以减少发热。
+        \item \textbf{半导体}: ESP32 芯片本身是基于硅工艺 (CMOS) 制造的。
+    \end{itemize}
 
-\begin{concept}{Dielectrics / 电介质}
-Used in capacitors and insulation.
-\begin{itemize}
-    \item \textbf{Polarization}: Electric field aligns dipoles.
-    \item \textbf{Losses ($\tan \delta$)}: Energy lost as heat in AC fields. Important for high-frequency PCBs!
-    \item \textbf{Breakdown}: Max field strength before arcing (e.g., air $\approx 3$ MV/m).
-\end{itemize}
-\end{concept}
+    \tcblower
 
-\begin{concept}{Magnetic Materials / 磁性材料}
-\begin{itemize}
-    \item \textbf{Ferromagnetic}: Iron, Cobalt. High $\mu_r$. Used in Transformer cores.
-    \item \textbf{Hysteresis Loop}: Area inside loop = Energy loss per cycle. Soft magnetic materials have narrow loops (good for transformers).
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
-\begin{equation}
-    R = \rho \frac{l}{S} \quad \text{(Resistance)}
-\end{equation}
-\begin{equation}
-    \sigma = n e \mu \quad \text{(Drift Conductivity)}
-\end{equation}
-
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Why do we laminate transformer cores?" (A: To reduce Eddy Currents by increasing resistance in the loop path).
-    \item "What distinguishes a semiconductor from an insulator?" (A: Band gap energy. Si $\approx 1.1$eV).
-\end{itemize}
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{FR4}: The PCB substrate. It is a dielectric with $\epsilon_r \approx 4.4$, affecting trace impedance.
+        \item \textbf{Copper}: Traces have resistance. High-current power traces must be wide to minimize voltage drop and heating.
+        \item \textbf{Silicon}: The base material for the ESP32 SoC (CMOS process).
+    \end{itemize}
+\end{thesisbox}

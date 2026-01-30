@@ -7,304 +7,141 @@
 % --------------------------------------------
 % 1. Basic Laws
 % --------------------------------------------
-\begin{studybox}{基尔霍夫定律 (Kirchhoff's Laws)}
-
-\textbf{概念 (CN)}: 电路分析的两个基本定律
-
-\textbf{Term (EN)}: KVL, KCL, Node, Loop, Branch
-
-\tcblower
-
-\textbf{基尔霍夫电流定律 (KCL)}:
-节点上流入的电流之和等于流出的电流之和。
-\begin{equation}
-    \boxed{\sum_{k=1}^{n} I_k = 0}
-\end{equation}
-电流守恒 $\Rightarrow$ 没有电荷在节点积累
-
-\textbf{基尔霍夫电压定律 (KVL)}:
-回路中电压降之和等于零。
-\begin{equation}
-    \boxed{\sum_{k=1}^{n} V_k = 0}
-\end{equation}
-能量守恒 $\Rightarrow$ 绕回路一圈回到原点
-
-\textbf{Key Insight}: Every circuit analysis problem uses KVL and KCL.
-
+\begin{studybox}{基尔霍夫定律 / Kirchhoff's Laws}
+    \textbf{[CN] 定义}: 基尔霍夫定律是电路分析的基础。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{电流定律 (KCL)}: 节点上的电流守恒。流入节点的电流之和等于流出的电流之和（基于电荷守恒）。
+        \item \textbf{电压定律 (KVL)}: 回路中的能量守恒。沿着闭合回路一周，电压升与电压降的代数和为零。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{KCL}: The algebraic sum of currents entering a node is zero ($\sum I = 0$). It reflects the conservation of charge.
+        \item \textbf{KVL}: The algebraic sum of voltage drops around any closed loop is zero ($\sum V = 0$). It reflects the conservation of energy.
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{KCL 示例}: 节点分析
-\begin{center}
-节点 A: $I_1 = I_2 + I_3$
-\end{center}
-流入 = 流出
-
-\textbf{KVL 示例}: 回路分析
-\begin{center}
-$-V_s + V_{R1} + V_{R2} = 0$
-
-$\Rightarrow V_s = I \cdot R_1 + I \cdot R_2 = I(R_1 + R_2)$
-\end{center}
-
-\textbf{分压公式} (串联电阻):
+\textbf{KCL (Node Analysis)}:
 \begin{equation}
-    V_2 = V_s \cdot \frac{R_2}{R_1 + R_2}
+    \sum_{k=1}^{n} I_k = 0
 \end{equation}
 
-\textbf{分流公式} (并联电阻):
+\textbf{KVL (Loop Analysis)}:
 \begin{equation}
-    I_1 = I_{total} \cdot \frac{R_2}{R_1 + R_2}
+    \sum_{k=1}^{n} V_k = 0
 \end{equation}
+
+\textbf{分压公式 / Voltage Divider}:
+\begin{equation}
+    V_2 = V_{source} \cdot \frac{R_2}{R_1 + R_2}
+\end{equation}
+使用场景：将 5V 传感器信号转换为 3.3V (Using 1.8k + 3.3k resistors).
 \end{formulabox}
 
 % --------------------------------------------
 % 2. Ohm's Law and Resistors
 % --------------------------------------------
-\begin{studybox}{欧姆定律与电阻 (Ohm's Law and Resistors)}
-
-\textbf{概念 (CN)}: 电压、电流和电阻的基本关系
-
-\textbf{Term (EN)}: Ohm's Law, Resistance, Series, Parallel
-
-\tcblower
-
-\textbf{欧姆定律}:
-\begin{equation}
-    \boxed{V = IR} \quad \text{或} \quad I = \frac{V}{R} \quad \text{或} \quad R = \frac{V}{I}
-\end{equation}
-
-\textbf{功率}:
-\begin{equation}
-    P = VI = I^2 R = \frac{V^2}{R}
-\end{equation}
-
-\textbf{电阻组合}:
-\begin{itemize}[leftmargin=*]
-    \item 串联: $R_{eq} = R_1 + R_2 + \ldots$
-    \item 并联: $\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \ldots$
-\end{itemize}
-
-\textbf{Key Insight}: Voltage divider is fundamental in sensor interfacing.
-
+\begin{studybox}{欧姆定律与电阻 / Ohm's Law and Resistors}
+    \textbf{[CN] 定义}: 欧姆定律 (Ohm's Law) 描述了线性元件中电压、电流和电阻的关系。
+    电阻 (Resistance) 阻碍电流流动并消耗能量。电阻可以串联 (Series) 或者是并联 (Parallel) 连接。
+    \tcblower
+    \textbf{[EN] Definition}: Ohm's Law states that the current through a conductor is directly proportional to the voltage across it ($V=IR$). Resistance opposes current flow. Resistors can be connected in Series (additive resistance) or Parallel (additive conductance).
 \end{studybox}
 
 \begin{formulabox}
-\textbf{两电阻并联}:
+\textbf{欧姆定律}:
 \begin{equation}
-    R_{eq} = \frac{R_1 \cdot R_2}{R_1 + R_2}
+    V = I \cdot R, \quad P = V \cdot I = I^2 R
 \end{equation}
 
-\textbf{电导 (Conductance)}:
-\begin{equation}
-    G = \frac{1}{R}, \quad \text{单位: 西门子 (S)}
-\end{equation}
-
-\textbf{电阻率}:
-\begin{equation}
-    R = \rho \frac{L}{A}
-\end{equation}
-$\rho$: 电阻率, $L$: 长度, $A$: 截面积
-
-\textbf{温度系数}:
-\begin{equation}
-    R(T) = R_0[1 + \alpha(T - T_0)]
-\end{equation}
+\textbf{串并联 / Series \& Parallel}:
+\begin{itemize}
+    \item Series: $R_{eq} = R_1 + R_2 + \dots$
+    \item Parallel: $\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots$
+\end{itemize}
 \end{formulabox}
 
 % --------------------------------------------
 % 3. Capacitors and Inductors
 % --------------------------------------------
-\begin{studybox}{电容与电感 (Capacitors and Inductors)}
+\begin{studybox}{动态元件 / Capacitors and Inductors}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{电容 (Capacitor)}: 以电场形式储存能量，阻碍电压突变。即 $i = C \frac{dv}{dt}$。
+        \item \textbf{电感 (Inductor)}: 以磁场形式储存能量，阻碍电流突变。即 $v = L \frac{di}{dt}$。
+        \item \textbf{时间常数 (Time Constant)}: 描述电路响应速度的参数 ($\tau = RC$ 或 $\tau = L/R$)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Capacitor}: Stores energy in an electric field and opposes voltage changes ($I = C \dot{V}$).
+        \item \textbf{Inductor}: Stores energy in a magnetic field and opposes current changes ($V = L \dot{I}$).
+        \item \textbf{Time Constant ($\tau$)}: Characterizes the transient response definition. $1\tau \approx 63.2\%$ of final value.
+    \end{itemize}
+\end{studybox}
 
-\textbf{概念 (CN)}: 储能元件
-
-\textbf{Term (EN)}: Capacitor, Inductor, Time Constant, Energy Storage
-
-\tcblower
-
-\textbf{电容器}:
+\begin{formulabox}
+\textbf{RC 充电公式 / RC Charging}:
 \begin{equation}
-    C = \frac{Q}{V}, \quad I = C\frac{dV}{dt}
+    V_C(t) = V_S (1 - e^{-t/\tau}), \quad \tau = R \cdot C
 \end{equation}
-能量: $E = \frac{1}{2}CV^2$
+\textbf{应用}: 去耦电容 (Decoupling Capacitor) 为芯片提供瞬态电流。
+\end{formulabox}
 
-\textbf{电感器}:
-\begin{equation}
-    V = L\frac{dI}{dt}
-\end{equation}
-能量: $E = \frac{1}{2}LI^2$
+% --------------------------------------------
+% 4. AC Analysis
+% --------------------------------------------
+\begin{studybox}{交流分析 / AC Circuit Analysis}
+    \textbf{[CN] 定义}: 在正弦稳态下，我们使用相量 (Phasor) 和阻抗 (Impedance) 进行分析。这允许我们将微分方程转化为代数方程。阻抗 $\mathbf{Z} = R + jX$ 包含实部电阻和虚部电抗。
+    \tcblower
+    \textbf{[EN] Definition}: AC analysis uses Phasors (complex numbers) to represent sinusoidal signals. Impedance ($\mathbf{Z}$) generalizes resistance to include phase shifts, turning differential equations into algebraic ones ($V = I \cdot Z$).
+\end{studybox}
 
-\textbf{组合规则}:
-\begin{itemize}[leftmargin=*]
-    \item 电容串联: $\frac{1}{C_{eq}} = \frac{1}{C_1} + \frac{1}{C_2}$ (与电阻相反!)
-    \item 电容并联: $C_{eq} = C_1 + C_2$
-    \item 电感组合规则与电阻相同
+\begin{formulabox}
+\textbf{阻抗公式 / Impedance}:
+\begin{itemize}
+    \item Resistor: $Z_R = R$
+    \item Inductor: $Z_L = j\omega L$
+    \item Capacitor: $Z_C = \frac{1}{j\omega C} = -j \frac{1}{\omega C}$
 \end{itemize}
-
-\textbf{Key Insight}: Decoupling capacitors filter power supply noise.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{RC 电路时间常数}:
-\begin{equation}
-    \tau = RC
-\end{equation}
-
-\textbf{RC 充电}:
-\begin{equation}
-    V_C(t) = V_s(1 - e^{-t/\tau})
-\end{equation}
-
-\textbf{RC 放电}:
-\begin{equation}
-    V_C(t) = V_0 e^{-t/\tau}
-\end{equation}
-
-\textbf{RL 电路时间常数}:
-\begin{equation}
-    \tau = \frac{L}{R}
-\end{equation}
-
-\textbf{$5\tau$ 法则}: 约 99.3\% 达到稳态
+\textbf{谐振频率 / Resonance}: $f_0 = \frac{1}{2\pi \sqrt{LC}}$
 \end{formulabox}
 
 % --------------------------------------------
-% 4. AC Circuit Analysis
+% 5. Thevenin Theorem
 % --------------------------------------------
-\begin{studybox}{交流电路分析 (AC Circuit Analysis)}
-
-\textbf{概念 (CN)}: 正弦稳态电路的分析方法
-
-\textbf{Term (EN)}: Phasor, Impedance, Reactance, RMS
-
-\tcblower
-
-\textbf{正弦信号}:
-\begin{equation}
-    v(t) = V_m \cos(\omega t + \phi)
-\end{equation}
-
-\textbf{相量 (Phasor)}:
-\begin{equation}
-    \mathbf{V} = V_m \angle \phi = V_m e^{j\phi}
-\end{equation}
-
-\textbf{阻抗 (Impedance)}:
-\begin{equation}
-    \mathbf{Z} = R + jX
-\end{equation}
-\begin{itemize}[leftmargin=*]
-    \item 电阻: $Z_R = R$
-    \item 电容: $Z_C = \frac{1}{j\omega C} = -\frac{j}{\omega C}$
-    \item 电感: $Z_L = j\omega L$
-\end{itemize}
-
-\textbf{Key Insight}: Complex impedance makes AC analysis like DC analysis with Ohm's law.
-
+\begin{studybox}{戴维南定理 / Thévenin's Theorem}
+    \textbf{[CN] 定义}: 任何线性双端网络都可以等效为一个电压源 ($V_{th}$) 和一个串联电阻 ($R_{th}$)。这极大地简化了负载分析。
+    \tcblower
+    \textbf{[EN] Definition}: Any linear two-terminal circuit can be replaced by an equivalent circuit consisting of a single voltage source ($V_{th}$) in series with a resistor ($R_{th}$). This simplifies load connecting analysis.
 \end{studybox}
-
-\begin{formulabox}
-\textbf{RMS (有效值)}:
-\begin{equation}
-    V_{rms} = \frac{V_m}{\sqrt{2}} \approx 0.707 V_m
-\end{equation}
-
-\textbf{平均功率}:
-\begin{equation}
-    P = V_{rms} I_{rms} \cos\phi = I_{rms}^2 R
-\end{equation}
-
-\textbf{功率因数}: $\cos\phi$ (相位差的余弦)
-
-\textbf{谐振频率} (RLC 电路):
-\begin{equation}
-    f_0 = \frac{1}{2\pi\sqrt{LC}}
-\end{equation}
-\end{formulabox}
-
-% --------------------------------------------
-% 5. Thévenin and Norton Equivalents
-% --------------------------------------------
-\begin{studybox}{等效电路定理 (Equivalent Circuit Theorems)}
-
-\textbf{概念 (CN)}: 将复杂电路简化为等效电路
-
-\textbf{Term (EN)}: Thévenin, Norton, Equivalent Circuit
-
-\tcblower
-
-\textbf{戴维南定理 (Thévenin's Theorem)}:
-任何线性两端网络可以用电压源 $V_{th}$ 和串联电阻 $R_{th}$ 等效。
-
-\textbf{诺顿定理 (Norton's Theorem)}:
-任何线性两端网络可以用电流源 $I_N$ 和并联电阻 $R_N$ 等效。
-
-\textbf{转换关系}:
-\begin{equation}
-    V_{th} = I_N \cdot R_N, \quad R_{th} = R_N
-\end{equation}
-
-\textbf{Key Insight}: Thévenin equivalent simplifies load analysis.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{求戴维南等效步骤}:
-\begin{enumerate}
-    \item 断开负载
-    \item $V_{th}$: 计算开路电压
-    \item $R_{th}$: 关闭独立源 (电压源短路，电流源开路)，求等效电阻
-\end{enumerate}
-
-\textbf{最大功率传输定理}:
-当 $R_L = R_{th}$ 时，负载获得最大功率：
-\begin{equation}
-    P_{max} = \frac{V_{th}^2}{4R_{th}}
-\end{equation}
-\end{formulabox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{电路理论与 ESP32 电源设计}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 你的论文在电源设计部分大量运用了电路理论：
+    \begin{itemize}
+        \item \textbf{LDO稳压}: AMS1117-3.3 及其外围电容构成了一个稳压系统。
+        \item \textbf{去耦 (Decoupling)}: 根据 KCL，当 ESP32 需要瞬态大电流时，100nF 和 10\textmu F 电容提供电流，防止电压跌落。
+        \item \textbf{分压器}: 某些传感器 (5V) 需要分压才能连接到 ESP32 (3.3V GPIO)。
+    \end{itemize}
 
-\textbf{LDO 稳压器分析 (使用 KVL)}:
-AMS1117-3.3 将 5V USB 降压到 3.3V：
-\begin{equation}
-    V_{USB} = V_{dropout} + V_{out}
-\end{equation}
-$V_{dropout} \approx 1.1V$, $V_{out} = 3.3V$
+    \tcblower
 
-\textbf{分压器设计 (使用 KVL)}:
-如果你需要将 5V 传感器信号连接到 3.3V GPIO：
-\begin{equation}
-    V_{out} = 5V \cdot \frac{R_2}{R_1 + R_2} = 3.3V
-\end{equation}
-选择 $R_1 = 1.8k\Omega$, $R_2 = 3.3k\Omega$
-
-\textbf{退耦电容 (使用 KCL)}:
-100nF 电容在芯片 VCC 附近：
-\begin{itemize}
-    \item 芯片瞬态电流需求 $\to$ 电容提供
-    \item KCL: $I_{supply} + I_{cap} = I_{chip}$
-\end{itemize}
-
-\textbf{Jan Koller 问题}: "How do you handle power supply noise?"
-
-\textbf{答案}: 使用退耦电容。根据 KCL，当芯片需要瞬态电流时，附近的电容提供。我在每个 IC 的 VCC 引脚使用 100nF 陶瓷电容（高频滤波）和 10µF 电解电容（低频滤波）。这形成一个 RC 低通滤波器。
+    \textbf{[EN]}: Your thesis applies circuit theory in the power supply design:
+    \begin{itemize}
+        \item \textbf{LDO Regulator}: The AMS1117-3.3 provides stable voltage.
+        \item \textbf{Decoupling}: Capacitors (100nF + 10\textmu F) provide transient current (KCL) to filter noise for the ESP32.
+        \item \textbf{Voltage Divider}: Used to level-shift 5V sensor signals to 3.3V logic levels.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{KVL 符号}: 绕回路时保持一致的方向，注意电压升降。
-    \item \textbf{电容串并联}: 与电阻规则相反！串联电容减小，并联增加。
-    \item \textbf{相量计算}: $j^2 = -1$，注意复数运算。
-    \item \textbf{时间常数}: RC 充电到 $1 - e^{-1} \approx 63.2\%$，不是 50\%！
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{KCL/KVL Signs}: 符号搞反是最常见的错误。定义好参考方向！
+        \item \textbf{Capacitor Impedance}: $Z_C$ 是 $\frac{1}{j\omega C}$，即 $-j \frac{1}{\omega C}$。别忘了那个负号！
+        \item \textbf{RMS vs Peak}: 交流功率计算用 RMS ($V_{rms} = V_m / \sqrt{2}$)。
+    \end{itemize}
 \end{warnbox}

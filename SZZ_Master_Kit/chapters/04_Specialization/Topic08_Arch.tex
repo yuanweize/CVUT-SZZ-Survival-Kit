@@ -1,248 +1,60 @@
 % ============================================
-% Topic 08: Computer Architecture / 计算机体系结构
+% Topic 08: Architecture / 计算机体系结构
+% Course: BE5B35APO
 % ============================================
-\section{计算机体系结构 / Computer Architecture}
+\section{计算机体系结构 / Computer Architecture (BE5B35APO)}
 
 % --------------------------------------------
-% 1. Von Neumann Architecture
+% 1. Pipeline and Cache
 % --------------------------------------------
-\begin{studybox}{冯诺依曼架构 (Von Neumann Architecture)}
-
-\textbf{概念 (CN)}: 现代计算机的基础模型
-
-\textbf{Term (EN)}: Stored-Program Computer, CPU, Memory, I/O
-
-\tcblower
-
-\textbf{五大部件}:
-\begin{enumerate}
-    \item \textbf{运算器 (ALU)}: 执行算术和逻辑运算
-    \item \textbf{控制器 (CU)}: 指令解码和执行控制
-    \item \textbf{存储器 (Memory)}: 存储程序和数据
-    \item \textbf{输入设备 (Input)}: 键盘、传感器
-    \item \textbf{输出设备 (Output)}: 显示器、执行器
-\end{enumerate}
-
-\textbf{Key Insight}: Programs and data share the same memory = "stored program" concept.
-
+\begin{studybox}{流水线与缓存 / Pipeline \& Cache}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{流水线 (Pipelining)}: 将指令执行分解为多个阶段 (取指, 译码, 执行...) 并行处理，提高吞吐量。
+        \item \textbf{缓存 (Cache)}: 位于 CPU 和内存之间的小容量高速存储，利用局部性原理 (Locality) 减少内存访问延迟。 L1, L2, L3。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Pipelining}: Splitting instruction processing into stages (Fetch, Decode, Execute, Writeback) to increase throughput (Instructions Per Cycle).
+        \item \textbf{Cache}: Fast, small memory hiding DRAM latency. Relies on Spatial and Temporal Locality.
+    \end{itemize}
 \end{studybox}
 
-\begin{formulabox}
-\textbf{指令周期}:
-\begin{equation}
-    \text{Instruction Cycle} = \text{Fetch} + \text{Decode} + \text{Execute} + \text{Memory} + \text{Write-back}
-\end{equation}
-
-\textbf{CPU 性能公式}:
-\begin{equation}
-    \text{CPU Time} = \text{IC} \times \text{CPI} \times \text{Clock Period}
-\end{equation}
-
-其中:
-\begin{itemize}[leftmargin=*]
-    \item IC = Instruction Count（指令数）
-    \item CPI = Cycles Per Instruction（每条指令周期数）
-    \item Clock Period = $1 / f_{clk}$
-\end{itemize}
-\end{formulabox}
-
 % --------------------------------------------
-% 2. Pipeline
+% 2. RISC vs CISC
 % --------------------------------------------
-\begin{studybox}{流水线 (Pipeline)}
-
-\textbf{概念 (CN)}: 将指令执行分解为多个阶段，并行处理多条指令
-
-\textbf{Term (EN)}: Pipeline, Pipeline Hazards, Stall, Forwarding
-
-\tcblower
-
-\textbf{经典 5 级流水线}:
-\begin{enumerate}
-    \item \textbf{IF (Instruction Fetch)}: 取指令
-    \item \textbf{ID (Instruction Decode)}: 译码 + 读寄存器
-    \item \textbf{EX (Execute)}: ALU 执行
-    \item \textbf{MEM (Memory Access)}: 访存
-    \item \textbf{WB (Write Back)}: 结果写回寄存器
-\end{enumerate}
-
-\textbf{Key Insight}: Pipelining increases throughput, not latency. Each instruction still takes 5 cycles, but one completes every cycle.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{理想吞吐量}:
-\begin{equation}
-    \text{Throughput} = \frac{1}{\text{Clock Period}} \quad \text{(1 instruction/cycle)}
-\end{equation}
-
-\textbf{加速比}:
-\begin{equation}
-    \text{Speedup} = \frac{n \times k}{n + k - 1} \approx k \quad \text{(当 } n \gg k \text{)}
-\end{equation}
-其中 $n$ = 指令数, $k$ = 流水线级数
-\end{formulabox}
-
-\begin{warnbox}[[!] 流水线冲突 / Pipeline Hazards]
-\begin{enumerate}
-    \item \textbf{结构冲突 (Structural)}: 硬件资源冲突（如同时访问内存）
-        \begin{itemize}
-            \item 解决: 增加硬件资源（分离 I-Cache 和 D-Cache）
-        \end{itemize}
-    \item \textbf{数据冲突 (Data)}: RAW (Read After Write) 依赖
-        \begin{itemize}
-            \item 解决: Forwarding（数据旁路）、Stall（插入气泡）
-        \end{itemize}
-    \item \textbf{控制冲突 (Control)}: 分支指令导致的冲突
-        \begin{itemize}
-            \item 解决: 分支预测 (Branch Prediction)、延迟槽
-        \end{itemize}
-\end{enumerate}
-\end{warnbox}
-
-% --------------------------------------------
-% 3. Cache Memory
-% --------------------------------------------
-\begin{studybox}{高速缓存 (Cache Memory)}
-
-\textbf{概念 (CN)}: 位于 CPU 和主存之间的小容量高速存储器
-
-\textbf{Term (EN)}: Cache, Hit Rate, Miss Rate, Locality
-
-\tcblower
-
-\textbf{局部性原理}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{时间局部性}: 刚访问的数据可能很快再次访问
-    \item \textbf{空间局部性}: 访问某地址后，邻近地址也可能被访问
-\end{itemize}
-
-\textbf{Cache 层次}:
-\begin{itemize}[leftmargin=*]
-    \item L1 Cache: 最快，最小（32-64KB），CPU 内部
-    \item L2 Cache: 中等（256KB-1MB）
-    \item L3 Cache: 最大，多核共享（2-32MB）
-\end{itemize}
-
-\textbf{Key Insight}: Cache exploits locality to bridge the CPU-Memory speed gap.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{平均访存时间 (AMAT)}:
-\begin{equation}
-    \text{AMAT} = \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}
-\end{equation}
-
-\textbf{命中率}:
-\begin{equation}
-    \text{Hit Rate} = \frac{\text{Hits}}{\text{Hits} + \text{Misses}}
-\end{equation}
-
-\textbf{Cache 映射方式}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{直接映射}: 每个主存块只能映射到一个 Cache 行
-    \item \textbf{全相联}: 每个主存块可以映射到任意 Cache 行
-    \item \textbf{组相联}: 折中方案（n-way set associative）
-\end{itemize}
-\end{formulabox}
-
-% --------------------------------------------
-% 4. Branch Prediction
-% --------------------------------------------
-\begin{studybox}{分支预测 (Branch Prediction)}
-
-\textbf{概念 (CN)}: 在分支指令结果确定前预测其方向
-
-\textbf{Term (EN)}: Static Prediction, Dynamic Prediction, BTB
-
-\tcblower
-
-\textbf{预测策略}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{静态预测}: 总是预测跳转/不跳转
-    \item \textbf{1-bit 预测器}: 上次跳转则预测跳转
-    \item \textbf{2-bit 预测器}: 四状态机（强跳转、弱跳转、弱不跳转、强不跳转）
-\end{itemize}
-
-\textbf{Key Insight}: Modern CPUs achieve >95\% branch prediction accuracy.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{2-bit 饱和计数器状态转换}:
-\begin{center}
-\begin{tabular}{cc}
-    状态 00 (强不跳转) $\xrightarrow{\text{taken}}$ 状态 01 \\
-    状态 01 (弱不跳转) $\xrightarrow{\text{taken}}$ 状态 10 \\
-    状态 10 (弱跳转) $\xrightarrow{\text{not taken}}$ 状态 01 \\
-    状态 11 (强跳转) $\xrightarrow{\text{not taken}}$ 状态 10 \\
-\end{tabular}
-\end{center}
-
-\textbf{分支惩罚}:
-\begin{equation}
-    \text{Penalty} = \text{Pipeline Depth} \times (1 - \text{Prediction Accuracy})
-\end{equation}
-\end{formulabox}
-
-% --------------------------------------------
-% 5. RISC vs CISC
-% --------------------------------------------
-\begin{studybox}{RISC vs CISC}
-
-\textbf{概念 (CN)}: 两种指令集设计哲学
-
-\textbf{Term (EN)}: Reduced Instruction Set Computer, Complex Instruction Set Computer
-
-\tcblower
-
-\begin{center}
-\begin{tabular}{lcc}
-\toprule
-\textbf{特性} & \textbf{RISC} & \textbf{CISC} \\
-\midrule
-指令数量 & 少（100+） & 多（1000+） \\
-指令长度 & 固定 & 可变 \\
-寻址模式 & 简单 & 复杂 \\
-寄存器数 & 多（32+） & 少 \\
-流水线 & 易实现 & 难 \\
-例子 & ARM, RISC-V, MIPS & x86, x64 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{Key Insight}: RISC simplifies hardware, enabling faster clocks and better pipelining.
-
+\begin{studybox}{指令集架构 / ISA}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{CISC (复杂指令集)}: 指令复杂，长度可变 (x86)。
+        \item \textbf{RISC (精简指令集)}: 指令简单，长度固定，利用流水线 (ARM, RISC-V, Xtensa)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{CISC}: Complex instructions, variable length (Intel x86).
+        \item \textbf{RISC}: Reduced instructions, fixed length, optimized for pipelining (ARM, ESP32).
+    \end{itemize}
 \end{studybox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{ESP32-S3 体系结构}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{ESP32 架构}: 基于 Tensilica Xtensa LX7 核心，是一个典型的 \textbf{RISC} 架构。
+        \item \textbf{双核}: 它有两个核心 (PRO\_CPU, APP\_CPU)。FreeRTOS 调度器可以在两个核心上运行任务。
+        \item \textbf{DMA}: 直接内存访问控制器允许外设 (如 SPI, I2C) 在不占用 CPU 的情况下传输数据，这对于高频传感器采样至关重要。
+    \end{itemize}
 
-你的论文使用 \textbf{ESP32-S3}，基于 Xtensa LX7 架构（类 RISC）。
+    \tcblower
 
-\textbf{架构特点}:
-\begin{itemize}
-    \item \textbf{双核}: 两个 LX7 核心，可并行处理
-    \item \textbf{Harvard}: 分离的指令和数据总线
-    \item \textbf{Cache}: 16KB I-Cache, 16KB D-Cache
-\end{itemize}
-
-\textbf{Jan Koller 问题}: "Is ESP32 RISC or CISC?"
-
-\textbf{答案}: Xtensa 是一种可配置的 RISC 架构。它有固定长度指令（24-bit）、大量寄存器（64个）、简单寻址模式。
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Xtensa LX7}: A RISC architecture powering the ESP32-S3.
+        \item \textbf{Dual Core}: Symmetric Multiprocessing (SMP). Contains PRO\_CPU and APP\_CPU.
+        \item \textbf{DMA}: Direct Memory Access allowing peripherals to transfer data to RAM without CPU intervention, critical for efficient sensor sampling.
+    \end{itemize}
 \end{thesisbox}
-
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{流水线加速比}: 不是无限的！受限于冲突和依赖。
-    \item \textbf{Cache 映射}: 直接映射冲突最多，全相联冲突最少但硬件复杂。
-    \item \textbf{分支预测}: 2-bit 比 1-bit 更稳定（需要连续两次错误才改变预测）。
-\end{enumerate}
-\end{warnbox}

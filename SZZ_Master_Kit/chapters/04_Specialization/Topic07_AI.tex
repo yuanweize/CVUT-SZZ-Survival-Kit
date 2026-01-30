@@ -1,40 +1,47 @@
-\section{AI \& Classification (KUI/RPZ)}
+% ============================================
+% Topic 07: AI / 人工智能
+% Course: BE5B33UI
+% ============================================
+\section{人工智能 / Artificial Intelligence (BE5B33UI)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Search}: BFS (Queue, Optimal for unweighted), DFS (Stack). A* (Heuristic $f = g+h$).
-    \item \textbf{Classification}: Supervised Learning. Bayes Classifier minimize risk.
-    \item \textbf{Thesis Link}: Your "Threshold-based Fall Detection" is a \textit{Rule-based Classifier}. A Neural Network would learn these thresholds automatically.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Classification
+% --------------------------------------------
+\begin{studybox}{分类与学习 / Machine Learning}
+    \textbf{[CN] 定义}: 
+    从数据中学习模式的算法。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{监督学习 (Supervised)}: 训练数据有标签 (如：这组数据是"跌倒"，那组是"走路")。
+        \item \textbf{无监督学习 (Unsupervised)}: 数据无标签，寻找内在结构 (如聚类)。
+        \item \textbf{神经网络 (Neural Network)}: 模拟人脑神经元的层级结构。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Learning patterns from data.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Supervised}: Data is labeled (Input $\to$ Output mapping). Classification/Regression.
+        \item \textbf{Unsupervised}: No labels (Clustering).
+        \item \textbf{Neural Networks}: Layers of artificial neurons (Perceptrons) with weights and activation functions.
+    \end{itemize}
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{State Space, Heuristic, Neural Networks, Overfitting, Training/Test Set}
-\end{keywords}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{TinyML}: 在微控制器 (MCU) 上运行机器学习。
+        \item \textbf{跌倒检测}: 目前使用的是基于阈值的规则 (Heuristic)。
+        \item \textbf{未来改进}: 可以收集加速度数据训练一个 SVM (支持向量机) 或简单的神经网络分类器，部署在 ESP32 上以区分"跌倒"和"跳跃"，减少误报。
+    \end{itemize}
 
-\begin{concept}{Search Algorithms / 搜索算法}
-\begin{itemize}
-    \item \textbf{Uninformed}: BFS (Complete), DFS (Not complete, memory efficient).
-    \item \textbf{Informed}: A* uses heuristic $h(n)$ (estimated cost to goal). Proof of optimality requires $h(n)$ to be \textit{admissible} (never overestimate).
-\end{itemize}
-\end{concept}
+    \tcblower
 
-\begin{concept}{Pattern Recognition / 模式识别}
-\begin{itemize}
-    \item \textbf{Feature Space}: The dimensions of your data (e.g., in thesis: Accel-X, Accel-Y, Gyro-Z).
-    \item \textbf{Linear Classifier}: Separates classes with a hyperplane (Perceptron).
-    \item \textbf{Bias-Variance Tradeoff}: Simple models underfit (High Bias), complex models overfit (High Variance).
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
-\begin{equation}
-    P(C|X) = \frac{P(X|C) P(C)}{P(X)} \quad \text{(Bayes Rule)}
-\end{equation}
-
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "What is the difference between A* and Dijkstra?" (A: A* uses heuristics to guide search towards the goal, Dijkstra is just A* with $h=0$).
-    \item "Explain Overfitting." (A: Model memorizes noise instead of learning patterns. Fails on new data).
-\end{itemize}
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{TinyML}: Running ML inference on Edge devices (ESP32).
+        \item \textbf{Current}: Heuristic Threshold-based detection.
+        \item \textbf{Future Work}: Train a Classifier (SVM or Neural Net) on acceleration data to distinguish Fall vs Jump, improving Specificity.
+    \end{itemize}
+\end{thesisbox}

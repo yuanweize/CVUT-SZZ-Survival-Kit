@@ -1,42 +1,62 @@
-\section{Logic Systems (LSP)}
+% ============================================
+% Topic 02: Logic Systems / 逻辑系统
+% Course: BE5B01LGS
+% ============================================
+\section{逻辑系统 / Logic Systems (BE5B01LGS)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Boolean Algebra}: De Morgan's Laws ($\overline{A \cdot B} = \overline{A} + \overline{B}$).
-    \item \textbf{K-Maps}: Minimization of logic functions (grouping 1s).
-    \item \textbf{FSM}: Finite State Machines (Mealy vs Moore).
-    \item \textbf{Thesis Link}: Your ESP32 GPIOs are essentially controlled by memory-mapped \textit{registers} (Flip-flops).
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Boolean Algebra
+% --------------------------------------------
+\begin{studybox}{布尔代数 / Boolean Algebra}
+    \textbf{[CN] 定义}: 
+    数字逻辑的数学基础。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{基本运算}: AND ($A \cdot B$), OR ($A + B$), NOT ($\bar{A}$).
+        \item \textbf{德摩根定律}: $\overline{A \cdot B} = \bar{A} + \bar{B}$, $\overline{A + B} = \bar{A} \cdot \bar{B}$.
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Mathematical foundation of digital logic.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Ops}: AND (Conjunction), OR (Disjunction), NOT (Negation).
+        \item \textbf{De Morgan's Laws}: NAND equals OR of negations; NOR equals AND of negations.
+    \end{itemize}
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Combinational Logic, Sequential Logic, Flip-Flops (D, JK), Multiplexer, VHDL}
-\end{keywords}
+% --------------------------------------------
+% 2. Sequential Logic
+% --------------------------------------------
+\begin{studybox}{时序逻辑 / Sequential Logic}
+    \textbf{[CN] 定义}: 
+    输出取决于当前输入\textbf{以及}过去输入的电路（有记忆）。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{触发器 (Flip-Flop)}: 基本存储单元 (如 D-FF)。在时钟边沿改变状态。
+        \item \textbf{寄存器 (Register)}: 并联的 D-FF，用于存储多位数据。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Circuits where output depends on current inputs \textbf{and} history (Memory).
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Flip-Flop}: Basic storage element (e.g., D Flip-Flop). State changes on clock edge.
+        \item \textbf{Register}: Parallel D-FFs storing multi-bit data.
+    \end{itemize}
+\end{studybox}
 
-\begin{concept}{Sequential Logic / 时序逻辑}
-Unlike Combinational logic (Output = f(Input)), Sequential logic has **Memory**.
-\begin{itemize}
-    \item \textbf{Latch vs Flip-Flop}: Latch is level-triggered; Flip-Flop is edge-triggered (synchronous).
-    \item \textbf{Setup Time ($t_{su}$)}: Data must be stable \textit{before} clock edge.
-    \item \textbf{Hold Time ($t_{h}$)}: Data must be stable \textit{after} clock edge.
-\end{itemize}
-\end{concept}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{GPIO 模式}: ESP32 的 GPIO 输入寄存器读取引脚电压。配置为 \texttt{INPUT\_PULLUP} 实际上是在内部连接了一个上拉电阻，形成逻辑 1。
+        \item \textbf{I2C 硬件}: ESP32 内部的 I2C 控制器是由大量状态机 (FSM) 和移位寄存器 (Shift Register) 组成的复杂时序逻辑电路。
+    \end{itemize}
 
-\begin{concept}{FSM (Finite State Machines) / 有限状态机}
-\begin{itemize}
-    \item \textbf{Moore}: Output depends only on \textit{Current State}. (Safer glich-wise).
-    \item \textbf{Mealy}: Output depends on \textit{Current State} AND \textit{Input}. (Reacts faster, but risky).
-\end{itemize}
-\end{concept}
+    \tcblower
 
-\subsection{Formulas / 公式}
-\begin{equation}
-    F(A,B,C) = \sum m(0, 1, 4, 7) \quad \text{(Sum of Products)}
-\end{equation}
-
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Design a 3-bit counter using D Flip-Flops." (A: Next state logic + Current state register).
-    \item "What is a Hazard in combinational logic?" (A: Temporary glitch due to unequal delay paths).
-\end{itemize}
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{GPIO}: Configured via registers. \texttt{INPUT\_PULLUP} connects an internal resistor, defaulting logic High.
+        \item \textbf{I2C Controller}: Implemented in silicon using Finite State Machines (FSMs) and Shift Registers to serialize data.
+    \end{itemize}
+\end{thesisbox}

@@ -1,233 +1,63 @@
 % ============================================
-% Topic 05: Waves / 波动
+% Topic 05: Waves & Optics / 波动与光学
 % Course: BE5B02PH2
 % ============================================
 \section{波动与光学 / Waves \& Optics (BE5B02PH2)}
 
 % --------------------------------------------
-% 1. Wave Fundamentals
+% 1. Wave Properties
 % --------------------------------------------
-\begin{studybox}{波的基本概念 (Wave Fundamentals)}
-
-\textbf{概念 (CN)}: 能量和振动在空间中的传播
-
-\textbf{Term (EN)}: Wave, Wavelength, Frequency, Phase Velocity
-
-\tcblower
-
-\textbf{基本参数}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{波长 (Wavelength)}: $\lambda$ - 一个完整波的空间长度
-    \item \textbf{频率 (Frequency)}: $f$ - 每秒振动次数
-    \item \textbf{周期 (Period)}: $T = 1/f$
-    \item \textbf{波速 (Phase Velocity)}: $v = f\lambda$
-\end{itemize}
-
-\textbf{波的类型}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{横波 (Transverse)}: 振动垂直于传播方向（光、电磁波）
-    \item \textbf{纵波 (Longitudinal)}: 振动平行于传播方向（声波）
-\end{itemize}
-
-\textbf{Key Insight}: WiFi (2.4GHz) is an electromagnetic wave with $\lambda \approx 12.5$ cm.
-
+\begin{studybox}{波的特性 / Wave Properties}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{干涉 (Interference)}: 波的叠加。同相增强 (Constructive)，反相抵消 (Destructive)。
+        \item \textbf{衍射 (Diffraction)}: 波绕过障碍物的现象。孔越小，衍射越明显。
+        \item \textbf{偏振 (Polarization)}: 横波振动方向的限制 (仅适用于横波，如光)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Interference}: Superposition of waves. Constructive (in-phase) or Destructive (out-of-phase).
+        \item \textbf{Diffraction}: Bending of waves around obstacles. Significant when $\lambda \approx$ aperture size.
+        \item \textbf{Polarization}: Orientation of oscillation (Transverse waves only).
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{一维波动方程}:
+\textbf{电磁波谱 / EM Spectrum}:
+Radio $\to$ Microwave $\to$ IR $\to$ Visible $\to$ UV $\to$ X-Ray $\to$ Gamma.
+
+\textbf{光速的关系}:
 \begin{equation}
-    \frac{\partial^2 y}{\partial x^2} = \frac{1}{v^2}\frac{\partial^2 y}{\partial t^2}
-\end{equation}
-
-\textbf{行波解}:
-\begin{equation}
-    y(x, t) = A\sin(kx - \omega t + \phi)
-\end{equation}
-
-其中:
-\begin{itemize}[leftmargin=*]
-    \item 波数 (Wave Number): $k = \frac{2\pi}{\lambda}$
-    \item 角频率: $\omega = 2\pi f$
-    \item 色散关系: $v = \frac{\omega}{k} = f\lambda$
-\end{itemize}
-\end{formulabox}
-
-% --------------------------------------------
-% 2. Wave Phenomena
-% --------------------------------------------
-\begin{studybox}{波的现象 (Wave Phenomena)}
-
-\textbf{概念 (CN)}: 波在传播过程中的各种行为
-
-\textbf{Term (EN)}: Interference, Diffraction, Reflection, Refraction
-
-\tcblower
-
-\textbf{叠加原理}: 多个波在空间中合成
-\begin{equation}
-    y_{total} = y_1 + y_2 + \ldots
-\end{equation}
-
-\textbf{干涉 (Interference)}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{相长干涉}: 相位差 $= 2n\pi$ (波峰对波峰)
-    \item \textbf{相消干涉}: 相位差 $= (2n+1)\pi$ (波峰对波谷)
-\end{itemize}
-
-\textbf{衍射 (Diffraction)}: 波绕过障碍物传播
-
-\textbf{Key Insight}: WiFi multipath causes interference patterns in buildings.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{反射与折射}:
-
-\textbf{反射定律}: $\theta_i = \theta_r$
-
-\textbf{折射定律 (Snell's Law)}:
-\begin{equation}
-    n_1\sin\theta_1 = n_2\sin\theta_2
-\end{equation}
-
-\textbf{全内反射}: 当 $\theta > \theta_c = \arcsin(n_2/n_1)$
-
-\textbf{双缝干涉}:
-\begin{equation}
-    d\sin\theta = m\lambda \quad \text{(亮条纹)}
-\end{equation}
-
-\textbf{单缝衍射}:
-\begin{equation}
-    a\sin\theta = m\lambda \quad \text{(暗条纹)}
+    c = \lambda f \approx 3 \times 10^8 \, \text{m/s}
 \end{equation}
 \end{formulabox}
-
-% --------------------------------------------
-% 3. Electromagnetic Waves
-% --------------------------------------------
-\begin{studybox}{电磁波 (Electromagnetic Waves)}
-
-\textbf{概念 (CN)}: 电场和磁场的振荡在空间中传播
-
-\textbf{Term (EN)}: EM Spectrum, Radio Waves, Microwave, Light
-
-\tcblower
-
-\textbf{麦克斯韦方程组} 预言了电磁波的存在
-
-\textbf{电磁波性质}:
-\begin{itemize}[leftmargin=*]
-    \item 横波：$\vec{E} \perp \vec{B} \perp \vec{v}$
-    \item 真空速度：$c = \frac{1}{\sqrt{\varepsilon_0\mu_0}} \approx 3 \times 10^8 \, \text{m/s}$
-    \item 无需介质传播
-\end{itemize}
-
-\textbf{电磁波谱}: 无线电 $\to$ 微波 $\to$ 红外 $\to$ 可见光 $\to$ 紫外 $\to$ X射线 $\to$ 伽马射线
-
-\textbf{Key Insight}: WiFi (2.4 GHz) and Bluetooth (2.402-2.480 GHz) are microwave bands.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{电磁波频率与波长}:
-\begin{equation}
-    c = f\lambda \quad \Rightarrow \quad \lambda = \frac{c}{f}
-\end{equation}
-
-\textbf{常见电磁波}:
-\begin{center}
-\begin{tabular}{lcc}
-\toprule
-\textbf{类型} & \textbf{频率} & \textbf{波长} \\
-\midrule
-WiFi 2.4GHz & $2.4 \times 10^9$ Hz & 12.5 cm \\
-WiFi 5GHz & $5 \times 10^9$ Hz & 6 cm \\
-可见光 (红) & $4 \times 10^{14}$ Hz & 700 nm \\
-可见光 (紫) & $8 \times 10^{14}$ Hz & 400 nm \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{信号衰减 (Free Space Path Loss)}:
-\begin{equation}
-    FSPL = \left(\frac{4\pi d}{\lambda}\right)^2 \propto \frac{1}{r^2}
-\end{equation}
-\end{formulabox}
-
-% --------------------------------------------
-% 4. Sound Waves
-% --------------------------------------------
-\begin{studybox}{声波 (Sound Waves)}
-
-\textbf{概念 (CN)}: 在介质中传播的纵波
-
-\textbf{Term (EN)}: Sound, Intensity, Decibel, Doppler Effect
-
-\tcblower
-
-\textbf{声速}: 取决于介质
-\begin{itemize}[leftmargin=*]
-    \item 空气 (20°C): ~343 m/s
-    \item 水: ~1500 m/s
-    \item 钢: ~5000 m/s
-\end{itemize}
-
-\textbf{多普勒效应}:
-\begin{equation}
-    f' = f\frac{v \pm v_o}{v \mp v_s}
-\end{equation}
-
-\textbf{声强级}:
-\begin{equation}
-    L = 10\log_{10}\frac{I}{I_0} \, \text{dB}, \quad I_0 = 10^{-12} \, \text{W/m}^2
-\end{equation}
-
-\textbf{Key Insight}: Ultrasonic sensors use sound wave timing for distance measurement.
-
-\end{studybox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{波动与无线通信}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{Wi-Fi 通信}: ESP32 使用 2.4 GHz 载波。
+        波长计算: $\lambda = \frac{c}{f} = \frac{3 \cdot 10^8}{2.4 \cdot 10^9} \approx 0.125 \, \text{m} = 12.5 \, \text{cm}$。
+        \item \textbf{天线设计}: 最优天线长度通常是 $\lambda/4$ (约 3.1 cm)。这也是为什么 ESP32 模块上的 PCB 天线是这个尺寸。
+        \item \textbf{多径干扰}: 室内环境中，Wi-Fi 信号反射形成多径效应 (Multipath)，产生干扰。
+    \end{itemize}
 
-你的论文使用 WiFi 进行无线通信：
+    \tcblower
 
-\textbf{WiFi 信号衰减}:
-RSSI (接收信号强度) 遵循反平方定律：
-\begin{equation}
-    P_r \propto \frac{1}{d^2}
-\end{equation}
-这意味着距离加倍，信号功率减少为 1/4 (即 -6 dB)。
-
-\textbf{多径干涉}:
-室内环境中，直射波和反射波叠加产生干涉：
-\begin{itemize}
-    \item 相长干涉：信号增强
-    \item 相消干涉：信号减弱（死区）
-\end{itemize}
-
-\textbf{天线设计}:
-PCB 天线长度与波长相关：
-\begin{equation}
-    L \approx \frac{\lambda}{4} = \frac{c}{4f} \approx 31 \, \text{mm} \quad \text{(for 2.4 GHz)}
-\end{equation}
-
-\textbf{Jan Koller 问题}: "Why did you choose 2.4GHz WiFi over 5GHz?"
-
-\textbf{答案}: 2.4 GHz 波长更长 (12.5 cm vs 6 cm)，穿透墙壁能力更强，覆盖范围更广。虽然 5 GHz 带宽更大，但对于传感器数据（几百字节）不需要高吞吐量。2.4 GHz 更适合智能家居场景。
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Wi-Fi Carrier}: 2.4 GHz ISM band.
+        \item \textbf{Wavelength}: $\lambda \approx 12.5$ cm. Optimum antenna length is typically $\lambda/4$ ($\approx 3.1$ cm), explaining the size of the PCB trace antenna.
+        \item \textbf{Multipath}: Reflection causes signal interference (Fading) in indoor environments.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{波速 vs 粒子速度}: 波速是相位传播速度，粒子在原地振动。
-    \item \textbf{折射}: 进入光密介质时，光线向法线偏折。
-    \item \textbf{干涉条件}: 两波必须相干（同频、稳定相位差）。
-    \item \textbf{dB 计算}: dB 是对数单位，3 dB 对应功率翻倍。
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Medium Requirement}: 电磁波不需要介质 (可以在真空中传播)。声波需要介质。
+        \item \textbf{Index of Refraction}: $n = c/v$. 光在介质中速度减慢。
+    \end{itemize}
 \end{warnbox}

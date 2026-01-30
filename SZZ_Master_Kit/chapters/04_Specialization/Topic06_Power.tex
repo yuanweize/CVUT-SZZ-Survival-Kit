@@ -1,44 +1,53 @@
-\section{Power Systems (EN1/EN2)}
+% ============================================
+% Topic 06: Power Systems / 电力系统
+% Course: BE5B14ESP
+% ============================================
+\section{电力系统 / Power Systems (BE5B14ESP)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Grid Setup}: Generation (10-20kV) $\to$ Transmission (400kV/220kV/110kV) $\to$ Consumer (230V/400V).
-    \item \textbf{3-Phase}: $\sqrt{3}$ factor is critical. Star (Y) vs Delta ($\Delta$).
-    \item \textbf{Control}: $P$ controls Frequency ($f$), $Q$ controls Voltage ($U$).
-    \item \textbf{Thesis Link}: Batteries in IoT. Energy density (Li-Ion vs Li-Po).
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Power Concepts
+% --------------------------------------------
+\begin{studybox}{电力 / Electric Power}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{有功功率 (Active Power, P)}: 实际做功的功率。单位：瓦特 (W)。
+        \item \textbf{无功功率 (Reactive Power, Q)}: 在电感/电容中振荡但未消耗的功率。单位：VAR。
+        \item \textbf{视在功率 (Apparent Power, S)}: 总功率。$S = \sqrt{P^2 + Q^2}$。单位：VA。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Active Power (P)}: Real useful power (Watts).
+        \item \textbf{Reactive Power (Q)}: Oscillating power stored in L/C fields (VAR).
+        \item \textbf{Apparent Power (S)}: Vector sum magnitude (VA).
+    \end{itemize}
+\end{studybox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Active/Reactive Power, Power Factor, Transmission Line Models, Short Circuit, Substations}
-\end{keywords}
-
-\begin{concept}{Three-Phase Power / 三相电}
-\begin{itemize}
-    \item **Phase Voltage ($U_{ph}$)**: Line-to-Neutral (230V in EU).
-    \item **Line Voltage ($U_{line}$)**: Phase-to-Phase (400V in EU).
-\end{itemize}
-Relationship: $U_{line} = \sqrt{3} U_{ph}$.
-\end{concept}
-
-\begin{concept}{Transmission Lines / 输电线路模型}
-\begin{itemize}
-    \item \textbf{Short Line}: Series impedance $Z = R + jX$.
-    \item \textbf{Medium/Long Line (Pi-Model)}: Includes shunt capacitance $C$ (charging current). The "Ferranti Effect" causes voltage rise at open-load end.
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
+\begin{formulabox}
+\textbf{功率因数 / Power Factor}:
 \begin{equation}
-    S = P + jQ = \sqrt{3} \cdot U_{line} \cdot I_{line} \cdot (\cos \phi + j \sin \phi)
+    \text{PF} = \frac{P}{S} = \cos \phi
 \end{equation}
-\begin{equation}
-    \Delta U \approx \frac{P R + Q X}{U_n} \quad \text{(Voltage Drop Approximation)}
-\end{equation}
+理想情况下 PF = 1。
+\end{formulabox}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Why do we use High Voltage for transmission?" (A: Reduce current $I$, since Loss $P_{loss} = I^2 R$. Higher $U \to$ Lower $I$).
-    \item "Draw the phasor diagram of a synchronous generator connected to the grid."
-\end{itemize}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{电池供电}: 我们的设计使用 Li-Po 电池 (3.7V - 4.2V)。
+        \item \textbf{电源管理 (LDO)}: AMS1117-3.3 线性稳压器将电池电压降至 3.3V 供 ESP32 使用。效率较低 ($\eta = V_{out}/V_{in}$)，多余能量变为热量。
+        \item \textbf{功耗}: ESP32 Wi-Fi 发送时峰值电流可达 240mA。必须确保 LDO 和走线能通过此电流。
+    \end{itemize}
+
+    \tcblower
+
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{Battery}: Li-Po cell nominal 3.7V.
+        \item \textbf{LDO Regulator}: Steps down voltage to 3.3V. Linear regulators dissipate excess voltage as heat (Low efficiency).
+        \item \textbf{Peak Current}: Wi-Fi transmission spikes up to 240mA. Power traces must handle this.
+    \end{itemize}
+\end{thesisbox}

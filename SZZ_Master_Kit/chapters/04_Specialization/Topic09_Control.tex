@@ -1,238 +1,96 @@
 % ============================================
 % Topic 09: Control Systems / 控制系统
+% SOURCE: General Control Theory
 % ============================================
-\section{控制系统 / Control Systems}
+\section{控制系统 / Control Systems (BE5B35ARI)}
 
 % --------------------------------------------
-% 1. Open-Loop vs Closed-Loop
+% 1. Open Loop vs Closed Loop
 % --------------------------------------------
-\begin{studybox}{开环与闭环控制 (Open-Loop vs Closed-Loop)}
-
-\textbf{概念 (CN)}: 控制系统的两种基本结构
-
-\textbf{Term (EN)}: Open-Loop Control, Closed-Loop (Feedback) Control
-
-\tcblower
-
-\textbf{开环控制 (Open-Loop)}:
-\begin{itemize}[leftmargin=*]
-    \item 无反馈，输出不影响输入
-    \item 简单但无法自动纠错
-    \item 例：定时器控制的洗衣机
-\end{itemize}
-
-\textbf{闭环控制 (Closed-Loop)}:
-\begin{itemize}[leftmargin=*]
-    \item 有反馈，输出通过传感器反馈到输入
-    \item 可以自动调节误差
-    \item 例：恒温器、巡航控制
-\end{itemize}
-
-\textbf{Key Insight}: Feedback is the key difference. Closed-loop systems are self-correcting but can become unstable.
-
+\begin{studybox}{控制结构 / Control Structures}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{开环控制 (Open-Loop)}: 控制动作独立于系统输出。无法纠正干扰带来的误差。（例如：普通烤面包机）。
+        \item \textbf{闭环控制 (Closed-Loop)}: 使用反馈 (Feedback) 将输出与期望值比较，根据误差调整控制动作。（例如：空调恒温）。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Open-Loop}: Control action is independent of the process output. Cannot compensate for disturbances (e.g., toaster).
+        \item \textbf{Closed-Loop}: Uses Feedback to compare output with reference. Adjusts control action based on error (e.g., thermostat).
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{开环传递函数}:
+\textbf{闭环传递函数 / Closed-Loop Transfer Function}:
 \begin{equation}
-    Y(s) = G(s) \cdot R(s)
+    T(s) = \frac{Y(s)}{R(s)} = \frac{G(s)}{1 + G(s)H(s)}
 \end{equation}
-
-\textbf{闭环传递函数}:
-\begin{equation}
-    \frac{Y(s)}{R(s)} = \frac{G(s)}{1 + G(s)H(s)}
-\end{equation}
-
-其中:
-\begin{itemize}[leftmargin=*]
-    \item $G(s)$ = 前向通道传递函数
-    \item $H(s)$ = 反馈通道传递函数
-    \item $R(s)$ = 参考输入
-    \item $Y(s)$ = 输出
-\end{itemize}
+$G(s)$: Plant (对象), $H(s)$: Sensor (传感器), $R(s)$: Reference (参考).
 \end{formulabox}
 
 % --------------------------------------------
 % 2. PID Controller
 % --------------------------------------------
-\begin{studybox}{PID 控制器 (PID Controller)}
-
-\textbf{概念 (CN)}: 比例-积分-微分控制器，工业控制中最常用的控制器
-
-\textbf{Term (EN)}: Proportional-Integral-Derivative Controller
-
-\tcblower
-
-\textbf{三个组成部分}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{P (比例)}: 对当前误差的响应。$K_p$ 越大，响应越快，但可能振荡。
-    \item \textbf{I (积分)}: 对累积误差的响应。消除稳态误差，但增加超调。
-    \item \textbf{D (微分)}: 对误差变化率的响应。预测误差趋势，减少超调。
-\end{itemize}
-
-\textbf{Key Insight}: P = "现在的误差", I = "过去的误差", D = "未来的误差"。
-
+\begin{studybox}{PID 控制器 / PID Controller}
+    \textbf{[CN] 定义}: 工业中最常用的反馈控制器。包含三个项：
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{比例 (P)}: 当前误差。响应快，但这也是主要的控制力。
+        \item \textbf{积分 (I)}: 过去误差的累积。用于消除稳态误差 (Steady-state error)。
+        \item \textbf{微分 (D)}: 误差变化率。预测未来趋势，增加阻尼，减少超调 (Overshoot)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: The most common industrial controller.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Proportional (P)}: Reacts to current error. Main drive.
+        \item \textbf{Integral (I)}: Reacts to accumulated past errors. Eliminates steady-state error.
+        \item \textbf{Derivative (D)}: Reacts to rate of change. Predicts future error, adds damping, reduces overshoot.
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{时域表达式}:
+\textbf{PID 公式 / PID Formula}:
 \begin{equation}
-    u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
+    u(t) = K_p e(t) + K_i \int e(t) dt + K_d \frac{de(t)}{dt}
 \end{equation}
-
-\textbf{传递函数形式}:
-\begin{equation}
-    C(s) = K_p + \frac{K_i}{s} + K_d s = K_p \left(1 + \frac{1}{T_i s} + T_d s\right)
-\end{equation}
-
-其中:
-\begin{itemize}[leftmargin=*]
-    \item $e(t) = r(t) - y(t)$ = 误差信号
-    \item $K_p$ = 比例增益
-    \item $K_i$ = 积分增益
-    \item $K_d$ = 微分增益
-    \item $T_i = K_p / K_i$ = 积分时间
-    \item $T_d = K_d / K_p$ = 微分时间
-\end{itemize}
+调参口诀: P 决定响应速度，I 消除静差但导致振荡，D 抑制振荡。
 \end{formulabox}
 
-\begin{thmbox}[PID 调参口诀]
-\textbf{Ziegler-Nichols 经验法则}:
-\begin{enumerate}
-    \item 设 $K_i = 0$, $K_d = 0$
-    \item 增大 $K_p$ 直到系统临界振荡，记录临界增益 $K_u$ 和振荡周期 $T_u$
-    \item 按下表设定参数:
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{lccc}
-\toprule
-\textbf{控制器} & $K_p$ & $K_i$ & $K_d$ \\
-\midrule
-P & $0.5 K_u$ & -- & -- \\
-PI & $0.45 K_u$ & $1.2 K_p / T_u$ & -- \\
-PID & $0.6 K_u$ & $2 K_p / T_u$ & $K_p T_u / 8$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{thmbox}
-
 % --------------------------------------------
-% 3. Stability Analysis
+% 3. Stability
 % --------------------------------------------
-\begin{studybox}{稳定性分析 (Stability Analysis)}
-
-\textbf{概念 (CN)}: 判断系统是否稳定（输出是否会发散）
-
-\textbf{Term (EN)}: BIBO Stability, Poles, Routh-Hurwitz Criterion
-
-\tcblower
-
-\textbf{稳定性条件}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{BIBO 稳定}: 有界输入产生有界输出
-    \item \textbf{极点位置}: 所有闭环极点必须在左半平面 (LHP)
-    \item 极点 $\text{Re}(p) < 0$ $\Rightarrow$ 稳定
-\end{itemize}
-
-\textbf{Key Insight}: A system is stable if all poles of the closed-loop transfer function have negative real parts.
-
+\begin{studybox}{稳定性 / Stability}
+    \textbf{[CN] 定义}: 一个系统被称为 BIBO (Bounded-Input Bounded-Output) 稳定，如果任何有界输入都产生有界输出。
+    在频域中，线性系统稳定的充要条件是：\textbf{所有闭环极点 (Poles) 都位于复平面的左半部分 (LHP)}。
+    \tcblower
+    \textbf{[EN] Definition}: A system is BIBO Stable if every bounded input produces a bounded output. In the frequency domain, a linear system is stable if and only if \textbf{all closed-loop poles are located in the Left Half Plane (LHP)}.
 \end{studybox}
-
-\begin{formulabox}
-\textbf{特征方程}:
-\begin{equation}
-    1 + G(s)H(s) = 0
-\end{equation}
-
-\textbf{Routh-Hurwitz 判据}:
-
-对于特征多项式 $a_n s^n + a_{n-1} s^{n-1} + \cdots + a_1 s + a_0 = 0$:
-\begin{itemize}[leftmargin=*]
-    \item 所有系数 $a_i > 0$（必要条件）
-    \item Routh 表第一列所有元素同号 $\Rightarrow$ 稳定
-\end{itemize}
-
-\textbf{二阶系统}:
-\begin{equation}
-    G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
-\end{equation}
-稳定条件: $\zeta > 0$（阻尼比为正）
-\end{formulabox}
-
-% --------------------------------------------
-% 4. Frequency Response
-% --------------------------------------------
-\begin{studybox}{频率响应 (Frequency Response)}
-
-\textbf{概念 (CN)}: 系统对不同频率正弦输入的响应特性
-
-\textbf{Term (EN)}: Bode Plot, Gain Margin, Phase Margin
-
-\tcblower
-
-\textbf{Bode 图}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{幅频特性}: $20\log|G(j\omega)|$ vs $\log\omega$
-    \item \textbf{相频特性}: $\angle G(j\omega)$ vs $\log\omega$
-\end{itemize}
-
-\textbf{稳定裕度}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{增益裕度 (GM)}: 相位 = $-180°$ 时的增益距离 0dB 多远
-    \item \textbf{相位裕度 (PM)}: 增益 = 0dB 时的相位距离 $-180°$ 多远
-\end{itemize}
-
-\textbf{Key Insight}: GM > 0dB and PM > 0° means stable. Larger margins = more robust.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{一阶系统}:
-\begin{equation}
-    G(s) = \frac{K}{1 + \tau s}, \quad |G(j\omega)| = \frac{K}{\sqrt{1 + (\omega\tau)^2}}
-\end{equation}
-
-\textbf{截止频率} (Corner Frequency):
-\begin{equation}
-    \omega_c = \frac{1}{\tau}
-\end{equation}
-
-\textbf{渐近线}:
-\begin{itemize}[leftmargin=*]
-    \item $\omega \ll \omega_c$: 0 dB/decade (平坦)
-    \item $\omega \gg \omega_c$: -20 dB/decade (下降)
-\end{itemize}
-\end{formulabox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{智能家居与控制}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    虽然你的毕业设计主要关注数据采集，但 Home Assistant 也可以由控制理论解释：
+    \begin{itemize}
+        \item \textbf{Bang-Bang 控制}: 比如当温度 > 25度时开启风扇，< 24度时关闭。这是一种带有迟滞 (Hysteresis) 的非线性控制。
+        \item \textbf{反馈回路}: 传感器 (SHT30) $\to$ 服务器 (HA) $\to$ 智能开关 (Relay) $\to$ 房间温度 $\to$ 传感器。
+    \end{itemize}
 
-你的论文中的 \textbf{Home Assistant} 实现了简单的反馈控制。
+    \tcblower
 
-\textbf{闭环控制示例}:
-\begin{itemize}
-    \item \textbf{传感器}: SGP40 (VOC 传感器) 检测空气质量
-    \item \textbf{控制器}: Home Assistant 判断 VOC > 阈值
-    \item \textbf{执行器}: 打开换气扇
-    \item \textbf{反馈}: 继续监测 VOC 直到下降
-\end{itemize}
-
-\textbf{Jan Koller 问题}: "Is your smart home system open-loop or closed-loop?"
-
-\textbf{答案}: 闭环。传感器持续反馈数据，系统根据实时状态调整输出（如自动开灯、调温）。
+    \textbf{[EN]}: 
+    Home Assistant automations can be viewed as control loops:
+    \begin{itemize}
+        \item \textbf{Bang-Bang Control}: Turning a fan ON if Temp > 25, OFF if < 24. This is non-linear control with Hysteresis.
+        \item \textbf{Feedback Loop}: Sensor (SHT30) $\to$ Controller (HA) $\to$ Actuator (Relay) $\to$ Plant (Room Temp) $\to$ Sensor.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{混淆开环与闭环传递函数}: 闭环 = $\frac{G}{1+GH}$，开环 = $GH$。
-    \item \textbf{积分器的稳态误差}: 积分项消除稳态误差，但增加超调。
-    \item \textbf{极点位置}: 右半平面极点 = 不稳定！
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Right Half Plane (RHP)}: 只要有一个极点在右半平面，系统就不稳定！(Unstable).
+        \item \textbf{Integral Windup}: 积分饱和。如果执行器达到极限，积分项会持续累积导致系统失控。解决方法是“积分分离”或“抗饱和”。
+        \item \textbf{Phase Margin}: 相位裕度越小，系统越接近振荡。通常设计目标是 $45^\circ - 60^\circ$。
+    \end{itemize}
 \end{warnbox}

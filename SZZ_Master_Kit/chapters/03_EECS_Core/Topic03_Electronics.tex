@@ -7,84 +7,94 @@
 % --------------------------------------------
 % 1. Operational Amplifiers (Op-Amps)
 % --------------------------------------------
-\begin{studybox}{运算放大器 (Op-Amp)}
+\begin{studybox}{运算放大器 / Operational Amplifier}
+    \textbf{[CN] 定义}: 运放 (Op-Amp) 是具有极高增益的电压放大器。
+    \textbf{理想特性}:
+    \begin{itemize}[leftmargin=*]
+        \item 输入阻抗无穷大 ($R_{in} = \infty$)：不从信号源吸取电流。
+        \item 输出阻抗为零 ($R_{out} = 0$)：理想电压源。
+        \item 开环增益无穷大 ($A_{OL} = \infty$)。
+    \end{itemize}
+    \textbf{虚短与虚断}: 在负反馈下，$V_+ = V_-$ 以及 $I_+ = I_- = 0$。
 
-\textbf{Ideal Properties (理想特性)}:
-\begin{itemize}
-    \item $R_{in} = \infty$ (输入阻抗无穷大 $\to$ 不吸取电流)
-    \item $R_{out} = 0$ (输出阻抗为零 $\to$ 理想电压源)
-    \item $A_{OL} = \infty$ (开环增益无穷大)
-\end{itemize}
-
-\textbf{Golden Rules}:
-\begin{enumerate}
-    \item \textbf{Virtual Short}: $V_+ = V_-$ (负反馈状态下)
-    \item \textbf{Virtual Open}: $I_+ = I_- = 0$
-\end{enumerate}
-
-\tcblower
-
-\textbf{Common Configs}:
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Inverting}: $V_{out} = -\frac{R_f}{R_{in}} V_{in}$
-    \item \textbf{Non-Inverting}: $V_{out} = (1 + \frac{R_f}{R_g}) V_{in}$
-    \item \textbf{Buffer (Follower)}: $V_{out} = V_{in}$ ($R_in \to \infty$)
-\end{itemize}
-
+    \tcblower
+    \textbf{[EN] Definition}: An Op-Amp is a high-gain differential voltage amplifier.
+    \textbf{Ideal Properties}: Infinite $R_{in}$, Zero $R_{out}$, Infinite Gain.
+    \textbf{Golden Rules}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Virtual Short}: $V_+ = V_-$ (with negative feedback).
+        \item \textbf{Virtual Open}: No current enters input terminals ($I = 0$).
+    \end{itemize}
 \end{studybox}
 
-% --------------------------------------------
-% 2. Comparators (比较器)
-% --------------------------------------------
 \begin{formulabox}
-\textbf{比较器原理}:
-不使用负反馈，Op-Amp 运行在开环模式。
-
-\begin{equation}
-    V_{out} = 
-    \begin{cases} 
-      V_{CC} & \text{if } V_+ > V_- \\
-      GND & \text{if } V_+ < V_- 
-    \end{cases}
-\end{equation}
-
-\textbf{应用}: 将模拟信号转换为数字信号 (e.g., 阈值触发)。
+\textbf{常见配置 / Common Configurations}:
+\begin{itemize}
+    \item \textbf{反相放大器 (Inverting)}: $V_{out} = -\frac{R_f}{R_{in}} V_{in}$
+    \item \textbf{同相放大器 (Non-Inverting)}: $V_{out} = (1 + \frac{R_f}{R_g}) V_{in}$
+    \item \textbf{电压跟随器 (Buffer)}: $V_{out} = V_{in}$ ($R_f = 0, R_g = \infty$)
+\end{itemize}
 \end{formulabox}
 
 % --------------------------------------------
-% 3. Thesis Connection
+% 2. Comparators
 % --------------------------------------------
-\begin{thesisbox}[Project Application: KY-037 Microphone]
-你的 \textbf{KY-037 声音传感器} 完美展示了模拟电子技术 (Source: \texttt{ky-037.md}):
+\begin{studybox}{比较器 / Comparator}
+    \textbf{[CN] 定义}: 比较器利用运放的开环高增益特性，将模拟信号与参考电压进行比较，输出数字电平 (高/低)。没有负反馈。
+    \tcblower
+    \textbf{[EN] Definition}: A comparator uses an Op-Amp in open-loop mode to compare an analog signal $V_{in}$ against a reference $V_{ref}$, outputting a digital logic level (High/Low).
+\end{studybox}
 
-\textbf{1. 信号放大 (Amplifier)}:
-\begin{itemize}
-    \item 麦克风信号微弱 (mV 级)，模块包含一个放大器 (Amplifier unit)。
-    \item 增益通过电位器 (Potentiometer) 调节。
-    \item 输出: \texttt{Analog Out} (连接到 ESP32 ADC)。
-\end{itemize}
+% --------------------------------------------
+% 3. ADC
+% --------------------------------------------
+\begin{studybox}{模数转换器 / AD Converter (ADC)}
+    \textbf{[CN] 定义}: 将连续的模拟电压信号转换为离散的数字值。
+    \textbf{关键指标}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{分辨率 (Resolution)}: 比特数 (e.g., 12-bit $\to$ 0-4095)。
+        \item \textbf{采样率 (Sampling Rate)}: 每秒采样次数 (Samples per second)。
+        \item \textbf{混叠 (Aliasing)}: 如果采样率 $< 2 f_{max}$，高频信号会伪装成低频噪音。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: Converts continuous analog signals into discrete digital values.
+    \textbf{Key Specs}:
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Resolution}: Number of bits (e.g. 12-bit). $LSB = V_{ref} / 2^N$.
+        \item \textbf{Sampling Rate}: How often the signal is measured.
+        \item \textbf{Nyquist Theorem}: Sampling rate must be $> 2 \times f_{max}$ to avoid Aliasing.
+    \end{itemize}
+\end{studybox}
 
-\textbf{2. 阈值比较 (Comparator)}:
-\begin{itemize}
-    \item 模块包含一个独立比较器 (Component 3)。
-    \item 功能: 当 $V_{mic} > V_{threshold}$ 时，翻转数字输出。
-    \item 输出: \texttt{Digital Out} (连接到 GPIO 为了中断触发)。
-\end{itemize}
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \textbf{KY-037 声音传感器} 包含了完整的模拟电路链条：
+    \begin{enumerate}
+        \item \textbf{换能器}: 驻极体麦克风将声波转换为微弱电压信号 (mV 级)。
+        \item \textbf{放大器}: 下方芯片 (LM393) 作为一个运算放大器，放大这个信号到 \texttt{Analog Out}。
+        \item \textbf{比较器}: 另一个运放通道作为比较器，当音量超过电位器设定阈值时，驱动 \texttt{Digital Out} 变高 (并点亮 LED2)。
+        \item \textbf{ADC}: ESP32 的 12-bit SAR ADC 读取模拟输出 ($0-3.3V \to 0-4095$)。
+    \end{enumerate}
 
-\textbf{3. ADC 接口}:
-\begin{itemize}
-    \item ESP32 内部集成 12-bit SAR ADC。
-    \item 读取: \texttt{analogRead(pin)} 将 0-3.3V 映射为 0-4095。
-\end{itemize}
+    \tcblower
+
+    \textbf{[EN]}:
+    The \textbf{KY-037 Sound Module} demonstrates the analog signal chain:
+    \begin{enumerate}
+        \item \textbf{Transducer}: Electret mic converts sound to weak voltage.
+        \item \textbf{Amplifier}: LM393 amplifies the signal for \texttt{Analog Out}.
+        \item \textbf{Comparator}: Another Op-Amp compares signal vs potentiometer voltage, triggering \texttt{Digital Out}.
+        \item \textbf{ADC}: ESP32's 12-bit SAR ADC digitizes the analog signal.
+    \end{enumerate}
 \end{thesisbox}
 
-% --------------------------------------------
-% 4. Filters (Passive)
-% --------------------------------------------
-\begin{studybox}{滤波器 (Filters)}
-\textbf{RC Low Pass Filter}:
-\begin{equation}
-    f_c = \frac{1}{2\pi R C}
-\end{equation}
-用于电源去耦 (Decoupling) 和传感器噪声平滑。
-\end{studybox}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Op-Amp Real vs Ideal}: 实际运放输出电压受电源轨 ($V_{CC}/GND$) 限制 (Rail-to-Rail)。
+        \item \textbf{ADC Range}: ESP32 的 ADC 是非线性的，且在 0V 和 3.3V 附近有盲区。
+        \item \textbf{Comparator Hysteresis}: 实际比较器通常加入正反馈产生迟滞 (Hysteresis/Schmitt Trigger)，以防止在阈值附近由于噪声引起的频繁跳变。
+    \end{itemize}
+\end{warnbox}

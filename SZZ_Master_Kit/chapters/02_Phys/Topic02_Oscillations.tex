@@ -1,187 +1,114 @@
 % ============================================
-% Topic 02: Oscillations / 振动
+% Topic 02: Oscillations / 振动与波
 % Course: BE5B02PH1
 % ============================================
-\section{振动 / Oscillations (BE5B02PH1)}
+\section{振动与波 / Oscillations \& Waves (BE5B02PH1)}
 
 % --------------------------------------------
-% 1. Simple Harmonic Motion
+% 1. Simple Harmonic Motion (SHM)
 % --------------------------------------------
-\begin{studybox}{简谐运动 (Simple Harmonic Motion)}
-
-\textbf{概念 (CN)}: 回复力与位移成正比的周期运动
-
-\textbf{Term (EN)}: SHM, Angular Frequency, Amplitude, Phase
-
-\tcblower
-
-\textbf{定义}: 物体在回复力 $F = -kx$ 作用下的运动
-
-\textbf{运动方程}:
-\begin{equation}
-    m\frac{d^2x}{dt^2} = -kx \quad \Rightarrow \quad \frac{d^2x}{dt^2} + \omega^2 x = 0
-\end{equation}
-
-\textbf{解}:
-\begin{equation}
-    x(t) = A\cos(\omega t + \phi)
-\end{equation}
-
-其中:
-\begin{itemize}[leftmargin=*]
-    \item $A$: 振幅 (Amplitude)
-    \item $\omega = \sqrt{k/m}$: 角频率 (Angular Frequency)
-    \item $\phi$: 初相位 (Initial Phase)
-\end{itemize}
-
-\textbf{Key Insight}: Crystal oscillator in ESP32 uses mechanical resonance for timing.
-
+\begin{studybox}{简谐振动 / Simple Harmonic Motion (SHM)}
+    \textbf{[CN] 定义}: 
+    物体受到的回复力与位移成正比且方向相反的运动 ($F = -kx$)。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{方程}: $x(t) = A \cos(\omega t + \phi)$.
+        \item \textbf{周期 (Period)}: $T = 2\pi / \omega$.
+        \item \textbf{频率 (Frequency)}: $f = 1/T$.
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Motion where the restoring force is directly proportional to the displacement and acts in the direction opposite to that of displacement ($F = -kx$).
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Equation}: $x(t) = A \cos(\omega t + \phi)$.
+        \item \textbf{Angular Frequency}: $\omega = \sqrt{k/m}$.
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{简谐运动公式}:
-
-\textbf{位移}: $x = A\cos(\omega t + \phi)$
-
-\textbf{速度}: $v = -A\omega\sin(\omega t + \phi)$
-
-\textbf{加速度}: $a = -A\omega^2\cos(\omega t + \phi) = -\omega^2 x$
-
-\textbf{周期}: $T = \frac{2\pi}{\omega} = 2\pi\sqrt{\frac{m}{k}}$
-
-\textbf{频率}: $f = \frac{1}{T} = \frac{\omega}{2\pi}$
-
-\textbf{能量}: $E = \frac{1}{2}kA^2 = \frac{1}{2}m\omega^2 A^2$
-\end{formulabox}
-
-% --------------------------------------------
-% 2. Damped Oscillations
-% --------------------------------------------
-\begin{studybox}{阻尼振动 (Damped Oscillations)}
-
-\textbf{概念 (CN)}: 有阻力作用的振动，振幅逐渐减小
-
-\textbf{Term (EN)}: Damping, Damping Ratio, Overdamped, Underdamped, Critical Damping
-
-\tcblower
-
-\textbf{运动方程}:
+\textbf{单摆 / Simple Pendulum}:
 \begin{equation}
-    m\frac{d^2x}{dt^2} + b\frac{dx}{dt} + kx = 0
+    T = 2\pi \sqrt{\frac{L}{g}}, \quad \omega = \sqrt{\frac{g}{L}}
 \end{equation}
+(仅适用于小角度 $\theta \ll 1$ rad)
 
-\textbf{阻尼系数}: $\gamma = \frac{b}{2m}$
-
-\textbf{阻尼比}: $\zeta = \frac{\gamma}{\omega_0}$, $\omega_0 = \sqrt{k/m}$
-
-\textbf{三种情况}:
-\begin{itemize}[leftmargin=*]
-    \item $\zeta < 1$: 欠阻尼 (Underdamped) - 振荡衰减
-    \item $\zeta = 1$: 临界阻尼 (Critical) - 最快回平衡
-    \item $\zeta > 1$: 过阻尼 (Overdamped) - 缓慢回平衡
-\end{itemize}
-
-\textbf{Key Insight}: Control systems aim for critical damping for fastest response.
-
-\end{studybox}
-
-\begin{formulabox}
-\textbf{欠阻尼解} ($\zeta < 1$):
+\textbf{弹簧振子 / Spring Mass System}:
 \begin{equation}
-    x(t) = Ae^{-\gamma t}\cos(\omega_d t + \phi)
-\end{equation}
-其中 $\omega_d = \omega_0\sqrt{1 - \zeta^2}$ 是阻尼角频率
-
-\textbf{品质因数 (Q Factor)}:
-\begin{equation}
-    Q = \frac{\omega_0}{2\gamma} = \frac{1}{2\zeta}
-\end{equation}
-高 Q $\Rightarrow$ 低阻尼，振动持续更久
-
-\textbf{能量衰减}:
-\begin{equation}
-    E(t) = E_0 e^{-2\gamma t}
+    T = 2\pi \sqrt{\frac{m}{k}}, \quad \omega = \sqrt{\frac{k}{m}}
 \end{equation}
 \end{formulabox}
 
 % --------------------------------------------
-% 3. Forced Oscillations and Resonance
+% 2. Damped and Driven Oscillations
 % --------------------------------------------
-\begin{studybox}{受迫振动与共振 (Forced Oscillations \& Resonance)}
+\begin{studybox}{阻尼与驱动 / Damped \& Driven Oscillations}
+    \textbf{[CN] 定义}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{阻尼 (Damping)}: 由于摩擦力导致能量耗散，振幅随时间指数衰减 ($A(t) = A_0 e^{-\beta t}$)。
+        \item \textbf{驱动 (Driven)}: 受到周期性外力作用。当驱动频率接近固有频率时发生\textbf{共振 (Resonance)}。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Damped}: Amplitude decreases over time due to energy loss (friction/drag).
+        \item \textbf{Driven}: External periodic force is applied. \textbf{Resonance} occurs when driving frequency matches natural frequency ($\omega \approx \omega_0$), causing maximum amplitude.
+    \end{itemize}
+\end{studybox}
 
-\textbf{概念 (CN)}: 在周期性外力作用下的振动
-
-\textbf{Term (EN)}: Driven Oscillator, Resonance, Resonance Frequency
-
-\tcblower
-
-\textbf{运动方程}:
-\begin{equation}
-    m\frac{d^2x}{dt^2} + b\frac{dx}{dt} + kx = F_0\cos(\omega_{drive} t)
-\end{equation}
-
-\textbf{稳态解}:
-\begin{equation}
-    x(t) = A(\omega_{drive})\cos(\omega_{drive} t - \psi)
-\end{equation}
-
-\textbf{共振}: 当 $\omega_{drive} \approx \omega_0$ 时，振幅最大！
-
-\textbf{Key Insight}: Resonance can cause structural failures (Tacoma Bridge).
-
+% --------------------------------------------
+% 3. Waves
+% --------------------------------------------
+\begin{studybox}{机械波 / Mechanical Waves}
+    \textbf{[CN] 定义}: 
+    振动在介质中的传播。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{横波 (Transverse)}: 质点振动垂直于传播方向 (如弦波、光波)。
+        \item \textbf{纵波 (Longitudinal)}: 质点振动平行于传播方向 (如声波)。
+    \end{itemize}
+    \tcblower
+    \textbf{[EN] Definition}: 
+    Propagation of disturbances through a medium.
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Transverse}: Particle oscillation is perpendicular to wave propagation (e.g., Light, String).
+        \item \textbf{Longitudinal}: Particle oscillation is parallel to wave propagation (e.g., Sound).
+    \end{itemize}
 \end{studybox}
 
 \begin{formulabox}
-\textbf{振幅响应}:
+\textbf{波函数 / Wave Equation}:
 \begin{equation}
-    A(\omega) = \frac{F_0/m}{\sqrt{(\omega_0^2 - \omega^2)^2 + (2\gamma\omega)^2}}
+    y(x,t) = A \cos(kx - \omega t)
 \end{equation}
+$k = 2\pi/\lambda$ (波数 / Wave Number)
 
-\textbf{共振频率}:
+\textbf{波速 / Wave Speed}:
 \begin{equation}
-    \omega_{res} = \omega_0\sqrt{1 - 2\zeta^2} \approx \omega_0 \quad (\text{低阻尼})
-\end{equation}
-
-\textbf{共振时振幅}:
-\begin{equation}
-    A_{max} = \frac{F_0}{2m\gamma\omega_0} = \frac{QF_0}{k}
+    v = \lambda f = \frac{\omega}{k}
 \end{equation}
 \end{formulabox}
 
 % --------------------------------------------
 % Thesis Connection
 % --------------------------------------------
-\begin{thesisbox}
-\textbf{振动与传感器系统}:
+\begin{thesisbox}[论文关联 / Project Application]
+    \textbf{[CN]}: 
+    \begin{itemize}
+        \item \textbf{MEMS 谐振器}: MPU6050 内部使用微小的振动质量块 (Vibrating Mass) 和电容检测。它们工作在谐振状态。Coriolis 力会改变振动模式。
+        \item \textbf{信号滤波}: 我们的"移动平均滤波器"本质上是一个低通滤波器，用于去除高频振动 (噪音)，只保留低频运动分量。
+    \end{itemize}
 
-\textbf{晶振 (Crystal Oscillator)}:
-ESP32 使用 40MHz 晶振作为时钟源。晶体的机械共振提供精确的频率参考：
-\begin{equation}
-    f = \frac{1}{2\pi}\sqrt{\frac{k}{m}}
-\end{equation}
+    \tcblower
 
-\textbf{MEMS 陀螺仪原理}:
-陀螺仪使用振动质量块。当设备旋转时，科里奥利力改变振动模式。
-
-\textbf{滤波器设计}:
-RLC 电路是电子谐振器：
-\begin{equation}
-    f_0 = \frac{1}{2\pi\sqrt{LC}}
-\end{equation}
-
-\textbf{Jan Koller 问题}: "Why does your system need a precise clock?"
-
-\textbf{答案}: 晶振利用石英晶体的机械共振提供稳定的频率参考。这对于 UART (115200 baud)、I2C 时序、WiFi 调制等都至关重要。晶体的高 Q 值确保频率稳定性。
+    \textbf{[EN]}: 
+    \begin{itemize}
+        \item \textbf{MEMS Resonator}: Inside MPU6050, vibrating masses operate at resonance. Coriolis forces shift this vibration, detected capacitively.
+        \item \textbf{Filtering}: The moving average filter acts as a Low-Pass Filter, attenuating high-frequency oscillations (noise) while passing low-frequency motion.
+    \end{itemize}
 \end{thesisbox}
 
-% --------------------------------------------
-% Exam Strategy
-% --------------------------------------------
-\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
-\begin{enumerate}
-    \item \textbf{角频率 vs 频率}: $\omega = 2\pi f$，不要混淆！
-    \item \textbf{简谐运动能量}: 总能量 $E = \frac{1}{2}kA^2$ 是常数，动能和势能在转换。
-    \item \textbf{阻尼比}: $\zeta = 1$ 是临界阻尼，不是无阻尼。
-    \item \textbf{共振}: 共振频率略低于固有频率（当阻尼存在时）。
-\end{enumerate}
+\begin{warnbox}[考试陷阱 / Exam Pitfalls]
+    \begin{itemize}
+        \item \textbf{Period vs Frequency}: $T = 1/f$. Don't mix them up.
+        \item \textbf{Resonance}: 共振只发生在驱动频率 $\omega_d = \omega_0$ 时，此时能量传输最大，若无阻尼可能导致破坏。
+        \item \textbf{Sound in Vacuum}: 声波是机械波，不能在真空中传播！(Light can).
+    \end{itemize}
 \end{warnbox}
