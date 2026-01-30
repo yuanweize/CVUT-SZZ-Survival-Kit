@@ -1,26 +1,245 @@
-\section{Numerical Math (DEN)}
+% ============================================
+% Topic 02: Numerical Methods / 数值方法
+% Course: BE5B01DEN
+% ============================================
+\section{数值方法 / Numerical Methods (BE5B01DEN)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 数值方法用于计算机近似求解。重点是浮点数误差（IEEE 754）、牛顿迭代法（Newton Method）求根。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+% --------------------------------------------
+% 1. Error Analysis
+% --------------------------------------------
+\begin{studybox}{误差分析 (Error Analysis)}
+
+\textbf{概念 (CN)}: 数值计算中的误差来源和传播
+
+\textbf{Term (EN)}: Absolute Error, Relative Error, Round-off Error, Truncation Error
+
+\tcblower
+
+\textbf{误差类型}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{截断误差 (Truncation Error)}: 用有限项近似无限级数（如泰勒展开）
+    \item \textbf{舍入误差 (Round-off Error)}: 计算机有限精度表示
+    \item \textbf{传播误差 (Propagation Error)}: 初始误差在计算中放大
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Floating Point, Round-off Error, Newton's Method, Interpolation}
-\end{keywords}
-数值方法用于计算机近似求解。重点是浮点数误差（IEEE 754）、牛顿迭代法（Newton Method）求根。
+\textbf{Key Insight}: In ESP32, floating-point operations use 32-bit precision, causing round-off errors in sensor calculations.
 
-\subsection{Formulas / 公式}
+\end{studybox}
+
+\begin{formulabox}
+\textbf{绝对误差 (Absolute Error)}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    E_{abs} = |x_{true} - x_{approx}|
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{相对误差 (Relative Error)}:
+\begin{equation}
+    E_{rel} = \frac{|x_{true} - x_{approx}|}{|x_{true}|}
+\end{equation}
+
+\textbf{条件数 (Condition Number)}:
+\begin{equation}
+    \kappa(A) = \|A\| \cdot \|A^{-1}\|
+\end{equation}
+高条件数 $\Rightarrow$ 问题对误差敏感（ill-conditioned）
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Root Finding - Newton's Method
+% --------------------------------------------
+\begin{studybox}{求根方法 - 牛顿法 (Newton's Method)}
+
+\textbf{概念 (CN)}: 迭代求解方程 $f(x) = 0$ 的根
+
+\textbf{Term (EN)}: Newton-Raphson Method, Root Finding, Iteration
+
+\tcblower
+
+\textbf{核心思想}: 用切线近似曲线，切线与 x 轴交点作为新的近似值
+
+\textbf{收敛性}:
+\begin{itemize}[leftmargin=*]
+    \item 二次收敛（Quadratic Convergence）：误差平方减少
+    \item 需要良好的初始值，否则可能发散
+    \item 在根附近 $f'(x) \approx 0$ 时收敛慢
 \end{itemize}
+
+\textbf{Key Insight}: Newton's method is the foundation of many optimization algorithms in machine learning.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{牛顿迭代公式}:
+\begin{equation}
+    \boxed{x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}}
+\end{equation}
+
+\textbf{示例}: 求 $\sqrt{2}$ (即 $f(x) = x^2 - 2 = 0$)
+\begin{align}
+    f'(x) &= 2x \\
+    x_{n+1} &= x_n - \frac{x_n^2 - 2}{2x_n} = \frac{x_n + 2/x_n}{2}
+\end{align}
+
+\textbf{其他方法对比}:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{方法} & \textbf{收敛阶} & \textbf{需要导数?} \\
+\midrule
+二分法 (Bisection) & 1 (线性) & 否 \\
+牛顿法 (Newton) & 2 (二次) & 是 \\
+割线法 (Secant) & 1.618 & 否 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Numerical Integration
+% --------------------------------------------
+\begin{studybox}{数值积分 (Numerical Integration)}
+
+\textbf{概念 (CN)}: 用离散求和近似定积分
+
+\textbf{Term (EN)}: Quadrature, Trapezoidal Rule, Simpson's Rule
+
+\tcblower
+
+\textbf{基本思想}: 将积分区间分成小段，用简单函数近似
+
+\textbf{常用方法}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{矩形法}: 用矩形面积近似
+    \item \textbf{梯形法}: 用梯形面积近似（更精确）
+    \item \textbf{Simpson法}: 用抛物线近似（最精确）
+\end{itemize}
+
+\textbf{Key Insight}: Higher-order methods need fewer points for the same accuracy.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{梯形公式 (Trapezoidal Rule)}:
+\begin{equation}
+    \int_a^b f(x)\,dx \approx \frac{h}{2}\left[f(a) + 2\sum_{i=1}^{n-1}f(x_i) + f(b)\right]
+\end{equation}
+其中 $h = \frac{b-a}{n}$，误差 $O(h^2)$
+
+\textbf{Simpson 公式 (Simpson's Rule)}:
+\begin{equation}
+    \int_a^b f(x)\,dx \approx \frac{h}{3}\left[f(a) + 4\sum_{odd} f(x_i) + 2\sum_{even} f(x_i) + f(b)\right]
+\end{equation}
+误差 $O(h^4)$，需要偶数个区间
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Numerical ODE - Euler & Runge-Kutta
+% --------------------------------------------
+\begin{studybox}{常微分方程数值解 (Numerical ODE)}
+
+\textbf{概念 (CN)}: 用离散步进求解 ODE 初值问题
+
+\textbf{Term (EN)}: Euler Method, Runge-Kutta, Initial Value Problem (IVP)
+
+\tcblower
+
+\textbf{问题形式}: 给定 $\frac{dy}{dt} = f(t, y)$, $y(t_0) = y_0$，求 $y(t)$
+
+\textbf{欧拉法 (Euler Method)}:
+\begin{itemize}[leftmargin=*]
+    \item 最简单的方法，一阶精度
+    \item 误差随步长线性增长
+\end{itemize}
+
+\textbf{龙格-库塔法 (Runge-Kutta)}:
+\begin{itemize}[leftmargin=*]
+    \item RK4 是最常用的四阶方法
+    \item 精度高，稳定性好
+\end{itemize}
+
+\textbf{Key Insight}: ESP32 uses Euler-like integration for sensor fusion (complementary filter).
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{前向欧拉法 (Forward Euler)}:
+\begin{equation}
+    \boxed{y_{n+1} = y_n + h \cdot f(t_n, y_n)}
+\end{equation}
+
+\textbf{四阶龙格-库塔 (RK4)}:
+\begin{align}
+    k_1 &= f(t_n, y_n) \\
+    k_2 &= f(t_n + \frac{h}{2}, y_n + \frac{h}{2}k_1) \\
+    k_3 &= f(t_n + \frac{h}{2}, y_n + \frac{h}{2}k_2) \\
+    k_4 &= f(t_n + h, y_n + h \cdot k_3)
+\end{align}
+\begin{equation}
+    \boxed{y_{n+1} = y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 5. Linear Systems - Gaussian Elimination
+% --------------------------------------------
+\begin{studybox}{线性方程组数值解 (Solving Linear Systems)}
+
+\textbf{概念 (CN)}: 数值求解 $\mathbf{Ax} = \mathbf{b}$
+
+\textbf{Term (EN)}: Gaussian Elimination, LU Decomposition, Pivoting
+
+\tcblower
+
+\textbf{高斯消元法}:
+\begin{enumerate}
+    \item 前向消元：将矩阵变为上三角形式
+    \item 回代：从最后一行开始求解
+\end{enumerate}
+
+\textbf{主元选取 (Pivoting)}:
+\begin{itemize}[leftmargin=*]
+    \item 避免除以零或小数
+    \item 部分主元：选列中最大元素
+    \item 完全主元：选整个矩阵最大元素
+\end{itemize}
+
+\textbf{Key Insight}: Condition number determines how errors propagate in linear systems.
+
+\end{studybox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{数值方法与智能家居传感器}:
+
+你的论文使用多种数值方法处理传感器数据：
+
+\textbf{移动平均滤波 (Moving Average)}:
+\begin{equation}
+    y_n = \frac{1}{N}\sum_{i=0}^{N-1} x_{n-i}
+\end{equation}
+这是一种简单的数值滤波方法，用于平滑温湿度读数。
+
+\textbf{互补滤波器 (Complementary Filter)}:
+\begin{equation}
+    \theta = \alpha \cdot (\theta_{prev} + \omega \cdot dt) + (1-\alpha) \cdot \theta_{acc}
+\end{equation}
+用于融合加速度计和陀螺仪数据，本质上是数值积分 + 加权平均。
+
+\textbf{Jan Koller 问题}: "How do you handle sensor noise?"
+
+\textbf{答案}: 使用移动平均滤波（一种数值方法）平滑读数，减少高频噪声。对于姿态估计，使用互补滤波器结合数值积分。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{牛顿法发散}: 初始值选得不好，或 $f'(x_0) \approx 0$。
+    \item \textbf{Simpson 需要偶数区间}: $n$ 必须是偶数！
+    \item \textbf{条件数}: 高条件数矩阵 $\Rightarrow$ 结果不可靠。
+    \item \textbf{步长选择}: 太大 $\Rightarrow$ 不精确，太小 $\Rightarrow$ 舍入误差累积。
+\end{enumerate}
+\end{warnbox}

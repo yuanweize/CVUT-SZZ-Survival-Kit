@@ -1,26 +1,287 @@
-\section{Discrete Math \& Sets (DMG)}
+% ============================================
+% Topic 04: Discrete Mathematics / 离散数学
+% Course: BE5B01DMG
+% ============================================
+\section{离散数学 / Discrete Mathematics (BE5B01DMG)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 集合论与二元关系。重点是模运算（Modulo）、等价关系（Equivalence）和偏序（Partial Order）。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+% --------------------------------------------
+% 1. Logic
+% --------------------------------------------
+\begin{studybox}{命题逻辑 (Propositional Logic)}
+
+\textbf{概念 (CN)}: 研究命题之间的逻辑关系
+
+\textbf{Term (EN)}: Proposition, Logical Connectives, Truth Table, Tautology
+
+\tcblower
+
+\textbf{逻辑连接词}:
+\begin{itemize}[leftmargin=*]
+    \item $\neg p$ (NOT): 非
+    \item $p \land q$ (AND): 合取
+    \item $p \lor q$ (OR): 析取
+    \item $p \to q$ (IMPLIES): 蕴含
+    \item $p \leftrightarrow q$ (IFF): 等价
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Sets, Cardinality, Equivalence Relation, Modulo Arithmetic}
-\end{keywords}
-集合论与二元关系。重点是模运算（Modulo）、等价关系（Equivalence）和偏序（Partial Order）。
+\textbf{重要等价式}:
+\begin{itemize}[leftmargin=*]
+    \item $p \to q \equiv \neg p \lor q$
+    \item $\neg(p \land q) \equiv \neg p \lor \neg q$ (德摩根定律)
+    \item $\neg(p \lor q) \equiv \neg p \land \neg q$ (德摩根定律)
+\end{itemize}
 
-\subsection{Formulas / 公式}
+\textbf{Key Insight}: Digital logic gates (AND, OR, NOT) implement these operations in hardware.
+
+\end{studybox}
+
+% --------------------------------------------
+% 2. Set Theory
+% --------------------------------------------
+\begin{studybox}{集合论 (Set Theory)}
+
+\textbf{概念 (CN)}: 研究集合及其运算
+
+\textbf{Term (EN)}: Set, Subset, Union, Intersection, Cardinality
+
+\tcblower
+
+\textbf{基本运算}:
+\begin{itemize}[leftmargin=*]
+    \item $A \cup B$: 并集 (Union)
+    \item $A \cap B$: 交集 (Intersection)
+    \item $A \setminus B$: 差集 (Difference)
+    \item $A^c$: 补集 (Complement)
+    \item $A \times B$: 笛卡尔积 (Cartesian Product)
+\end{itemize}
+
+\textbf{幂集}: $\mathcal{P}(A)$ 包含 $A$ 的所有子集，$|\mathcal{P}(A)| = 2^{|A|}$
+
+\textbf{Key Insight}: Set operations correspond to logical operations via indicator functions.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{容斥原理 (Inclusion-Exclusion)}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    |A \cup B| = |A| + |B| - |A \cap B|
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{三个集合}:
+\begin{equation}
+    |A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|
+\end{equation}
+
+\textbf{集合基数}:
+\begin{itemize}[leftmargin=*]
+    \item $|\mathbb{N}| = \aleph_0$ (可数无穷)
+    \item $|\mathbb{R}| = \mathfrak{c}$ (连续统)
+    \item $|\mathfrak{c}| > |\aleph_0|$ (康托定理)
 \end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Number Theory
+% --------------------------------------------
+\begin{studybox}{数论 (Number Theory)}
+
+\textbf{概念 (CN)}: 研究整数的性质
+
+\textbf{Term (EN)}: Divisibility, Modular Arithmetic, GCD, Prime
+
+\tcblower
+
+\textbf{模运算}:
+\begin{equation}
+    a \equiv b \pmod{n} \quad \Leftrightarrow \quad n \mid (a-b)
+\end{equation}
+
+\textbf{模运算性质}:
+\begin{itemize}[leftmargin=*]
+    \item $(a + b) \mod n = ((a \mod n) + (b \mod n)) \mod n$
+    \item $(a \cdot b) \mod n = ((a \mod n) \cdot (b \mod n)) \mod n$
+\end{itemize}
+
+\textbf{最大公约数 (GCD)}: 用欧几里得算法求解
+
+\textbf{Key Insight}: Cryptography (RSA) relies heavily on modular arithmetic.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{欧几里得算法 (Euclidean Algorithm)}:
+\begin{equation}
+    \gcd(a, b) = \gcd(b, a \mod b), \quad \gcd(a, 0) = a
+\end{equation}
+
+\textbf{扩展欧几里得}: 求 $ax + by = \gcd(a, b)$ 的整数解
+
+\textbf{费马小定理}:
+\begin{equation}
+    a^{p-1} \equiv 1 \pmod{p} \quad \text{(if } p \text{ is prime, } \gcd(a, p) = 1\text{)}
+\end{equation}
+
+\textbf{欧拉定理}:
+\begin{equation}
+    a^{\phi(n)} \equiv 1 \pmod{n} \quad \text{(if } \gcd(a, n) = 1\text{)}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Combinatorics
+% --------------------------------------------
+\begin{studybox}{组合数学 (Combinatorics)}
+
+\textbf{概念 (CN)}: 研究有限集合的计数和排列
+
+\textbf{Term (EN)}: Permutation, Combination, Binomial Coefficient
+
+\tcblower
+
+\textbf{排列 (Permutation)}: 有序选择
+\begin{equation}
+    P(n, k) = \frac{n!}{(n-k)!}
+\end{equation}
+
+\textbf{组合 (Combination)}: 无序选择
+\begin{equation}
+    C(n, k) = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\end{equation}
+
+\textbf{Key Insight}: Combinations count subsets; permutations count arrangements.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{二项式定理}:
+\begin{equation}
+    (x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}
+\end{equation}
+
+\textbf{帕斯卡恒等式}:
+\begin{equation}
+    \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}
+\end{equation}
+
+\textbf{鸽巢原理 (Pigeonhole Principle)}:
+\begin{equation}
+    \text{If } n+1 \text{ objects are placed in } n \text{ boxes, at least one box contains } \geq 2 \text{ objects.}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 5. Graph Theory
+% --------------------------------------------
+\begin{studybox}{图论 (Graph Theory)}
+
+\textbf{概念 (CN)}: 研究由顶点和边组成的结构
+
+\textbf{Term (EN)}: Vertex, Edge, Adjacency, Path, Cycle, Connected, Tree
+
+\tcblower
+
+\textbf{基本定义}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{图 (Graph)}: $G = (V, E)$，顶点集和边集
+    \item \textbf{度 (Degree)}: 顶点连接的边数
+    \item \textbf{路径 (Path)}: 不重复顶点的边序列
+    \item \textbf{环 (Cycle)}: 起点=终点的路径
+    \item \textbf{树 (Tree)}: 连通无环图
+\end{itemize}
+
+\textbf{Key Insight}: Network topology (Star, Mesh) is a graph theory problem.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{握手定理 (Handshaking Lemma)}:
+\begin{equation}
+    \sum_{v \in V} \deg(v) = 2|E|
+\end{equation}
+
+\textbf{树的性质}:
+\begin{itemize}[leftmargin=*]
+    \item $|E| = |V| - 1$
+    \item 任意两点之间有唯一路径
+    \item 移除任意边使图不连通
+\end{itemize}
+
+\textbf{欧拉路径/回路}:
+\begin{itemize}[leftmargin=*]
+    \item 欧拉路径存在 $\Leftrightarrow$ 恰有 0 或 2 个奇度顶点
+    \item 欧拉回路存在 $\Leftrightarrow$ 所有顶点度数为偶数
+\end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 6. Graph Algorithms
+% --------------------------------------------
+\begin{studybox}{图算法 (Graph Algorithms)}
+
+\textbf{概念 (CN)}: 在图上进行搜索和优化
+
+\textbf{Term (EN)}: BFS, DFS, Dijkstra, Shortest Path
+
+\tcblower
+
+\textbf{广度优先搜索 (BFS)}:
+\begin{itemize}[leftmargin=*]
+    \item 使用队列 (Queue)
+    \item 按层遍历
+    \item 找到的是最短路径（无权图）
+\end{itemize}
+
+\textbf{深度优先搜索 (DFS)}:
+\begin{itemize}[leftmargin=*]
+    \item 使用栈 (Stack) 或递归
+    \item 尽可能深入
+    \item 用于检测环、拓扑排序
+\end{itemize}
+
+\textbf{Dijkstra 算法}:
+\begin{itemize}[leftmargin=*]
+    \item 求加权图的最短路径
+    \item 时间复杂度 $O(|V|^2)$ 或 $O(|E| \log |V|)$ (使用堆)
+\end{itemize}
+
+\textbf{Key Insight}: Routing protocols (OSPF) use Dijkstra's algorithm.
+
+\end{studybox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{离散数学与智能家居网络}:
+
+你的论文使用图论概念描述网络拓扑：
+
+\textbf{MQTT 网络拓扑}:
+\begin{itemize}
+    \item \textbf{星型拓扑 (Star)}: 所有设备连接到中心 Broker（你的设计）
+    \item 图表示: $G = (V, E)$, $|V| = n+1$, $|E| = n$
+    \item 这是一棵树！满足 $|E| = |V| - 1$
+\end{itemize}
+
+\textbf{模运算应用}:
+\begin{itemize}
+    \item CRC 校验使用模 2 运算
+    \item 时间戳循环使用模 $2^{32}$ 运算
+\end{itemize}
+
+\textbf{Jan Koller 问题}: "What is the network topology of your system?"
+
+\textbf{答案}: 星型拓扑 (Star Topology)。所有 ESP32 设备作为叶节点连接到中心 MQTT Broker。这是一棵树结构，优点是简单、易管理，缺点是单点故障。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{模运算}: $(a - b) \mod n \neq (a \mod n) - (b \mod n)$，可能为负！
+    \item \textbf{组合 vs 排列}: 注意题目是否要求顺序。
+    \item \textbf{欧拉路径 vs 回路}: 0 个奇度顶点是回路，2 个奇度顶点是路径。
+    \item \textbf{BFS vs DFS}: BFS 找最短路径（无权），DFS 不一定。
+\end{enumerate}
+\end{warnbox}

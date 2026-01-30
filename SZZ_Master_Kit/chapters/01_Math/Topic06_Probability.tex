@@ -1,26 +1,213 @@
-\section{Probability (PRS)}
+% ============================================
+% Topic 06: Probability & Statistics / 概率与统计
+% Course: BE5B01PRS
+% ============================================
+\section{概率与统计 / Probability \& Statistics (BE5B01PRS)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 概率分布与统计。重点是贝叶斯定理（Bayes Theorem）、正态分布（Normal Distribution）和期望值。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Basic Probability
+% --------------------------------------------
+\begin{studybox}{概率基础 (Basic Probability)}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Random Variable, PDF, CDF, Bayes Theorem, Expectation}
-\end{keywords}
-概率分布与统计。重点是贝叶斯定理（Bayes Theorem）、正态分布（Normal Distribution）和期望值。
+\textbf{概念 (CN)}: 随机事件发生可能性的度量
 
-\subsection{Formulas / 公式}
+\textbf{Term (EN)}: Sample Space, Event, Probability, Conditional Probability
+
+\tcblower
+
+\textbf{概率公理}:
+\begin{enumerate}
+    \item $P(A) \geq 0$ (非负性)
+    \item $P(\Omega) = 1$ (规范性)
+    \item $P(A \cup B) = P(A) + P(B)$ if $A \cap B = \emptyset$ (可加性)
+\end{enumerate}
+
+\textbf{条件概率}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    P(A|B) = \frac{P(A \cap B)}{P(B)}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{独立事件}: $P(A \cap B) = P(A) \cdot P(B)$
+
+\textbf{Key Insight}: Sensor readings have inherent randomness; probability models this uncertainty.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{贝叶斯定理 (Bayes' Theorem)}:
+\begin{equation}
+    \boxed{P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}}
+\end{equation}
+
+\textbf{全概率公式}:
+\begin{equation}
+    P(B) = \sum_{i} P(B|A_i) \cdot P(A_i)
+\end{equation}
+
+\textbf{贝叶斯展开形式}:
+\begin{equation}
+    P(A_i|B) = \frac{P(B|A_i) \cdot P(A_i)}{\sum_j P(B|A_j) \cdot P(A_j)}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Probability Distributions
+% --------------------------------------------
+\begin{studybox}{概率分布 (Probability Distributions)}
+
+\textbf{概念 (CN)}: 描述随机变量取值的概率
+
+\textbf{Term (EN)}: PMF, PDF, CDF, Expected Value, Variance
+
+\tcblower
+
+\textbf{离散分布} (PMF):
+\begin{itemize}[leftmargin=*]
+    \item \textbf{伯努利 (Bernoulli)}: 单次试验，成功概率 $p$
+    \item \textbf{二项 (Binomial)}: $n$ 次独立试验中成功次数
+    \item \textbf{泊松 (Poisson)}: 单位时间内事件发生次数
 \end{itemize}
+
+\textbf{连续分布} (PDF):
+\begin{itemize}[leftmargin=*]
+    \item \textbf{均匀 (Uniform)}: 等概率
+    \item \textbf{指数 (Exponential)}: 等待时间
+    \item \textbf{正态/高斯 (Normal/Gaussian)}: 钟形曲线
+\end{itemize}
+
+\textbf{Key Insight}: Sensor noise is often modeled as Gaussian distribution.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{常用分布}:
+
+\textbf{二项分布}: $X \sim \text{Bin}(n, p)$
+\begin{equation}
+    P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad E[X] = np, \quad \text{Var}(X) = np(1-p)
+\end{equation}
+
+\textbf{泊松分布}: $X \sim \text{Pois}(\lambda)$
+\begin{equation}
+    P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad E[X] = \text{Var}(X) = \lambda
+\end{equation}
+
+\textbf{正态分布}: $X \sim \mathcal{N}(\mu, \sigma^2)$
+\begin{equation}
+    f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{equation}
+
+\textbf{标准正态}: $Z = \frac{X - \mu}{\sigma} \sim \mathcal{N}(0, 1)$
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Parameter Estimation
+% --------------------------------------------
+\begin{studybox}{参数估计 (Parameter Estimation)}
+
+\textbf{概念 (CN)}: 从样本数据估计总体参数
+
+\textbf{Term (EN)}: Point Estimate, Maximum Likelihood, Confidence Interval
+
+\tcblower
+
+\textbf{点估计}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{样本均值}: $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$ 估计 $\mu$
+    \item \textbf{样本方差}: $S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$ 估计 $\sigma^2$
+\end{itemize}
+
+\textbf{最大似然估计 (MLE)}:
+\begin{equation}
+    \hat{\theta} = \arg\max_\theta \mathcal{L}(\theta | \text{data})
+\end{equation}
+
+\textbf{Key Insight}: Kalman filter uses Bayesian estimation to optimally fuse sensor data.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{置信区间 (Confidence Interval)}:
+
+\textbf{正态总体，已知 $\sigma$}: $\mu$ 的 $(1-\alpha)$ 置信区间
+\begin{equation}
+    \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+\end{equation}
+
+\textbf{正态总体，未知 $\sigma$}: 使用 t 分布
+\begin{equation}
+    \bar{X} \pm t_{\alpha/2, n-1} \cdot \frac{S}{\sqrt{n}}
+\end{equation}
+
+\textbf{常用 z 值}: $z_{0.025} = 1.96$ (95\% 置信度)
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Hypothesis Testing
+% --------------------------------------------
+\begin{studybox}{假设检验 (Hypothesis Testing)}
+
+\textbf{概念 (CN)}: 根据样本数据判断假设是否成立
+
+\textbf{Term (EN)}: Null Hypothesis, p-value, Type I/II Error
+
+\tcblower
+
+\textbf{基本步骤}:
+\begin{enumerate}
+    \item 提出原假设 $H_0$ 和备择假设 $H_1$
+    \item 选择检验统计量
+    \item 计算 p-value 或临界值
+    \item 拒绝或接受 $H_0$
+\end{enumerate}
+
+\textbf{错误类型}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Type I Error ($\alpha$)}: 拒绝真的 $H_0$ (假阳性)
+    \item \textbf{Type II Error ($\beta$)}: 接受假的 $H_0$ (假阴性)
+\end{itemize}
+
+\textbf{Key Insight}: Threshold tuning in fall detection is a hypothesis testing problem.
+
+\end{studybox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{概率统计与传感器融合}:
+
+你的论文使用概率方法处理不确定性：
+
+\textbf{传感器噪声建模}:
+\begin{equation}
+    \text{Measurement} = \text{True Value} + \text{Noise}, \quad \text{Noise} \sim \mathcal{N}(0, \sigma^2)
+\end{equation}
+
+\textbf{贝叶斯滤波 (Kalman Filter 核心)}:
+\begin{equation}
+    P(\text{State}|\text{Measurement}) \propto P(\text{Measurement}|\text{State}) \cdot P(\text{State})
+\end{equation}
+
+\textbf{跌倒检测阈值}:
+\begin{itemize}
+    \item 阈值过低: 高 False Positive (Type I Error)
+    \item 阈值过高: 高 False Negative (Type II Error)
+\end{itemize}
+
+\textbf{Jan Koller 问题}: "How did you determine the fall detection threshold?"
+
+\textbf{答案}: 通过实验收集正常活动和跌倒数据，分析加速度分布。选择阈值使 False Positive 和 False Negative 之间取得平衡。这本质上是一个假设检验问题。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{条件概率方向}: $P(A|B) \neq P(B|A)$！
+    \item \textbf{样本方差}: 分母是 $n-1$，不是 $n$（无偏估计）。
+    \item \textbf{p-value 解释}: p-value 不是 $H_0$ 为真的概率！
+    \item \textbf{标准化}: 使用 z-score 前确保是正态分布。
+\end{enumerate}
+\end{warnbox}

@@ -1,26 +1,146 @@
-\section{Thermodynamics (PH2)}
+% ============================================
+% Topic 04: Thermodynamics / 热力学
+% Course: BE5B02PH2
+% ============================================
+\section{热力学 / Thermodynamics (BE5B02PH2)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 热力学定律。重点是熵（Entropy）、卡诺循环（Carnot Cycle）和理想气体方程。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+% --------------------------------------------
+% 1. Temperature and Heat
+% --------------------------------------------
+\begin{studybox}{温度与热量 (Temperature and Heat)}
+
+\textbf{概念 (CN)}: 温度是分子平均动能的度量，热量是能量传递
+
+\textbf{Term (EN)}: Temperature, Heat, Thermal Equilibrium, Specific Heat
+
+\tcblower
+
+\textbf{热力学第零定律}:
+如果 A 与 B 热平衡，B 与 C 热平衡，则 A 与 C 热平衡。
+
+\textbf{温度标度}:
+\begin{itemize}[leftmargin=*]
+    \item 摄氏度: $T_C$ (水冰点 0°C, 沸点 100°C)
+    \item 开尔文: $T_K = T_C + 273.15$
+    \item 华氏度: $T_F = \frac{9}{5}T_C + 32$
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{First Law, Entropy, Heat Capacity, Isothermal}
-\end{keywords}
-热力学定律。重点是熵（Entropy）、卡诺循环（Carnot Cycle）和理想气体方程。
-
-\subsection{Formulas / 公式}
+\textbf{热量}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    Q = mc\Delta T
+\end{equation}
+其中 $c$ 是比热容 (Specific Heat Capacity)
+
+\textbf{Key Insight}: DHT22 sensor measures temperature using thermistor principle.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{热传导 (Fourier's Law)}:
+\begin{equation}
+    \frac{dQ}{dt} = -kA\frac{dT}{dx}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{热辐射 (Stefan-Boltzmann Law)}:
+\begin{equation}
+    P = \varepsilon\sigma A T^4
+\end{equation}
+其中 $\sigma = 5.67 \times 10^{-8} \, \text{W/m}^2\text{K}^4$
+
+\textbf{理想气体状态方程}:
+\begin{equation}
+    \boxed{PV = nRT}
+\end{equation}
+$R = 8.314 \, \text{J/(mol·K)}$
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Laws of Thermodynamics
+% --------------------------------------------
+\begin{studybox}{热力学定律 (Laws of Thermodynamics)}
+
+\textbf{概念 (CN)}: 描述热、功和能量转换的基本定律
+
+\textbf{Term (EN)}: First/Second Law, Entropy, Carnot Cycle
+
+\tcblower
+
+\textbf{第一定律} (能量守恒):
+\begin{equation}
+    \boxed{\Delta U = Q - W}
+\end{equation}
+内能变化 = 吸收热量 - 对外做功
+
+\textbf{第二定律}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{克劳修斯表述}: 热量不能自发从低温传到高温
+    \item \textbf{开尔文表述}: 不可能从单一热源取热全部转化为功
 \end{itemize}
+
+\textbf{熵 (Entropy)}:
+\begin{equation}
+    dS = \frac{dQ_{rev}}{T}
+\end{equation}
+
+\textbf{Key Insight}: Any computing system generates heat due to entropy increase.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{热力学过程}:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{过程} & \textbf{条件} & \textbf{$Q$} & \textbf{$W$} \\
+\midrule
+等容 (Isochoric) & $V$ = const & $nC_V\Delta T$ & 0 \\
+等压 (Isobaric) & $P$ = const & $nC_P\Delta T$ & $P\Delta V$ \\
+等温 (Isothermal) & $T$ = const & $nRT\ln(V_2/V_1)$ & $Q$ \\
+绝热 (Adiabatic) & $Q$ = 0 & 0 & $-\Delta U$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{绝热过程}: $PV^\gamma = \text{const}$, $\gamma = C_P/C_V$
+
+\textbf{卡诺效率}: $\eta = 1 - \frac{T_C}{T_H}$
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{热力学与电子系统}:
+
+\textbf{温度传感器原理}:
+DHT22 使用热敏电阻，电阻随温度变化：
+\begin{equation}
+    R(T) = R_0 e^{\beta(1/T - 1/T_0)}
+\end{equation}
+
+\textbf{ESP32 发热}:
+CPU 在计算时消耗功率 $P = VI$，转化为热量。需要散热设计。
+
+\textbf{环境监测}:
+温湿度影响舒适度指数：
+\begin{equation}
+    \text{Heat Index} = f(T, RH)
+\end{equation}
+
+\textbf{Jan Koller 问题}: "What is the accuracy of your temperature sensor?"
+
+\textbf{答案}: DHT22 精度 $\pm 0.5°C$。原理是 NTC 热敏电阻，电阻随温度指数变化。传感器内置 ADC 和校准数据，通过单线协议输出数字值。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{$Q$ 的符号}: $Q > 0$ 系统吸热，$Q < 0$ 系统放热。
+    \item \textbf{$W$ 的符号}: $W > 0$ 系统对外做功（膨胀）。
+    \item \textbf{绝热 vs 等温}: 绝热过程快，等温过程慢。
+    \item \textbf{熵增}: 孤立系统熵只能增加或不变。
+\end{enumerate}
+\end{warnbox}

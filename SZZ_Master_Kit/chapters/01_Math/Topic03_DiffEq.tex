@@ -1,26 +1,228 @@
-\section{Differential Equations (DEN)}
+% ============================================
+% Topic 03: Differential Equations / 微分方程
+% Course: BE5B01DEN
+% ============================================
+\section{微分方程 / Differential Equations (BE5B01DEN)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 微分方程描述系统变化。重点是线性常微分方程（Linear ODE）和一阶系统的解法（分离变量法）。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. First Order ODE
+% --------------------------------------------
+\begin{studybox}{一阶常微分方程 (First Order ODE)}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{ODE, Homogeneous Solution, Particular Solution, Characteristic Equation}
-\end{keywords}
-微分方程描述系统变化。重点是线性常微分方程（Linear ODE）和一阶系统的解法（分离变量法）。
+\textbf{概念 (CN)}: 含有一阶导数的方程
 
-\subsection{Formulas / 公式}
+\textbf{Term (EN)}: First Order ODE, Separable, Homogeneous
+
+\tcblower
+
+\textbf{标准形式}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    \frac{dy}{dx} = f(x, y)
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{主要类型}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{可分离变量}: $\frac{dy}{dx} = g(x)h(y)$
+    \item \textbf{一阶线性}: $\frac{dy}{dx} + P(x)y = Q(x)$
+    \item \textbf{齐次方程}: $\frac{dy}{dx} = f(\frac{y}{x})$
 \end{itemize}
+
+\textbf{Key Insight}: RC circuit charging is described by a first-order linear ODE.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{可分离变量方程解法}:
+\begin{equation}
+    \frac{dy}{dx} = g(x)h(y) \quad \Rightarrow \quad \int \frac{1}{h(y)}dy = \int g(x)dx + C
+\end{equation}
+
+\textbf{一阶线性方程解法} (积分因子法):
+\begin{equation}
+    \frac{dy}{dx} + P(x)y = Q(x)
+\end{equation}
+\textbf{积分因子}: $\mu(x) = e^{\int P(x)dx}$
+
+\textbf{通解}:
+\begin{equation}
+    \boxed{y = \frac{1}{\mu(x)}\left[\int \mu(x)Q(x)dx + C\right]}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Higher Order Linear ODE
+% --------------------------------------------
+\begin{studybox}{高阶线性常微分方程 (Higher Order Linear ODE)}
+
+\textbf{概念 (CN)}: 含有二阶及以上导数的线性方程
+
+\textbf{Term (EN)}: Second Order ODE, Characteristic Equation, Homogeneous/Non-homogeneous
+
+\tcblower
+
+\textbf{二阶齐次方程}:
+\begin{equation}
+    y'' + p(x)y' + q(x)y = 0
+\end{equation}
+
+\textbf{常系数情况}: $ay'' + by' + cy = 0$
+
+\textbf{解法}: 用特征方程 $ar^2 + br + c = 0$
+
+\textbf{Key Insight}: RLC circuit oscillation is described by a second-order ODE.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{特征方程} $ar^2 + br + c = 0$:
+
+\textbf{判别式}: $\Delta = b^2 - 4ac$
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{情况} & \textbf{通解} \\
+\midrule
+$\Delta > 0$ (两个实根 $r_1, r_2$) & $y = C_1 e^{r_1 x} + C_2 e^{r_2 x}$ \\
+$\Delta = 0$ (重根 $r$) & $y = (C_1 + C_2 x)e^{rx}$ \\
+$\Delta < 0$ (共轭复根 $\alpha \pm \beta i$) & $y = e^{\alpha x}(C_1\cos\beta x + C_2\sin\beta x)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{非齐次方程}: $y = y_h + y_p$ (齐次解 + 特解)
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Systems of Linear ODE
+% --------------------------------------------
+\begin{studybox}{线性微分方程组 (Systems of Linear ODE)}
+
+\textbf{概念 (CN)}: 多个未知函数的微分方程组成的系统
+
+\textbf{Term (EN)}: System of ODEs, Matrix Exponential, Phase Portrait
+
+\tcblower
+
+\textbf{矩阵形式}:
+\begin{equation}
+    \mathbf{x}' = \mathbf{A}\mathbf{x}
+\end{equation}
+
+\textbf{解法}:
+\begin{enumerate}
+    \item 求矩阵 $\mathbf{A}$ 的特征值 $\lambda_1, \lambda_2, \ldots$
+    \item 求对应的特征向量 $\mathbf{v}_1, \mathbf{v}_2, \ldots$
+    \item 通解: $\mathbf{x}(t) = C_1 e^{\lambda_1 t}\mathbf{v}_1 + C_2 e^{\lambda_2 t}\mathbf{v}_2 + \ldots$
+\end{enumerate}
+
+\textbf{Key Insight}: Stability of linear systems depends on eigenvalues: $\text{Re}(\lambda) < 0 \Rightarrow$ stable.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{二维系统稳定性}:
+
+对于 $\mathbf{x}' = \mathbf{A}\mathbf{x}$，令 $\lambda_1, \lambda_2$ 为特征值：
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{特征值类型} & \textbf{稳定性} \\
+\midrule
+$\lambda_1, \lambda_2 < 0$ & 稳定结点 (Stable Node) \\
+$\lambda_1, \lambda_2 > 0$ & 不稳定结点 (Unstable Node) \\
+$\lambda_1 < 0 < \lambda_2$ & 鞍点 (Saddle) - 不稳定 \\
+$\lambda = \alpha \pm \beta i$, $\alpha < 0$ & 稳定焦点 (Stable Focus) \\
+$\lambda = \pm \beta i$ & 中心 (Center) - 边界稳定 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Laplace Transform
+% --------------------------------------------
+\begin{studybox}{拉普拉斯变换 (Laplace Transform)}
+
+\textbf{概念 (CN)}: 将时域函数变换到复频域的积分变换
+
+\textbf{Term (EN)}: Laplace Transform, Transfer Function, Inverse Transform
+
+\tcblower
+
+\textbf{定义}:
+\begin{equation}
+    \mathcal{L}\{f(t)\} = F(s) = \int_0^{\infty} f(t)e^{-st}dt
+\end{equation}
+
+\textbf{ODE 求解步骤}:
+\begin{enumerate}
+    \item 对方程两边做 Laplace 变换
+    \item 在 s 域求解代数方程
+    \item 做逆变换回时域
+\end{enumerate}
+
+\textbf{Key Insight}: Laplace transform converts differential equations into algebraic equations!
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{常用变换表}:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+$f(t)$ & $F(s) = \mathcal{L}\{f(t)\}$ \\
+\midrule
+$1$ & $\frac{1}{s}$ \\
+$t$ & $\frac{1}{s^2}$ \\
+$e^{at}$ & $\frac{1}{s-a}$ \\
+$\sin(\omega t)$ & $\frac{\omega}{s^2 + \omega^2}$ \\
+$\cos(\omega t)$ & $\frac{s}{s^2 + \omega^2}$ \\
+$f'(t)$ & $sF(s) - f(0)$ \\
+$f''(t)$ & $s^2 F(s) - sf(0) - f'(0)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{微分方程与传感器系统}:
+
+你的论文中的传感器系统可以用微分方程建模：
+
+\textbf{RC 低通滤波器} (一阶 ODE):
+\begin{equation}
+    RC\frac{dV_{out}}{dt} + V_{out} = V_{in}
+\end{equation}
+
+\textbf{陀螺仪角度积分} (初值问题):
+\begin{equation}
+    \theta(t) = \theta_0 + \int_0^t \omega(\tau)d\tau
+\end{equation}
+
+\textbf{PID 控制} (微分方程描述):
+\begin{equation}
+    u(t) = K_p e(t) + K_i \int_0^t e(\tau)d\tau + K_d \frac{de(t)}{dt}
+\end{equation}
+
+\textbf{Jan Koller 问题}: "How does your system respond to step inputs?"
+
+\textbf{答案}: 系统响应由一阶 ODE 决定。时间常数 $\tau = RC$ 决定响应速度。63.2\% 的稳态值在 $t = \tau$ 时达到。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{特征方程}: 不要忘记负号！$y'' - y = 0$ 的特征方程是 $r^2 - 1 = 0$。
+    \item \textbf{初值条件}: 通解中的常数由初值条件确定。
+    \item \textbf{稳定性判据}: 所有特征值实部 < 0 才稳定！
+    \item \textbf{Laplace 导数}: $\mathcal{L}\{f'\} = sF(s) - f(0)$，不要忘记初值项。
+\end{enumerate}
+\end{warnbox}

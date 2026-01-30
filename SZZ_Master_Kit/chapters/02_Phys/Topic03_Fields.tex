@@ -1,26 +1,201 @@
-\section{Physical Fields (PH1)}
+% ============================================
+% Topic 03: Physical Fields / 物理场
+% Course: BE5B02PH1
+% ============================================
+\section{物理场 / Physical Fields (BE5B02PH1)}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 电场与引力场。重点是高斯定理（Gauss Law）和电势（Potential）。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Gravitational Field
+% --------------------------------------------
+\begin{studybox}{引力场 (Gravitational Field)}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Electric Field, Potential, Gauss Law, Flux}
-\end{keywords}
-电场与引力场。重点是高斯定理（Gauss Law）和电势（Potential）。
+\textbf{概念 (CN)}: 质量周围存在的场，对其他质量产生引力
 
-\subsection{Formulas / 公式}
+\textbf{Term (EN)}: Gravitational Field, Newton's Law of Gravitation
+
+\tcblower
+
+\textbf{万有引力定律}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    F = G\frac{m_1 m_2}{r^2}
+\end{equation}
+其中 $G = 6.674 \times 10^{-11} \, \text{N}\cdot\text{m}^2/\text{kg}^2$
+
+\textbf{引力场强度}:
+\begin{equation}
+    \vec{g} = -G\frac{M}{r^2}\hat{r}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
-\end{itemize}
+\textbf{地表重力加速度}: $g = 9.81 \, \text{m/s}^2$
+
+\textbf{Key Insight}: Accelerometer measures $g$ when stationary.
+
+\end{studybox}
+
+% --------------------------------------------
+% 2. Electric Field
+% --------------------------------------------
+\begin{studybox}{电场 (Electric Field)}
+
+\textbf{概念 (CN)}: 电荷周围存在的场，对其他电荷产生力
+
+\textbf{Term (EN)}: Electric Field, Coulomb's Law, Superposition
+
+\tcblower
+
+\textbf{库仑定律}:
+\begin{equation}
+    F = k_e\frac{q_1 q_2}{r^2}, \quad k_e = \frac{1}{4\pi\varepsilon_0} \approx 8.99 \times 10^9 \, \text{N}\cdot\text{m}^2/\text{C}^2
+\end{equation}
+
+\textbf{电场强度}:
+\begin{equation}
+    \vec{E} = \frac{\vec{F}}{q} = k_e\frac{Q}{r^2}\hat{r}
+\end{equation}
+
+\textbf{电场叠加原理}: 多个电荷的电场矢量相加
+
+\textbf{Key Insight}: Capacitive touch sensors detect changes in electric field.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{电势 (Electric Potential)}:
+\begin{equation}
+    V = \frac{U}{q} = k_e\frac{Q}{r}
+\end{equation}
+
+\textbf{电场与电势关系}:
+\begin{equation}
+    \vec{E} = -\nabla V = -\frac{dV}{dx}\hat{x}
+\end{equation}
+
+\textbf{点电荷势能}:
+\begin{equation}
+    U = k_e\frac{q_1 q_2}{r}
+\end{equation}
+
+\textbf{均匀电场中}:
+\begin{equation}
+    V = -\int \vec{E} \cdot d\vec{l} = Ed
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Magnetic Field
+% --------------------------------------------
+\begin{studybox}{磁场 (Magnetic Field)}
+
+\textbf{概念 (CN)}: 运动电荷或电流周围存在的场
+
+\textbf{Term (EN)}: Magnetic Field, Lorentz Force, Biot-Savart Law
+
+\tcblower
+
+\textbf{洛伦兹力}:
+\begin{equation}
+    \vec{F} = q\vec{v} \times \vec{B}
+\end{equation}
+
+\textbf{电流受力}:
+\begin{equation}
+    \vec{F} = I\vec{L} \times \vec{B}
+\end{equation}
+
+\textbf{毕奥-萨伐尔定律}:
+\begin{equation}
+    d\vec{B} = \frac{\mu_0}{4\pi}\frac{I d\vec{l} \times \hat{r}}{r^2}
+\end{equation}
+
+\textbf{Key Insight}: Hall effect sensors measure magnetic fields for position sensing.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{常见磁场}:
+
+\textbf{长直导线}: $B = \frac{\mu_0 I}{2\pi r}$
+
+\textbf{螺线管中心}: $B = \mu_0 n I$ (n = 匝数/长度)
+
+\textbf{圆环中心}: $B = \frac{\mu_0 I}{2R}$
+
+\textbf{磁通量 (Magnetic Flux)}:
+\begin{equation}
+    \Phi_B = \int \vec{B} \cdot d\vec{A}
+\end{equation}
+
+\textbf{安培环路定律}:
+\begin{equation}
+    \oint \vec{B} \cdot d\vec{l} = \mu_0 I_{enc}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Electromagnetic Induction
+% --------------------------------------------
+\begin{studybox}{电磁感应 (Electromagnetic Induction)}
+
+\textbf{概念 (CN)}: 变化的磁场产生电动势
+
+\textbf{Term (EN)}: Faraday's Law, Lenz's Law, Induced EMF
+
+\tcblower
+
+\textbf{法拉第定律}:
+\begin{equation}
+    \mathcal{E} = -\frac{d\Phi_B}{dt}
+\end{equation}
+
+\textbf{楞次定律}: 感应电流的方向总是阻止产生它的磁通量变化
+
+\textbf{自感 (Self-Inductance)}:
+\begin{equation}
+    \mathcal{E} = -L\frac{dI}{dt}
+\end{equation}
+
+\textbf{Key Insight}: Wireless charging uses electromagnetic induction.
+
+\end{studybox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{物理场与传感器}:
+
+\textbf{电容式传感器 (Capacitive Sensors)}:
+电场原理用于湿度传感器和触摸屏：
+\begin{equation}
+    C = \varepsilon_0 \varepsilon_r \frac{A}{d}
+\end{equation}
+
+\textbf{霍尔效应传感器 (Hall Effect)}:
+检测磁场强度和方向：
+\begin{equation}
+    V_H = \frac{I B}{n e t}
+\end{equation}
+
+\textbf{电磁干扰 (EMI)}:
+变化的磁场可能在导线中感应噪声电压（法拉第定律）。
+
+\textbf{Jan Koller 问题}: "How do you minimize EMI in PCB design?"
+
+\textbf{答案}: 
+1. 使用差分信号（共模抑制）
+2. 地平面提供磁场屏蔽
+3. 减小环路面积减少磁通量耦合
+4. 走线远离开关电源
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[[!] 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{符号}: 电场力 $F = qE$，磁场力 $F = qvB\sin\theta$。
+    \item \textbf{磁力不做功}: 洛伦兹力垂直于速度，不改变动能。
+    \item \textbf{楞次定律}: 感应电流的磁场方向反抗磁通量变化。
+    \item \textbf{法拉第定律负号}: 表示楞次定律方向。
+\end{enumerate}
+\end{warnbox}
