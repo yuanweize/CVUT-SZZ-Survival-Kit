@@ -1,38 +1,238 @@
-\section{Control Systems (ARI)}
+% ============================================
+% Topic 09: Control Systems / 控制系统
+% ============================================
+\section{控制系统 / Control Systems}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Feedback}: Closed Loop vs Open Loop. Negative Feedback stabilizes systems.
-    \item \textbf{PID}: Proportional (Present), Integral (Past), Derivative (Future).
-    \item \textbf{Stability}: Poles must be in Left Half Plane (LHP).
-    \item \textbf{Thesis Link}: Your "Fall Detection" is a simple Open Loop classifier, but if you controlled a drone motor based on it, that would be Closed Loop control.
+% --------------------------------------------
+% 1. Open-Loop vs Closed-Loop
+% --------------------------------------------
+\begin{studybox}{开环与闭环控制 (Open-Loop vs Closed-Loop)}
+
+\textbf{概念 (CN)}: 控制系统的两种基本结构
+
+\textbf{Term (EN)}: Open-Loop Control, Closed-Loop (Feedback) Control
+
+\tcblower
+
+\textbf{开环控制 (Open-Loop)}:
+\begin{itemize}[leftmargin=*]
+    \item 无反馈，输出不影响输入
+    \item 简单但无法自动纠错
+    \item 例：定时器控制的洗衣机
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Transfer Function, Step Response, Stability Criteria (Routh-Hurwitz, Nyquist), Root Locus}
-\end{keywords}
-
-\begin{concept}{PID Controller / PID 控制器}
-The "bread and butter" of industrial control.
-\begin{itemize}
-    \item \textbf{P (Gain)}: Speed of response. Too high $\to$ Overshoot/Oscillation.
-    \item \textbf{I (Reset)}: Eliminates steady-state error. Can cause "Windup".
-    \item \textbf{D (Rate)}: Dampens overshoot. Sensitive to noise.
+\textbf{闭环控制 (Closed-Loop)}:
+\begin{itemize}[leftmargin=*]
+    \item 有反馈，输出通过传感器反馈到输入
+    \item 可以自动调节误差
+    \item 例：恒温器、巡航控制
 \end{itemize}
-\end{concept}
 
-\subsection{Formulas / 公式}
+\textbf{Key Insight}: Feedback is the key difference. Closed-loop systems are self-correcting but can become unstable.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{开环传递函数}:
 \begin{equation}
-    G(s) = \frac{Y(s)}{U(s)} = \frac{K}{Ts + 1} \quad \text{(1st Order System)}
-\end{equation}
-\begin{equation}
-    u(t) = K_p e(t) + K_i \int e(\tau) d\tau + K_d \frac{de(t)}{dt}
+    Y(s) = G(s) \cdot R(s)
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "How do you determine stability from the Transfer Function?" (A: Check the poles (roots of denominator). All real parts must be negative).
-    \item "Draw a block diagram of a negative feedback loop."
+\textbf{闭环传递函数}:
+\begin{equation}
+    \frac{Y(s)}{R(s)} = \frac{G(s)}{1 + G(s)H(s)}
+\end{equation}
+
+其中:
+\begin{itemize}[leftmargin=*]
+    \item $G(s)$ = 前向通道传递函数
+    \item $H(s)$ = 反馈通道传递函数
+    \item $R(s)$ = 参考输入
+    \item $Y(s)$ = 输出
 \end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 2. PID Controller
+% --------------------------------------------
+\begin{studybox}{PID 控制器 (PID Controller)}
+
+\textbf{概念 (CN)}: 比例-积分-微分控制器，工业控制中最常用的控制器
+
+\textbf{Term (EN)}: Proportional-Integral-Derivative Controller
+
+\tcblower
+
+\textbf{三个组成部分}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{P (比例)}: 对当前误差的响应。$K_p$ 越大，响应越快，但可能振荡。
+    \item \textbf{I (积分)}: 对累积误差的响应。消除稳态误差，但增加超调。
+    \item \textbf{D (微分)}: 对误差变化率的响应。预测误差趋势，减少超调。
+\end{itemize}
+
+\textbf{Key Insight}: P = "现在的误差", I = "过去的误差", D = "未来的误差"。
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{时域表达式}:
+\begin{equation}
+    u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
+\end{equation}
+
+\textbf{传递函数形式}:
+\begin{equation}
+    C(s) = K_p + \frac{K_i}{s} + K_d s = K_p \left(1 + \frac{1}{T_i s} + T_d s\right)
+\end{equation}
+
+其中:
+\begin{itemize}[leftmargin=*]
+    \item $e(t) = r(t) - y(t)$ = 误差信号
+    \item $K_p$ = 比例增益
+    \item $K_i$ = 积分增益
+    \item $K_d$ = 微分增益
+    \item $T_i = K_p / K_i$ = 积分时间
+    \item $T_d = K_d / K_p$ = 微分时间
+\end{itemize}
+\end{formulabox}
+
+\begin{thmbox}[PID 调参口诀]
+\textbf{Ziegler-Nichols 经验法则}:
+\begin{enumerate}
+    \item 设 $K_i = 0$, $K_d = 0$
+    \item 增大 $K_p$ 直到系统临界振荡，记录临界增益 $K_u$ 和振荡周期 $T_u$
+    \item 按下表设定参数:
+\end{enumerate}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{控制器} & $K_p$ & $K_i$ & $K_d$ \\
+\midrule
+P & $0.5 K_u$ & -- & -- \\
+PI & $0.45 K_u$ & $1.2 K_p / T_u$ & -- \\
+PID & $0.6 K_u$ & $2 K_p / T_u$ & $K_p T_u / 8$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{thmbox}
+
+% --------------------------------------------
+% 3. Stability Analysis
+% --------------------------------------------
+\begin{studybox}{稳定性分析 (Stability Analysis)}
+
+\textbf{概念 (CN)}: 判断系统是否稳定（输出是否会发散）
+
+\textbf{Term (EN)}: BIBO Stability, Poles, Routh-Hurwitz Criterion
+
+\tcblower
+
+\textbf{稳定性条件}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{BIBO 稳定}: 有界输入产生有界输出
+    \item \textbf{极点位置}: 所有闭环极点必须在左半平面 (LHP)
+    \item 极点 $\text{Re}(p) < 0$ $\Rightarrow$ 稳定
+\end{itemize}
+
+\textbf{Key Insight}: A system is stable if all poles of the closed-loop transfer function have negative real parts.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{特征方程}:
+\begin{equation}
+    1 + G(s)H(s) = 0
+\end{equation}
+
+\textbf{Routh-Hurwitz 判据}:
+
+对于特征多项式 $a_n s^n + a_{n-1} s^{n-1} + \cdots + a_1 s + a_0 = 0$:
+\begin{itemize}[leftmargin=*]
+    \item 所有系数 $a_i > 0$（必要条件）
+    \item Routh 表第一列所有元素同号 $\Rightarrow$ 稳定
+\end{itemize}
+
+\textbf{二阶系统}:
+\begin{equation}
+    G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
+\end{equation}
+稳定条件: $\zeta > 0$（阻尼比为正）
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Frequency Response
+% --------------------------------------------
+\begin{studybox}{频率响应 (Frequency Response)}
+
+\textbf{概念 (CN)}: 系统对不同频率正弦输入的响应特性
+
+\textbf{Term (EN)}: Bode Plot, Gain Margin, Phase Margin
+
+\tcblower
+
+\textbf{Bode 图}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{幅频特性}: $20\log|G(j\omega)|$ vs $\log\omega$
+    \item \textbf{相频特性}: $\angle G(j\omega)$ vs $\log\omega$
+\end{itemize}
+
+\textbf{稳定裕度}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{增益裕度 (GM)}: 相位 = $-180°$ 时的增益距离 0dB 多远
+    \item \textbf{相位裕度 (PM)}: 增益 = 0dB 时的相位距离 $-180°$ 多远
+\end{itemize}
+
+\textbf{Key Insight}: GM > 0dB and PM > 0° means stable. Larger margins = more robust.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{一阶系统}:
+\begin{equation}
+    G(s) = \frac{K}{1 + \tau s}, \quad |G(j\omega)| = \frac{K}{\sqrt{1 + (\omega\tau)^2}}
+\end{equation}
+
+\textbf{截止频率} (Corner Frequency):
+\begin{equation}
+    \omega_c = \frac{1}{\tau}
+\end{equation}
+
+\textbf{渐近线}:
+\begin{itemize}[leftmargin=*]
+    \item $\omega \ll \omega_c$: 0 dB/decade (平坦)
+    \item $\omega \gg \omega_c$: -20 dB/decade (下降)
+\end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{智能家居与控制}:
+
+你的论文中的 \textbf{Home Assistant} 实现了简单的反馈控制。
+
+\textbf{闭环控制示例}:
+\begin{itemize}
+    \item \textbf{传感器}: SGP40 (VOC 传感器) 检测空气质量
+    \item \textbf{控制器}: Home Assistant 判断 VOC > 阈值
+    \item \textbf{执行器}: 打开换气扇
+    \item \textbf{反馈}: 继续监测 VOC 直到下降
+\end{itemize}
+
+\textbf{Jan Koller 问题}: "Is your smart home system open-loop or closed-loop?"
+
+\textbf{答案}: 闭环。传感器持续反馈数据，系统根据实时状态调整输出（如自动开灯、调温）。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[🔴 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{混淆开环与闭环传递函数}: 闭环 = $\frac{G}{1+GH}$，开环 = $GH$。
+    \item \textbf{积分器的稳态误差}: 积分项消除稳态误差，但增加超调。
+    \item \textbf{极点位置}: 右半平面极点 = 不稳定！
+\end{enumerate}
+\end{warnbox}

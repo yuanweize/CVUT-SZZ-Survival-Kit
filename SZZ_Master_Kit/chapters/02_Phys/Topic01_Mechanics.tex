@@ -1,37 +1,238 @@
-\section{Kinematics \& Dynamics (PH1)}
+% ============================================
+% Topic 01: Mechanics / 力学
+% ============================================
+\section{力学 / Mechanics}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Newton's 2nd Law}: $\vec{F} = \frac{d\vec{p}}{dt} = m\vec{a}$.
-    \item \textbf{Conservation}: Verify if External Forces = 0 (Momentum conserved) or Non-conservative work = 0 (Energy conserved).
-    \item \textbf{Rigid Body}: Rotation analogue ($F \to \tau$, $m \to I$, $v \to \omega$).
-\end{itemize}
-\end{tcolorbox}
+% --------------------------------------------
+% 1. Newton's Laws
+% --------------------------------------------
+\begin{studybox}{牛顿运动定律 (Newton's Laws of Motion)}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Force, Momentum, Work, Kinetic/Potential Energy, Moment of Inertia}
-\end{keywords}
+\textbf{概念 (CN)}: 经典力学的三大基本定律
 
-\begin{concept}{Harmonic Oscillator / 谐振子}
-The mechanical analogue to the LC circuit.
-\begin{itemize}
-    \item **Spring Force**: $F = -kx$.
-    \item **Equation**: $m \ddot{x} + kx = 0 \implies \ddot{x} + \omega_0^2 x = 0$.
-    \item **Solution**: $x(t) = A \cos(\omega_0 t + \phi)$.
-\end{itemize}
-\end{concept}
+\textbf{Term (EN)}: Newton's First, Second, and Third Laws
 
-\subsection{Formulas / 公式}
+\tcblower
+
+\textbf{第一定律 (惯性定律)}:
+物体在不受外力时，保持静止或匀速直线运动。
+
+\textbf{第二定律 (动力学基本方程)}:
+物体的加速度与合外力成正比，与质量成反比。
+
+\textbf{第三定律 (作用与反作用)}:
+两物体间的作用力与反作用力大小相等、方向相反。
+
+\textbf{Key Insight}: Newton's 2nd Law ($F=ma$) is the core equation for all dynamics. It links force, mass, and acceleration.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{牛顿第二定律}:
 \begin{equation}
-    E_k = \frac{1}{2}mv^2, \quad E_p = mgh \quad \text{(Point Mass)}
+    \vec{F} = m\vec{a} = m\frac{d\vec{v}}{dt} = \frac{d\vec{p}}{dt}
 \end{equation}
+其中 $\vec{p} = m\vec{v}$ 是动量。
+
+\textbf{冲量-动量定理}:
 \begin{equation}
-    \vec{\tau} = \vec{r} \times \vec{F} \quad \text{(Torque)}
+    \vec{J} = \int_{t_1}^{t_2} \vec{F} \, dt = \Delta\vec{p} = m\vec{v}_2 - m\vec{v}_1
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "A ball rolls down a slope. Calculate velocity at bottom." (Use Energy Conservation: $mgh = \frac{1}{2}mv^2 + \frac{1}{2}I\omega^2$).
-    \item "Define Moment of Inertia." (A: Resistance to change in rotational motion. $\int r^2 dm$).
+\textbf{动量守恒}:
+\begin{equation}
+    \sum \vec{p}_{before} = \sum \vec{p}_{after} \quad (\text{无外力时})
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Work, Energy, Power
+% --------------------------------------------
+\begin{studybox}{功、能、功率 (Work, Energy, Power)}
+
+\textbf{概念 (CN)}: 功是力沿位移方向的作用效果；能量是做功的能力；功率是做功的速率。
+
+\textbf{Term (EN)}: Work, Kinetic Energy, Potential Energy, Power
+
+\tcblower
+
+\textbf{功 (Work)}:
+\begin{itemize}[leftmargin=*]
+    \item 恒力做功: $W = \vec{F} \cdot \vec{s} = Fs\cos\theta$
+    \item 变力做功: $W = \int \vec{F} \cdot d\vec{s}$
 \end{itemize}
+
+\textbf{能量守恒}:
+机械能 = 动能 + 势能（保守力场中守恒）
+
+\textbf{Key Insight}: Energy is ALWAYS conserved; it transforms between forms (kinetic, potential, thermal).
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{动能}:
+\begin{equation}
+    E_k = \frac{1}{2}mv^2
+\end{equation}
+
+\textbf{重力势能}:
+\begin{equation}
+    E_p = mgh
+\end{equation}
+
+\textbf{弹性势能}:
+\begin{equation}
+    E_p = \frac{1}{2}kx^2
+\end{equation}
+
+\textbf{功率}:
+\begin{equation}
+    P = \frac{dW}{dt} = \vec{F} \cdot \vec{v}
+\end{equation}
+
+\textbf{动能定理}:
+\begin{equation}
+    W_{net} = \Delta E_k = \frac{1}{2}mv_2^2 - \frac{1}{2}mv_1^2
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Rotational Mechanics
+% --------------------------------------------
+\begin{studybox}{转动力学 (Rotational Mechanics)}
+
+\textbf{概念 (CN)}: 刚体绕固定轴转动的运动学与动力学
+
+\textbf{Term (EN)}: Moment of Inertia, Torque, Angular Momentum
+
+\tcblower
+
+\textbf{类比关系}:
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+\textbf{平动} & \textbf{转动} \\
+\midrule
+质量 $m$ & 转动惯量 $I$ \\
+力 $\vec{F}$ & 力矩 $\vec{\tau}$ \\
+速度 $\vec{v}$ & 角速度 $\vec{\omega}$ \\
+动量 $\vec{p}$ & 角动量 $\vec{L}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Insight}: Rotational mechanics mirrors linear mechanics—just replace mass with moment of inertia.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{转动惯量}:
+\begin{equation}
+    I = \sum_i m_i r_i^2 = \int r^2 \, dm
+\end{equation}
+
+\textbf{力矩与角加速度}:
+\begin{equation}
+    \vec{\tau} = I\vec{\alpha} = \vec{r} \times \vec{F}
+\end{equation}
+
+\textbf{角动量}:
+\begin{equation}
+    \vec{L} = I\vec{\omega} = \vec{r} \times \vec{p}
+\end{equation}
+
+\textbf{转动动能}:
+\begin{equation}
+    E_k = \frac{1}{2}I\omega^2
+\end{equation}
+
+\textbf{常见转动惯量}:
+\begin{itemize}[leftmargin=*]
+    \item 细杆（绕端点）: $I = \frac{1}{3}mL^2$
+    \item 圆盘（绕轴）: $I = \frac{1}{2}mR^2$
+    \item 球体（绕直径）: $I = \frac{2}{5}mR^2$
+\end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Simple Harmonic Motion
+% --------------------------------------------
+\begin{studybox}{简谐运动 (Simple Harmonic Motion)}
+
+\textbf{概念 (CN)}: 物体在回复力作用下，沿直线往复运动的周期性运动
+
+\textbf{Term (EN)}: SHM, Angular Frequency, Phase, Amplitude
+
+\tcblower
+
+\textbf{特征}:
+\begin{itemize}[leftmargin=*]
+    \item 回复力: $F = -kx$（与位移成正比，方向相反）
+    \item 运动方程: $x(t) = A\cos(\omega t + \phi)$
+    \item 等时性: 周期与振幅无关
+\end{itemize}
+
+\textbf{Key Insight}: SHM is everywhere: pendulums, springs, crystal oscillators (in your ESP32!).
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{运动方程}:
+\begin{equation}
+    x(t) = A\cos(\omega t + \phi)
+\end{equation}
+
+\textbf{速度}:
+\begin{equation}
+    v(t) = -A\omega\sin(\omega t + \phi)
+\end{equation}
+
+\textbf{加速度}:
+\begin{equation}
+    a(t) = -A\omega^2\cos(\omega t + \phi) = -\omega^2 x
+\end{equation}
+
+\textbf{角频率}:
+\begin{equation}
+    \omega = \sqrt{\frac{k}{m}}, \quad T = 2\pi\sqrt{\frac{m}{k}}
+\end{equation}
+
+\textbf{机械能}:
+\begin{equation}
+    E = \frac{1}{2}kA^2 = \frac{1}{2}m\omega^2A^2
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{跌倒检测与力学}:
+
+你的论文使用 \textbf{MPU-6050 加速度计/陀螺仪} 进行跌倒检测。
+
+\textbf{牛顿第二定律应用}:
+加速度计测量的是 $a = F/m$，即施加在传感器上的力。
+
+\textbf{跌倒特征}:
+\begin{enumerate}
+    \item \textbf{失重阶段}: 自由落体时加速度接近 0g（失重）
+    \item \textbf{碰撞阶段}: 撞击地面时加速度峰值可达 3-5g
+    \item \textbf{静止阶段}: 角速度 $\omega \approx 0$（躺在地上不动）
+\end{enumerate}
+
+\textbf{Jan Koller 问题}: "Why use Acc + Gyro?"
+
+\textbf{答案}: 加速度检测冲击力，陀螺仪检测姿态变化。两者融合 (Sensor Fusion) 才能区分"跌倒"和"快速坐下"。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[🔴 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{向量方向}: $\vec{F}$、$\vec{a}$、$\vec{\tau}$ 都是向量，注意方向！
+    \item \textbf{能量符号}: 动能永远 $\geq 0$，势能可正可负（取决于参考点）。
+    \item \textbf{SHM 相位}: $\phi = 0$ 表示从最大位移开始；$\phi = \pi/2$ 表示从平衡点开始。
+\end{enumerate}
+\end{warnbox}

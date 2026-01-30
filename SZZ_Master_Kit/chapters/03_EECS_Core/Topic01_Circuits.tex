@@ -1,46 +1,200 @@
-\section{Circuit Theory (ZEO)}
+% ============================================
+% Topic 01: Circuit Theory / 电路理论
+% ============================================
+\section{电路理论 / Circuit Theory}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Analysis}: Nodal Analysis (KCL) is usually faster than Loop Analysis (KVL).
-    \item \textbf{Thevenin}: Any linear 2-terminal circuit can be replaced by $V_{th}$ and $R_{th}$.
-    \item \textbf{Transient}: Capacitor resists voltage change ($i = C du/dt$). Inductor resists current change ($u = L di/dt$).
+% --------------------------------------------
+% 1. Kirchhoff's Laws
+% --------------------------------------------
+\begin{studybox}{基尔霍夫定律 (Kirchhoff's Laws)}
+
+\textbf{概念 (CN)}: 基尔霍夫电流定律 (KCL) 与基尔霍夫电压定律 (KVL)
+
+\textbf{Term (EN)}: Kirchhoff's Current Law (KCL) \& Kirchhoff's Voltage Law (KVL)
+
+\tcblower
+
+\textbf{定义}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{KCL (电流定律)}: 流入任一节点的电流之和等于流出该节点的电流之和。基于\textbf{电荷守恒}。
+    \item \textbf{KVL (电压定律)}: 沿任一闭合回路，所有电压降的代数和为零。基于\textbf{能量守恒}。
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Kirchhoff Laws, Thevenin/Norton, Superposition, Phasors, Resonance}
-\end{keywords}
+\textbf{Key Insight (EN)}: KCL ensures charge is conserved at nodes; KVL ensures energy is conserved around loops. These are the foundation of ALL circuit analysis.
 
-\begin{concept}{Transient Analysis (1st Order) / 暂态分析}
-Switching an RL or RC circuit.
-\begin{itemize}
-    \item \textbf{Time Constant $\tau$}: $RC$ or $L/R$.
-    \item \textbf{Formula}: $x(t) = x(\infty) + [x(0) - x(\infty)] e^{-t/\tau}$.
-    \item \textbf{Steady State}: Capacitor = Open Circuit. Inductor = Short Circuit.
-\end{itemize}
-\end{concept}
+\end{studybox}
 
-\begin{concept}{AC Circuits (Phasors) / 交流电路}
-Use Complex Numbers!
-\begin{itemize}
-    \item Resistor: $Z_R = R$
-    \item Inductor: $Z_L = j \omega L$
-    \item Capacitor: $Z_C = \frac{1}{j \omega C} = -j \frac{1}{\omega C}$
-\end{itemize}
-\end{concept}
-
-\subsection{Formulas / 公式}
+\begin{formulabox}
+\textbf{KCL (节点分析)}:
 \begin{equation}
-    \sum I_{k} = 0 \quad \text{(KCL at Node)}
+    \sum_{k=1}^{n} I_k = 0
 \end{equation}
+其中 $I_k$ 是进入节点的电流（流出为负）。
+
+\textbf{KVL (回路分析)}:
 \begin{equation}
-    P_{avg} = U_{rms} I_{rms} \cos \phi \quad \text{(Active Power)}
+    \sum_{k=1}^{n} V_k = 0
+\end{equation}
+其中 $V_k$ 是回路中的电压降。
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Thevenin & Norton Equivalents
+% --------------------------------------------
+\begin{studybox}{戴维南与诺顿等效 (Thevenin \& Norton)}
+
+\textbf{概念 (CN)}: 任何线性二端网络可以等效为一个电压源串联电阻（戴维南）或一个电流源并联电阻（诺顿）。
+
+\textbf{Term (EN)}: Thevenin Equivalent \& Norton Equivalent
+
+\tcblower
+
+\textbf{戴维南定理}:
+\begin{itemize}[leftmargin=*]
+    \item $V_{Th}$ = 开路电压 (Open-circuit voltage)
+    \item $R_{Th}$ = 从端口看入的等效电阻（所有独立源置零）
+\end{itemize}
+
+\textbf{诺顿定理}:
+\begin{itemize}[leftmargin=*]
+    \item $I_N$ = 短路电流 (Short-circuit current)
+    \item $R_N = R_{Th}$（等效电阻相同）
+\end{itemize}
+
+\textbf{Key Insight}: Thevenin/Norton simplifies complex circuits into a simple source + resistor for load analysis.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{戴维南等效电路}:
+\begin{equation}
+    V_{load} = V_{Th} - I_{load} \cdot R_{Th}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item "Calculate the equivalent resistance seen from terminals A-B."
-    \item "What is the condition for Series Resonance?" (A: $Im(Z) = 0 \implies \omega L = 1/\omega C$).
+\textbf{诺顿等效电路}:
+\begin{equation}
+    I_N = \frac{V_{Th}}{R_{Th}}
+\end{equation}
+
+\textbf{转换关系}:
+\begin{equation}
+    V_{Th} = I_N \cdot R_N, \quad R_{Th} = R_N
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. RLC Circuits & Resonance
+% --------------------------------------------
+\begin{studybox}{RLC 电路与谐振 (RLC Circuits \& Resonance)}
+
+\textbf{概念 (CN)}: RLC 串联/并联电路在特定频率下发生谐振，阻抗最小/最大。
+
+\textbf{Term (EN)}: Series/Parallel Resonance, Quality Factor (Q)
+
+\tcblower
+
+\textbf{串联谐振} (Series Resonance):
+\begin{itemize}[leftmargin=*]
+    \item 谐振频率: $f_0 = \frac{1}{2\pi\sqrt{LC}}$
+    \item 阻抗最小: $Z_{min} = R$
+    \item 电流最大
 \end{itemize}
+
+\textbf{并联谐振} (Parallel Resonance):
+\begin{itemize}[leftmargin=*]
+    \item 阻抗最大
+    \item 电流最小
+\end{itemize}
+
+\textbf{Key Insight}: Resonance is used in oscillators, filters, and tuning circuits. Your ESP32's crystal oscillator relies on piezoelectric resonance.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{谐振频率}:
+\begin{equation}
+    \omega_0 = \frac{1}{\sqrt{LC}}, \quad f_0 = \frac{1}{2\pi\sqrt{LC}}
+\end{equation}
+
+\textbf{品质因数 (Quality Factor)}:
+\begin{equation}
+    Q = \frac{\omega_0 L}{R} = \frac{1}{\omega_0 CR} = \frac{1}{R}\sqrt{\frac{L}{C}}
+\end{equation}
+
+\textbf{带宽}:
+\begin{equation}
+    BW = \frac{f_0}{Q}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 4. Power in AC Circuits
+% --------------------------------------------
+\begin{studybox}{交流电路中的功率 (Power in AC Circuits)}
+
+\textbf{概念 (CN)}: 交流电路中存在有功功率、无功功率和视在功率。
+
+\textbf{Term (EN)}: Real Power (P), Reactive Power (Q), Apparent Power (S), Power Factor
+
+\tcblower
+
+\textbf{三种功率}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{有功功率 P}: 实际消耗的功率 [W]
+    \item \textbf{无功功率 Q}: 储能元件（L/C）交换的功率 [VAR]
+    \item \textbf{视在功率 S}: 电源提供的总功率 [VA]
+\end{itemize}
+
+\textbf{Key Insight}: Power factor tells you how efficiently power is being used. Low power factor = wasted energy.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{功率关系}:
+\begin{equation}
+    S = \sqrt{P^2 + Q^2} = V_{rms} \cdot I_{rms}
+\end{equation}
+
+\textbf{有功功率}:
+\begin{equation}
+    P = V_{rms} \cdot I_{rms} \cdot \cos\phi = S \cdot \cos\phi
+\end{equation}
+
+\textbf{无功功率}:
+\begin{equation}
+    Q = V_{rms} \cdot I_{rms} \cdot \sin\phi = S \cdot \sin\phi
+\end{equation}
+
+\textbf{功率因数}:
+\begin{equation}
+    \cos\phi = \frac{P}{S}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{ESP32 电源设计}:
+
+你的 ESP32-S3 通过 USB (5V) 供电，经过 LDO 线性稳压器降压到 3.3V。
+
+\textbf{KCL 应用}: 流入 LDO 的电流 = ESP32 消耗电流 + 热损耗。
+
+\textbf{功率应用}: ESP32 峰值功耗约 500mW ($P = U \cdot I = 3.3V \times 150mA$)。
+
+\textbf{Jan Koller 问题}: "How is power dissipated in the LDO?"
+
+\textbf{答案}: $P_{LDO} = (V_{in} - V_{out}) \times I = (5V - 3.3V) \times 0.15A = 0.255W$
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[🔴 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{忘记电流方向}: KVL/KCL 要求统一的电流/电压参考方向。
+    \item \textbf{混淆 RMS 与峰值}: $V_{peak} = \sqrt{2} \cdot V_{rms}$。
+    \item \textbf{功率因数符号}: 容性负载功率因数超前，感性滞后。
+\end{enumerate}
+\end{warnbox}

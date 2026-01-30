@@ -1,123 +1,177 @@
-\documentclass[a4paper,12pt]{report}
+% ============================================
+% SZZ Master Kit - Visual Template
+% Author: Yuan Weize (2026)
+% CTU FEE - State Final Examination Prep
+% ============================================
+\documentclass[11pt,a4paper]{article}
 
-% =========================================
-% Packages
-% =========================================
-\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
-\usepackage{fontspec}
+% ============================================
+% CORE PACKAGES
+% ============================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+
+% Chinese Support (XeLaTeX required)
 \usepackage{xeCJK}
-\usepackage{xcolor}
-\usepackage[most]{tcolorbox}
-\usepackage{hyperref}
-\usepackage{fancyhdr}
+\setCJKmainfont{PingFang SC}
+\setCJKsansfont{PingFang SC}
+\setCJKmonofont{PingFang SC}
+
+% Math
 \usepackage{amsmath, amssymb, amsfonts}
+\usepackage{mathtools}
+
+% Visual Enhancements
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
 \usepackage{graphicx}
-% \usepackage{minted}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
 
-% =========================================
-% Fonts & Localization
-% =========================================
-\setmainfont{Times New Roman}
-\setCJKmainfont[BoldFont=PingFang SC Semibold, ItalicFont=Kaiti SC]{PingFang SC} 
-% \setCJKmainfont{FandolSong-Regular} % Use on Linux
-
-% =========================================
-% Colors & Boxes
-% =========================================
-\definecolor{cvut_blue}{RGB}{0, 101, 189}
-\definecolor{alert_red}{RGB}{220, 53, 69}
-\definecolor{concept_green}{RGB}{40, 167, 69}
-
-\newtcolorbox{concept}[1]{
-  colback=concept_green!5!white,
-  colframe=concept_green!75!black,
-  title=\textbf{Concept / 概念: #1},
-  fonttitle=\bfseries
+% Code Listings
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
 }
 
-\newtcolorbox{terminology}[1]{
-  colback=cvut_blue!5!white,
-  colframe=cvut_blue!75!black,
-  title=\textbf{Terminology / 术语: #1},
-  fonttitle=\bfseries
+% ============================================
+% CUSTOM VISUAL ENVIRONMENTS (tcolorbox)
+% ============================================
+
+% Definition Box (Blue)
+\newtcolorbox{defbox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
 }
 
-\newtcolorbox{killer}[1]{
-  colback=alert_red!5!white,
-  colframe=alert_red!75!black,
-  title=\textbf{Killer Question / 答辩追问: #1},
-  fonttitle=\bfseries,
-  sharp corners=south
+% Theorem Box (Green)
+\newtcolorbox{thmbox}[1][]{
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
 }
 
-% =========================================
-% Keywords Environment
-% =========================================
-\newenvironment{keywords}
-{\par\vspace{0.5em}\noindent\textbf{Keywords:}\quad}
-{\par\vspace{0.5em}}
+% Warning / Kill Zone Box (Red)
+\newtcolorbox{warnbox}[1][]{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
+}
 
-% =========================================
-% Document Info
-% =========================================
-\title{\textbf{SZZ Master Kit}\\ \large CVUT FEE State Final Examination Guide}
+% Thesis Connection Box (Orange)
+\newtcolorbox{thesisbox}[1][🎓 Thesis Connection / 论文关联]{
+    colback=orange!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
+}
+
+% Concept Study Box (The Main Format)
+\newtcolorbox{studybox}[2][]{
+    enhanced,
+    colback=white,
+    colframe=blue!50!black,
+    fonttitle=\bfseries\large,
+    title=#2,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=blue!50!black, colframe=blue!50!black},
+    arc=3mm,
+    boxrule=1pt,
+    #1
+}
+
+% Formula Box (Gray with border)
+\newtcolorbox{formulabox}[1][核心公式 / Key Formula]{
+    colback=gray!5!white,
+    colframe=gray!50!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=2mm,
+    boxrule=0.5pt
+}
+
+% ============================================
+% DOCUMENT INFORMATION
+% ============================================
+\title{
+    \Huge\textbf{SZZ 国考生存手册}\\[0.5em]
+    \Large State Final Examination Survival Kit\\[1em]
+    \large Czech Technical University in Prague (FEE)
+}
 \author{Yuan Weize}
-\date{\today}
+\date{January 2026}
 
+% ============================================
+% DOCUMENT BEGIN
+% ============================================
 \begin{document}
 
 \maketitle
 \tableofcontents
+\newpage
 
-% =========================================
-% 0. Strategy Phase
-% =========================================
-\chapter*{Introduction}
-\input{chapters/00_Strategy_Analysis.tex}
+% ============================================
+% PART 1: MATHEMATICS
+% ============================================
+\part{数学基础 / Mathematics Foundation}
+\input{chapters/01_Math/Topic01_Linear_Algebra}
+\input{chapters/01_Math/Topic02_Numerical}
+\input{chapters/01_Math/Topic03_DiffEq}
+\input{chapters/01_Math/Topic04_Discrete}
+\input{chapters/01_Math/Topic05_Graph}
+\input{chapters/01_Math/Topic06_Probability}
 
-% =========================================
-% 1. Mathematics
-% =========================================
-\chapter{Mathematics}
-\input{chapters/01_Math/Topic01_Linear_Algebra.tex}
-\input{chapters/01_Math/Topic02_Numerical.tex}
-\input{chapters/01_Math/Topic03_DiffEq.tex}
-\input{chapters/01_Math/Topic04_Discrete.tex}
-\input{chapters/01_Math/Topic05_Graph.tex}
-\input{chapters/01_Math/Topic06_Probability.tex}
+% ============================================
+% PART 2: PHYSICS
+% ============================================
+\part{物理基础 / Physics Foundation}
+\input{chapters/02_Phys/Topic01_Mechanics}
+\input{chapters/02_Phys/Topic02_Oscillations}
+\input{chapters/02_Phys/Topic03_Fields}
+\input{chapters/02_Phys/Topic04_Thermo}
+\input{chapters/02_Phys/Topic05_Waves}
 
-% =========================================
-% 2. Physics
-% =========================================
-\chapter{Physics}
-\input{chapters/02_Phys/Topic01_Mechanics.tex}
-\input{chapters/02_Phys/Topic02_Oscillations.tex}
-\input{chapters/02_Phys/Topic03_Fields.tex}
-\input{chapters/02_Phys/Topic04_Thermo.tex}
-\input{chapters/02_Phys/Topic05_Waves.tex}
+% ============================================
+% PART 3: EECS CORE
+% ============================================
+\part{电子与计算机核心 / EECS Core}
+\input{chapters/03_EECS_Core/Topic01_Circuits}
+\input{chapters/03_EECS_Core/Topic02_Semicon}
+\input{chapters/03_EECS_Core/Topic03_Electronics}
+\input{chapters/03_EECS_Core/Topic04_Micro}
+\input{chapters/03_EECS_Core/Topic05_Algo}
 
-% =========================================
-% 3. EECS Core
-% =========================================
-\chapter{EECS Core}
-\input{chapters/03_EECS_Core/Topic01_Circuits.tex}
-\input{chapters/03_EECS_Core/Topic02_Semicon.tex}
-\input{chapters/03_EECS_Core/Topic03_Electronics.tex}
-\input{chapters/03_EECS_Core/Topic04_Micro.tex}
-\input{chapters/03_EECS_Core/Topic05_Algo.tex}
-
-% =========================================
-% 4. Specialization
-% =========================================
-\chapter{Specialization (System \& Electronics)}
-\input{chapters/04_Specialization/Topic01_EMT.tex}
-\input{chapters/04_Specialization/Topic02_Logic.tex}
-\input{chapters/04_Specialization/Topic03_Signals.tex}
-\input{chapters/04_Specialization/Topic04_Machines.tex}
-\input{chapters/04_Specialization/Topic05_Materials.tex}
-\input{chapters/04_Specialization/Topic06_Power.tex}
-\input{chapters/04_Specialization/Topic07_AI.tex}
-\input{chapters/04_Specialization/Topic08_Arch.tex}
-\input{chapters/04_Specialization/Topic09_Control.tex}
+% ============================================
+% PART 4: SPECIALIZATION
+% ============================================
+\part{专业方向 / Specialization}
+\input{chapters/04_Specialization/Topic01_EMT}
+\input{chapters/04_Specialization/Topic02_Logic}
+\input{chapters/04_Specialization/Topic03_Signals}
+\input{chapters/04_Specialization/Topic04_Machines}
+\input{chapters/04_Specialization/Topic05_Materials}
+\input{chapters/04_Specialization/Topic06_Power}
+\input{chapters/04_Specialization/Topic07_AI}
+\input{chapters/04_Specialization/Topic08_Arch}
+\input{chapters/04_Specialization/Topic09_Control}
 
 \end{document}

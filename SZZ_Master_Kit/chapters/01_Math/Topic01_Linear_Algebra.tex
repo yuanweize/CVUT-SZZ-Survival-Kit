@@ -1,34 +1,224 @@
-\section{Linear Algebra (LAL)}
+% ============================================
+% Topic 01: Linear Algebra / 线性代数
+% ============================================
+\section{线性代数 / Linear Algebra}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Gaussian Elimination}: Solving $Ax = b$ by row reductions.
-    \item \textbf{Rank (dim(Im A))}: Number of linearly independent rows/cols.
-    \item \textbf{Eigenvalues}: $Av = \lambda v$. Critical for Stability Analysis in Control Theory ($Re(\lambda) < 0$).
+% --------------------------------------------
+% 1. Matrix Basics
+% --------------------------------------------
+\begin{studybox}{矩阵基础 (Matrix Basics)}
+
+\textbf{概念 (CN)}: 矩阵的定义、运算和性质
+
+\textbf{Term (EN)}: Matrix, Transpose, Inverse, Determinant
+
+\tcblower
+
+\textbf{基本运算}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{加法}: $\mathbf{C} = \mathbf{A} + \mathbf{B}$ (同尺寸矩阵对应元素相加)
+    \item \textbf{乘法}: $(\mathbf{AB})_{ij} = \sum_k a_{ik} b_{kj}$ (行乘列)
+    \item \textbf{转置}: $(\mathbf{A}^T)_{ij} = a_{ji}$ (行列互换)
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Basis, Dimension, Determinant, Inverse Matrix, Orthogonality}
-\end{keywords}
+\textbf{Key Insight}: Matrix multiplication is NOT commutative: $\mathbf{AB} \neq \mathbf{BA}$ in general.
 
-\begin{concept}{Rank \& Solvability / 秩与解的存在性}
-Frobenius Theorem:
-\begin{itemize}
-    \item \textbf{One Solution}: $rank(A) = rank(A|b) = n$ (number of vars).
-    \item \textbf{Inf solutions}: $rank(A) = rank(A|b) < n$.
-    \item \textbf{No solution}: $rank(A) \ne rank(A|b)$.
-\end{itemize}
-\end{concept}
+\end{studybox}
 
-\subsection{Formulas / 公式}
+\begin{formulabox}
+\textbf{行列式 (2×2)}:
 \begin{equation}
-    \det(A - \lambda I) = 0 \quad \text{(Characteristic Equation)}
+    \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
+\textbf{行列式 (3×3, 展开)}:
+\begin{equation}
+    \det(\mathbf{A}) = a_{11}C_{11} + a_{12}C_{12} + a_{13}C_{13}
+\end{equation}
+其中 $C_{ij}$ 是代数余子式。
+
+\textbf{逆矩阵}:
+\begin{equation}
+    \mathbf{A}^{-1} = \frac{1}{\det(\mathbf{A})} \text{adj}(\mathbf{A})
+\end{equation}
+
+\textbf{逆矩阵存在条件}: $\det(\mathbf{A}) \neq 0$（非奇异矩阵）
+\end{formulabox}
+
+% --------------------------------------------
+% 2. Systems of Linear Equations
+% --------------------------------------------
+\begin{studybox}{线性方程组 (Systems of Linear Equations)}
+
+\textbf{概念 (CN)}: 求解 $\mathbf{Ax} = \mathbf{b}$ 的方法
+
+\textbf{Term (EN)}: Gaussian Elimination, Cramer's Rule, LU Decomposition
+
+\tcblower
+
+\textbf{矩阵形式}:
+\begin{equation}
+    \mathbf{Ax} = \mathbf{b} \quad \Rightarrow \quad \mathbf{x} = \mathbf{A}^{-1}\mathbf{b}
+\end{equation}
+
+\textbf{克莱默法则} (Cramer's Rule):
+\begin{equation}
+    x_i = \frac{\det(\mathbf{A}_i)}{\det(\mathbf{A})}
+\end{equation}
+其中 $\mathbf{A}_i$ 是将 $\mathbf{A}$ 的第 $i$ 列替换为 $\mathbf{b}$。
+
+\textbf{Key Insight}: Gaussian elimination is more efficient than Cramer's rule for large systems.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{高斯消元示例}:
+
+原方程组:
+\begin{equation}
+    \begin{cases}
+        2x + y = 5 \\
+        4x + 3y = 11
+    \end{cases}
+\end{equation}
+
+增广矩阵:
+\begin{equation}
+    \left(\begin{array}{cc|c}
+        2 & 1 & 5 \\
+        4 & 3 & 11
+    \end{array}\right) 
+    \xrightarrow{R_2 - 2R_1}
+    \left(\begin{array}{cc|c}
+        2 & 1 & 5 \\
+        0 & 1 & 1
+    \end{array}\right)
+\end{equation}
+
+回代: $y = 1$, $x = 2$
+\end{formulabox}
+
+% --------------------------------------------
+% 3. Eigenvalues and Eigenvectors
+% --------------------------------------------
+\begin{studybox}{特征值与特征向量 (Eigenvalues \& Eigenvectors)}
+
+\textbf{概念 (CN)}: 满足 $\mathbf{Av} = \lambda\mathbf{v}$ 的标量 $\lambda$ 和非零向量 $\mathbf{v}$
+
+\textbf{Term (EN)}: Eigenvalue, Eigenvector, Characteristic Polynomial
+
+\tcblower
+
+\textbf{定义}:
+\begin{equation}
+    \mathbf{Av} = \lambda\mathbf{v} \quad \Leftrightarrow \quad (\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = \mathbf{0}
+\end{equation}
+
+\textbf{求解步骤}:
+\begin{enumerate}
+    \item 求特征多项式: $\det(\mathbf{A} - \lambda\mathbf{I}) = 0$
+    \item 解出特征值 $\lambda_1, \lambda_2, \ldots$
+    \item 对每个 $\lambda_i$，解 $(\mathbf{A} - \lambda_i\mathbf{I})\mathbf{v} = \mathbf{0}$ 得特征向量
+\end{enumerate}
+
+\textbf{Key Insight}: Eigenvalues reveal fundamental properties of a matrix (stability, principal directions).
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{2×2 矩阵特征值}:
+
+对于 $\mathbf{A} = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$:
+
+\textbf{特征多项式}:
+\begin{equation}
+    \lambda^2 - (a+d)\lambda + (ad-bc) = 0
+\end{equation}
+
+\textbf{简化}:
+\begin{equation}
+    \lambda^2 - \text{tr}(\mathbf{A})\lambda + \det(\mathbf{A}) = 0
+\end{equation}
+
+\textbf{解}:
+\begin{equation}
+    \lambda = \frac{\text{tr}(\mathbf{A}) \pm \sqrt{\text{tr}(\mathbf{A})^2 - 4\det(\mathbf{A})}}{2}
+\end{equation}
+\end{formulabox}
+
+\begin{thmbox}[特征值性质]
 \begin{itemize}
-    \item "Calculate the determinant of this 3x3 matrix." (Use Sarrus rule or expansion).
-    \item "What does a zero eigenvalue mean?" (A: The matrix is singular/non-invertible).
+    \item $\sum \lambda_i = \text{tr}(\mathbf{A})$（特征值之和 = 迹）
+    \item $\prod \lambda_i = \det(\mathbf{A})$（特征值之积 = 行列式）
+    \item 对称矩阵的特征值都是实数
+    \item 正定矩阵的特征值都 > 0
 \end{itemize}
+\end{thmbox}
+
+% --------------------------------------------
+% 4. Vector Spaces
+% --------------------------------------------
+\begin{studybox}{向量空间 (Vector Spaces)}
+
+\textbf{概念 (CN)}: 满足向量加法和标量乘法封闭性的集合
+
+\textbf{Term (EN)}: Basis, Dimension, Span, Linear Independence
+
+\tcblower
+
+\textbf{关键概念}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{线性无关}: 没有向量可以表示为其他向量的线性组合
+    \item \textbf{基 (Basis)}: 线性无关且张成整个空间的向量组
+    \item \textbf{维度 (Dimension)}: 基中向量的个数
+    \item \textbf{秩 (Rank)}: 矩阵列空间的维度
+\end{itemize}
+
+\textbf{Key Insight}: Rank tells you the "effective" number of independent equations/constraints.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{秩-零化度定理}:
+\begin{equation}
+    \text{rank}(\mathbf{A}) + \text{nullity}(\mathbf{A}) = n
+\end{equation}
+其中 $n$ 是列数。
+
+\textbf{齐次方程组解的结构}:
+\begin{itemize}[leftmargin=*]
+    \item $\text{rank}(\mathbf{A}) = n$: 唯一解 ($\mathbf{x} = \mathbf{0}$)
+    \item $\text{rank}(\mathbf{A}) < n$: 无穷多解（解空间维度 = $n - \text{rank}$）
+\end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{线性代数与传感器融合}:
+
+你的论文使用 \textbf{MPU-6050 (6轴传感器)} 进行跌倒检测。
+
+\textbf{传感器融合 (Kalman Filter) 用到的线性代数}:
+\begin{itemize}
+    \item 状态向量: $\mathbf{x} = [\theta, \dot{\theta}, \omega_{bias}]^T$
+    \item 状态转移矩阵: $\mathbf{A} = \begin{pmatrix} 1 & dt & 0 \\ 0 & 1 & -dt \\ 0 & 0 & 1 \end{pmatrix}$
+    \item 协方差矩阵更新: $\mathbf{P} = \mathbf{APA}^T + \mathbf{Q}$
+\end{itemize}
+
+\textbf{Jan Koller 问题}: "How do you combine Accelerometer and Gyroscope data?"
+
+\textbf{答案}: 使用卡尔曼滤波器。加速度计提供绝对姿态（有噪声），陀螺仪提供角速度积分（有漂移）。卡尔曼滤波通过最小化协方差，融合两者得到最优估计。核心是矩阵运算（状态预测、协方差更新、卡尔曼增益计算）。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[🔴 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{逆矩阵不存在}: $\det(\mathbf{A}) = 0$ 时矩阵奇异，无逆！
+    \item \textbf{特征向量方向}: 特征向量乘以任意非零常数仍是特征向量。
+    \item \textbf{矩阵乘法顺序}: $\mathbf{AB}$ 的尺寸是 $(m \times p)$ 当 $\mathbf{A}$ 是 $m \times n$，$\mathbf{B}$ 是 $n \times p$。
+\end{enumerate}
+\end{warnbox}

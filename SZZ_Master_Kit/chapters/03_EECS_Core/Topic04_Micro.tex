@@ -1,26 +1,232 @@
-\section{Microcontrollers (MIK)}
+% ============================================
+% Topic 04: Microprocessors / 微处理器
+% ============================================
+\section{微处理器 / Microprocessors}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
-\begin{itemize}
-    \item \textbf{Core Concept}: 微控制器架构。重点是中断（Interrupts）、总线（Bus）、GPIO和定时器。
-    \item \textbf{Key Formula}: $ \dots $
-    \item \textbf{Watch Out}: Common exam pitfalls.
+% --------------------------------------------
+% 1. Von Neumann vs Harvard Architecture
+% --------------------------------------------
+\begin{studybox}{冯诺依曼 vs 哈佛架构 (Von Neumann vs Harvard)}
+
+\textbf{概念 (CN)}: 计算机体系结构的两种基本模型
+
+\textbf{Term (EN)}: Von Neumann Architecture, Harvard Architecture
+
+\tcblower
+
+\textbf{冯诺依曼架构}:
+\begin{itemize}[leftmargin=*]
+    \item 程序和数据共享同一存储器和总线
+    \item 简单，成本低
+    \item 瓶颈：内存带宽有限（冯诺依曼瓶颈）
+    \item 例：x86 PC
 \end{itemize}
-\end{tcolorbox}
 
-\subsection{Concepts / 核心概念}
-\begin{keywords}
-\textbf{Interrupt, DMA, GPIO, Timer, ADC, UART/SPI/I2C}
-\end{keywords}
-微控制器架构。重点是中断（Interrupts）、总线（Bus）、GPIO和定时器。
+\textbf{哈佛架构}:
+\begin{itemize}[leftmargin=*]
+    \item 程序和数据分开存储，有独立总线
+    \item 可同时取指令和取数据
+    \item 例：ARM Cortex-M, ESP32
+\end{itemize}
 
-\subsection{Formulas / 公式}
+\textbf{Key Insight}: Harvard architecture allows simultaneous instruction fetch and data access = faster execution.
+
+\end{studybox}
+
+% --------------------------------------------
+% 2. Interrupts
+% --------------------------------------------
+\begin{studybox}{中断系统 (Interrupts)}
+
+\textbf{概念 (CN)}: 外部或内部事件触发 CPU 暂停当前任务，转去执行中断服务程序 (ISR)
+
+\textbf{Term (EN)}: Interrupt, ISR (Interrupt Service Routine), IRQ, NVIC
+
+\tcblower
+
+\textbf{中断类型}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{外部中断}: GPIO 电平变化、定时器溢出
+    \item \textbf{内部中断}: 软件中断、异常（如除零）
+    \item \textbf{NMI}: 不可屏蔽中断（最高优先级）
+\end{itemize}
+
+\textbf{中断处理流程}:
+\begin{enumerate}
+    \item 保存现场（寄存器入栈）
+    \item 跳转到 ISR
+    \item 执行 ISR
+    \item 恢复现场（寄存器出栈）
+    \item 返回原程序
+\end{enumerate}
+
+\textbf{Key Insight}: Interrupts allow real-time response to events without polling.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{中断延迟}:
 \begin{equation}
-    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    T_{latency} = T_{recognition} + T_{context\_save} + T_{ISR\_entry}
 \end{equation}
 
-\subsection{Exam Questions / 常考题型}
-\begin{itemize}
-    \item Define ...
-    \item Calculate ...
+\textbf{ESP32 中断优先级}: 1-7 级（7 最高，NMI）
+
+\textbf{关键寄存器}:
+\begin{itemize}[leftmargin=*]
+    \item \texttt{IE} (Interrupt Enable): 中断使能
+    \item \texttt{IF} (Interrupt Flag): 中断标志
+    \item \texttt{NVIC\_IPR}: 优先级寄存器
 \end{itemize}
+\end{formulabox}
+
+% --------------------------------------------
+% 3. GPIO and Peripherals
+% --------------------------------------------
+\begin{studybox}{GPIO 与外设 (GPIO \& Peripherals)}
+
+\textbf{概念 (CN)}: 通用输入输出引脚及其配置
+
+\textbf{Term (EN)}: GPIO, Pull-up, Pull-down, Open-drain, Push-pull
+
+\tcblower
+
+\textbf{GPIO 模式}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{输入模式}: 浮空、上拉、下拉
+    \item \textbf{输出模式}: 推挽输出、开漏输出
+\end{itemize}
+
+\textbf{推挽 vs 开漏}:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{特性} & \textbf{推挽 (Push-Pull)} & \textbf{开漏 (Open-Drain)} \\
+\midrule
+高电平驱动 & 有 & 无（需外部上拉） \\
+低电平驱动 & 有 & 有 \\
+线与功能 & 无 & 有 \\
+典型应用 & LED驱动 & I2C总线 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Insight}: Open-drain allows multiple devices to share a bus (like I2C).
+
+\end{studybox}
+
+% --------------------------------------------
+% 4. Communication Buses
+% --------------------------------------------
+\begin{studybox}{通信总线 (Communication Buses)}
+
+\textbf{概念 (CN)}: 微处理器与外设通信的标准接口
+
+\textbf{Term (EN)}: I2C, SPI, UART, CAN
+
+\tcblower
+
+\textbf{比较表}:
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{协议} & \textbf{线数} & \textbf{速度} & \textbf{拓扑} & \textbf{典型应用} \\
+\midrule
+I2C & 2 (SDA, SCL) & 100k-3.4M & 多主多从 & 传感器 \\
+SPI & 4 (MOSI, MISO, SCK, CS) & 10M+ & 一主多从 & Flash, LCD \\
+UART & 2 (TX, RX) & 115200 & 点对点 & 调试串口 \\
+CAN & 2 (CANH, CANL) & 1M & 总线型 & 汽车电子 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Insight}: I2C uses fewer wires but is slower; SPI is faster but needs more pins.
+
+\end{studybox}
+
+\begin{formulabox}
+\textbf{I2C 地址格式}:
+\begin{equation}
+    \text{7-bit address} + \text{R/W bit} = \text{8-bit frame}
+\end{equation}
+
+\textbf{SPI 时钟配置}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{CPOL}: 时钟极性（空闲时高/低）
+    \item \textbf{CPHA}: 时钟相位（第一/二边沿采样）
+    \item 四种模式: Mode 0 (CPOL=0, CPHA=0), Mode 1, Mode 2, Mode 3
+\end{itemize}
+
+\textbf{UART 波特率}:
+\begin{equation}
+    \text{Baud Rate} = \frac{f_{clk}}{16 \times \text{Divisor}}
+\end{equation}
+\end{formulabox}
+
+% --------------------------------------------
+% 5. Memory Types
+% --------------------------------------------
+\begin{studybox}{存储器类型 (Memory Types)}
+
+\textbf{概念 (CN)}: 不同类型存储器的特性
+
+\textbf{Term (EN)}: SRAM, DRAM, Flash, EEPROM, ROM
+
+\tcblower
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{类型} & \textbf{易失性} & \textbf{可写} & \textbf{典型用途} \\
+\midrule
+SRAM & 易失 & 读写 & Cache, 寄存器文件 \\
+DRAM & 易失 & 读写 & 主内存 \\
+Flash & 非易失 & 读/块写 & 程序存储, SSD \\
+EEPROM & 非易失 & 读/字节写 & 配置存储 \\
+ROM & 非易失 & 只读 & Bootloader \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Insight}: ESP32 uses Flash for program storage and SRAM for runtime data.
+
+\end{studybox}
+
+% --------------------------------------------
+% Thesis Connection
+% --------------------------------------------
+\begin{thesisbox}
+\textbf{ESP32-S3 与微处理器}:
+
+你的论文使用 \textbf{ESP32-S3}，它是一个双核 Xtensa LX7 处理器。
+
+\textbf{架构}: 修改版哈佛架构（指令和数据分开，但共享部分总线）
+
+\textbf{通信总线使用}:
+\begin{itemize}
+    \item \textbf{I2C}: SHT40 温湿度传感器, MPU-6050 加速度计
+    \item \textbf{SPI}: 未使用（无外部 Flash）
+    \item \textbf{UART}: 调试串口
+\end{itemize}
+
+\textbf{中断应用}:
+\begin{itemize}
+    \item GPIO 中断: PIR 运动传感器触发
+    \item 定时器中断: 定期采集传感器数据
+\end{itemize}
+
+\textbf{Jan Koller 问题}: "How does ESP32 handle multiple sensors on I2C?"
+
+\textbf{答案}: 每个 I2C 设备有唯一的 7-bit 地址。Master (ESP32) 先发送地址，只有匹配的 Slave 响应。
+\end{thesisbox}
+
+% --------------------------------------------
+% Exam Strategy
+% --------------------------------------------
+\begin{warnbox}[🔴 考试陷阱 / Exam Pitfalls]
+\begin{enumerate}
+    \item \textbf{I2C 地址冲突}: 同一地址的两个设备不能挂在同一总线上。
+    \item \textbf{中断嵌套}: 高优先级中断可以打断低优先级 ISR。
+    \item \textbf{GPIO 浮空}: 未配置上拉/下拉的输入引脚读取值不确定。
+\end{enumerate}
+\end{warnbox}
