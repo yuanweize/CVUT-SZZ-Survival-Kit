@@ -2,22 +2,24 @@
 % SZZ Master Kit - Visual Template
 % Author: Yuan Weize (2026)
 % CTU FEE - State Final Examination Prep
+% Engine: LuaLaTeX (most modern)
 % ============================================
 \documentclass[11pt,a4paper]{article}
 
 % ============================================
 % CORE PACKAGES
 % ============================================
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
 
-% Chinese Support (XeLaTeX required)
-\usepackage{xeCJK}
-\setCJKmainfont{PingFang SC}
-\setCJKsansfont{PingFang SC}
-\setCJKmonofont{PingFang SC}
+% Modern Font Support (LuaLaTeX)
+\usepackage{fontspec}
+
+% Chinese Support (LuaLaTeX - use luatexja)
+\usepackage{luatexja}
+\usepackage[match]{luatexja-fontspec}
+% Use STSong as fallback (more universal than PingFang)
+\setmainjfont[BoldFont=Heiti SC]{STSong}
 
 % Math
 \usepackage{amsmath, amssymb, amsfonts}
