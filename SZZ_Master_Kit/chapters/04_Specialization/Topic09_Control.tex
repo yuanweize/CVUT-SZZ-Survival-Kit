@@ -1,0 +1,38 @@
+\section{Control Systems (ARI)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Feedback}: Closed Loop vs Open Loop. Negative Feedback stabilizes systems.
+    \item \textbf{PID}: Proportional (Present), Integral (Past), Derivative (Future).
+    \item \textbf{Stability}: Poles must be in Left Half Plane (LHP).
+    \item \textbf{Thesis Link}: Your "Fall Detection" is a simple Open Loop classifier, but if you controlled a drone motor based on it, that would be Closed Loop control.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Transfer Function, Step Response, Stability Criteria (Routh-Hurwitz, Nyquist), Root Locus}
+\end{keywords}
+
+\begin{concept}{PID Controller / PID 控制器}
+The "bread and butter" of industrial control.
+\begin{itemize}
+    \item \textbf{P (Gain)}: Speed of response. Too high $\to$ Overshoot/Oscillation.
+    \item \textbf{I (Reset)}: Eliminates steady-state error. Can cause "Windup".
+    \item \textbf{D (Rate)}: Dampens overshoot. Sensitive to noise.
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    G(s) = \frac{Y(s)}{U(s)} = \frac{K}{Ts + 1} \quad \text{(1st Order System)}
+\end{equation}
+\begin{equation}
+    u(t) = K_p e(t) + K_i \int e(\tau) d\tau + K_d \frac{de(t)}{dt}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "How do you determine stability from the Transfer Function?" (A: Check the poles (roots of denominator). All real parts must be negative).
+    \item "Draw a block diagram of a negative feedback loop."
+\end{itemize}

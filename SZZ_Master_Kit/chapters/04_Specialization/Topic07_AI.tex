@@ -1,0 +1,40 @@
+\section{AI \& Classification (KUI/RPZ)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Search}: BFS (Queue, Optimal for unweighted), DFS (Stack). A* (Heuristic $f = g+h$).
+    \item \textbf{Classification}: Supervised Learning. Bayes Classifier minimize risk.
+    \item \textbf{Thesis Link}: Your "Threshold-based Fall Detection" is a \textit{Rule-based Classifier}. A Neural Network would learn these thresholds automatically.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{State Space, Heuristic, Neural Networks, Overfitting, Training/Test Set}
+\end{keywords}
+
+\begin{concept}{Search Algorithms / 搜索算法}
+\begin{itemize}
+    \item \textbf{Uninformed}: BFS (Complete), DFS (Not complete, memory efficient).
+    \item \textbf{Informed}: A* uses heuristic $h(n)$ (estimated cost to goal). Proof of optimality requires $h(n)$ to be \textit{admissible} (never overestimate).
+\end{itemize}
+\end{concept}
+
+\begin{concept}{Pattern Recognition / 模式识别}
+\begin{itemize}
+    \item \textbf{Feature Space}: The dimensions of your data (e.g., in thesis: Accel-X, Accel-Y, Gyro-Z).
+    \item \textbf{Linear Classifier}: Separates classes with a hyperplane (Perceptron).
+    \item \textbf{Bias-Variance Tradeoff}: Simple models underfit (High Bias), complex models overfit (High Variance).
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    P(C|X) = \frac{P(X|C) P(C)}{P(X)} \quad \text{(Bayes Rule)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "What is the difference between A* and Dijkstra?" (A: A* uses heuristics to guide search towards the goal, Dijkstra is just A* with $h=0$).
+    \item "Explain Overfitting." (A: Model memorizes noise instead of learning patterns. Fails on new data).
+\end{itemize}

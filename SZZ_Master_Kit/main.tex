@@ -1,0 +1,123 @@
+\documentclass[a4paper,12pt]{report}
+
+% =========================================
+% Packages
+% =========================================
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+% \usepackage{minted}
+
+% =========================================
+% Fonts & Localization
+% =========================================
+\setmainfont{Times New Roman}
+\setCJKmainfont[BoldFont=PingFang SC Semibold, ItalicFont=Kaiti SC]{PingFang SC} 
+% \setCJKmainfont{FandolSong-Regular} % Use on Linux
+
+% =========================================
+% Colors & Boxes
+% =========================================
+\definecolor{cvut_blue}{RGB}{0, 101, 189}
+\definecolor{alert_red}{RGB}{220, 53, 69}
+\definecolor{concept_green}{RGB}{40, 167, 69}
+
+\newtcolorbox{concept}[1]{
+  colback=concept_green!5!white,
+  colframe=concept_green!75!black,
+  title=\textbf{Concept / 概念: #1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{terminology}[1]{
+  colback=cvut_blue!5!white,
+  colframe=cvut_blue!75!black,
+  title=\textbf{Terminology / 术语: #1},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{killer}[1]{
+  colback=alert_red!5!white,
+  colframe=alert_red!75!black,
+  title=\textbf{Killer Question / 答辩追问: #1},
+  fonttitle=\bfseries,
+  sharp corners=south
+}
+
+% =========================================
+% Keywords Environment
+% =========================================
+\newenvironment{keywords}
+{\par\vspace{0.5em}\noindent\textbf{Keywords:}\quad}
+{\par\vspace{0.5em}}
+
+% =========================================
+% Document Info
+% =========================================
+\title{\textbf{SZZ Master Kit}\\ \large CVUT FEE State Final Examination Guide}
+\author{Yuan Weize}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+% =========================================
+% 0. Strategy Phase
+% =========================================
+\chapter*{Introduction}
+\input{chapters/00_Strategy_Analysis.tex}
+
+% =========================================
+% 1. Mathematics
+% =========================================
+\chapter{Mathematics}
+\input{chapters/01_Math/Topic01_Linear_Algebra.tex}
+\input{chapters/01_Math/Topic02_Numerical.tex}
+\input{chapters/01_Math/Topic03_DiffEq.tex}
+\input{chapters/01_Math/Topic04_Discrete.tex}
+\input{chapters/01_Math/Topic05_Graph.tex}
+\input{chapters/01_Math/Topic06_Probability.tex}
+
+% =========================================
+% 2. Physics
+% =========================================
+\chapter{Physics}
+\input{chapters/02_Phys/Topic01_Mechanics.tex}
+\input{chapters/02_Phys/Topic02_Oscillations.tex}
+\input{chapters/02_Phys/Topic03_Fields.tex}
+\input{chapters/02_Phys/Topic04_Thermo.tex}
+\input{chapters/02_Phys/Topic05_Waves.tex}
+
+% =========================================
+% 3. EECS Core
+% =========================================
+\chapter{EECS Core}
+\input{chapters/03_EECS_Core/Topic01_Circuits.tex}
+\input{chapters/03_EECS_Core/Topic02_Semicon.tex}
+\input{chapters/03_EECS_Core/Topic03_Electronics.tex}
+\input{chapters/03_EECS_Core/Topic04_Micro.tex}
+\input{chapters/03_EECS_Core/Topic05_Algo.tex}
+
+% =========================================
+% 4. Specialization
+% =========================================
+\chapter{Specialization (System \& Electronics)}
+\input{chapters/04_Specialization/Topic01_EMT.tex}
+\input{chapters/04_Specialization/Topic02_Logic.tex}
+\input{chapters/04_Specialization/Topic03_Signals.tex}
+\input{chapters/04_Specialization/Topic04_Machines.tex}
+\input{chapters/04_Specialization/Topic05_Materials.tex}
+\input{chapters/04_Specialization/Topic06_Power.tex}
+\input{chapters/04_Specialization/Topic07_AI.tex}
+\input{chapters/04_Specialization/Topic08_Arch.tex}
+\input{chapters/04_Specialization/Topic09_Control.tex}
+
+\end{document}

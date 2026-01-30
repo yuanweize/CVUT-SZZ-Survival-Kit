@@ -1,0 +1,44 @@
+\section{Power Systems (EN1/EN2)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Grid Setup}: Generation (10-20kV) $\to$ Transmission (400kV/220kV/110kV) $\to$ Consumer (230V/400V).
+    \item \textbf{3-Phase}: $\sqrt{3}$ factor is critical. Star (Y) vs Delta ($\Delta$).
+    \item \textbf{Control}: $P$ controls Frequency ($f$), $Q$ controls Voltage ($U$).
+    \item \textbf{Thesis Link}: Batteries in IoT. Energy density (Li-Ion vs Li-Po).
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Active/Reactive Power, Power Factor, Transmission Line Models, Short Circuit, Substations}
+\end{keywords}
+
+\begin{concept}{Three-Phase Power / 三相电}
+\begin{itemize}
+    \item **Phase Voltage ($U_{ph}$)**: Line-to-Neutral (230V in EU).
+    \item **Line Voltage ($U_{line}$)**: Phase-to-Phase (400V in EU).
+\end{itemize}
+Relationship: $U_{line} = \sqrt{3} U_{ph}$.
+\end{concept}
+
+\begin{concept}{Transmission Lines / 输电线路模型}
+\begin{itemize}
+    \item \textbf{Short Line}: Series impedance $Z = R + jX$.
+    \item \textbf{Medium/Long Line (Pi-Model)}: Includes shunt capacitance $C$ (charging current). The "Ferranti Effect" causes voltage rise at open-load end.
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    S = P + jQ = \sqrt{3} \cdot U_{line} \cdot I_{line} \cdot (\cos \phi + j \sin \phi)
+\end{equation}
+\begin{equation}
+    \Delta U \approx \frac{P R + Q X}{U_n} \quad \text{(Voltage Drop Approximation)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Why do we use High Voltage for transmission?" (A: Reduce current $I$, since Loss $P_{loss} = I^2 R$. Higher $U \to$ Lower $I$).
+    \item "Draw the phasor diagram of a synchronous generator connected to the grid."
+\end{itemize}

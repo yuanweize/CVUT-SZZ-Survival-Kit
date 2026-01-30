@@ -1,0 +1,34 @@
+\section{Linear Algebra (LAL)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Gaussian Elimination}: Solving $Ax = b$ by row reductions.
+    \item \textbf{Rank (dim(Im A))}: Number of linearly independent rows/cols.
+    \item \textbf{Eigenvalues}: $Av = \lambda v$. Critical for Stability Analysis in Control Theory ($Re(\lambda) < 0$).
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Basis, Dimension, Determinant, Inverse Matrix, Orthogonality}
+\end{keywords}
+
+\begin{concept}{Rank \& Solvability / 秩与解的存在性}
+Frobenius Theorem:
+\begin{itemize}
+    \item \textbf{One Solution}: $rank(A) = rank(A|b) = n$ (number of vars).
+    \item \textbf{Inf solutions}: $rank(A) = rank(A|b) < n$.
+    \item \textbf{No solution}: $rank(A) \ne rank(A|b)$.
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    \det(A - \lambda I) = 0 \quad \text{(Characteristic Equation)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Calculate the determinant of this 3x3 matrix." (Use Sarrus rule or expansion).
+    \item "What does a zero eigenvalue mean?" (A: The matrix is singular/non-invertible).
+\end{itemize}

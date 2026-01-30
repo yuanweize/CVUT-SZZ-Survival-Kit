@@ -1,0 +1,45 @@
+\section{Electrical Machines (SP1)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Transformer}: Static theoretical basis ($U_1/U_2 = N_1/N_2$). Hysteresis & Eddy Current losses.
+    \item \textbf{Induction Machine}: Asynchronous. Key param: **Slip ($s$)**.
+    \item \textbf{Synchronous Machine}: Constant speed $n_s = 60f/p$. Used in power plants.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Magnetic Circuits, Transformer Equivalent Circuit, Induction Motor Torque, Slip, Commutator (DC)}
+\end{keywords}
+
+\begin{concept}{Induction Motor / 感应电机}
+The most common industrial motor.
+\begin{itemize}
+    \item \textbf{Slip ($s$)}: Difference between Stator field speed ($n_s$) and Rotor mechanical speed ($n$).
+    \item \textbf{Start-up}: High current ($5-7 \times I_n$). Needs Star-Delta starter or Soft Starter.
+\end{itemize}
+\end{concept}
+
+\begin{concept}{Transformer Equivalent Circuit / 变压器等效电路}
+Include:
+\begin{itemize}
+    \item Series: $R_1, X_{\sigma 1}$ (Primary winding loss/leakage).
+    \item Shunt: $R_{Fe}$ (Core loss), $X_{\mu}$ (Magnetizing reactance).
+    \item Ideal Transformer: Ratios $N_1:N_2$.
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    n_s = \frac{60 f}{p} \quad (\text{Sync Speed, } p = \text{pole pairs})
+\end{equation}
+\begin{equation}
+    s = \frac{n_s - n}{n_s} \times 100\%
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Why does a transformer heat up?" (A: Joule losses $I^2 R$ in windings + Iron losses in core).
+    \item "Sketch the Torque-Slip ($M-s$) characteristic of an induction motor." (Identify Starting Torque, Breakdown Torque, Nominal Point).
+\end{itemize}

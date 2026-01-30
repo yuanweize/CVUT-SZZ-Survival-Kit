@@ -1,0 +1,46 @@
+\section{Circuit Theory (ZEO)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Analysis}: Nodal Analysis (KCL) is usually faster than Loop Analysis (KVL).
+    \item \textbf{Thevenin}: Any linear 2-terminal circuit can be replaced by $V_{th}$ and $R_{th}$.
+    \item \textbf{Transient}: Capacitor resists voltage change ($i = C du/dt$). Inductor resists current change ($u = L di/dt$).
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Kirchhoff Laws, Thevenin/Norton, Superposition, Phasors, Resonance}
+\end{keywords}
+
+\begin{concept}{Transient Analysis (1st Order) / 暂态分析}
+Switching an RL or RC circuit.
+\begin{itemize}
+    \item \textbf{Time Constant $\tau$}: $RC$ or $L/R$.
+    \item \textbf{Formula}: $x(t) = x(\infty) + [x(0) - x(\infty)] e^{-t/\tau}$.
+    \item \textbf{Steady State}: Capacitor = Open Circuit. Inductor = Short Circuit.
+\end{itemize}
+\end{concept}
+
+\begin{concept}{AC Circuits (Phasors) / 交流电路}
+Use Complex Numbers!
+\begin{itemize}
+    \item Resistor: $Z_R = R$
+    \item Inductor: $Z_L = j \omega L$
+    \item Capacitor: $Z_C = \frac{1}{j \omega C} = -j \frac{1}{\omega C}$
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    \sum I_{k} = 0 \quad \text{(KCL at Node)}
+\end{equation}
+\begin{equation}
+    P_{avg} = U_{rms} I_{rms} \cos \phi \quad \text{(Active Power)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Calculate the equivalent resistance seen from terminals A-B."
+    \item "What is the condition for Series Resonance?" (A: $Im(Z) = 0 \implies \omega L = 1/\omega C$).
+\end{itemize}

@@ -1,0 +1,65 @@
+\chapter*{Strategy Analysis \& Defense Prep}
+\label{chap:strategy}
+
+\section{Syllabus Verification (Exam Scope)}
+\begin{tcolorbox}[colback=alert_red!5!white,colframe=alert_red!75!black,title=\textbf{Syllabus Reality Check / 考纲核实}]
+Based on the latest CVUT Intranet \& Wiki crawl (2025):
+\begin{itemize}
+    \item \textbf{Computer Architectures (APO)}: Shifted to **RISC-V**. Do NOT mention MIPS unless comparing "Legacy Architectures". Focus on \textit{Pipeline Hazards} and \textit{Cache Mapping}.
+    \item \textbf{Power Engineering (EN1/EN2)}: Split into \textbf{Generation} (Plants) and \textbf{Transmission} (Grid). Key formula for you: $S = P + jQ$ and $\sqrt{3} U I$.
+    \item \textbf{Physics}: Focus strictly on \textbf{Oscillations} (RLC analogue) and \textbf{Thermodynamics} (Heat accumulation in chips), as these relate to your EE background.
+\end{itemize}
+\end{tcolorbox}
+
+\section{Thesis-Exam Connection Map}
+\begin{concept}{Thesis Integration / 论文关联}
+Your thesis (IoT Sensor Cluster) is the "anchor" for your defense. Bridge every theoretical question back to your implementation:
+\end{concept}
+
+\begin{itemize}
+    \item \textbf{Network Security (Datacoms)}:
+    \begin{itemize}
+        \item \textbf{Topic}: TLS/SSL Handshake.
+        \item \textbf{Thesis Link}: You implemented **mTLS with X25519/P-256 curves** (Fig 5.1 in Thesis).
+        \item \textbf{Buzzwords}: Symmetric vs Asymmetric Keys, Certificate Authority (CA), Handshake Overhead.
+    \end{itemize}
+    
+    \item \textbf{Computer Architectures (APO/OS)}:
+    \begin{itemize}
+        \item \textbf{Topic}: Process Scheduling / Real-time systems.
+        \item \textbf{Thesis Link}: ESP32 \textbf{FreeRTOS} usage.
+        \item \textbf{Buzzwords}: Preemptive Multitasking, Context Switch, Priority Inversion (Watchdog usage).
+    \end{itemize}
+    
+    \item \textbf{Signals \& Systems (TES)}:
+    \begin{itemize}
+        \item \textbf{Topic}: Sampling & Filtering.
+        \item \textbf{Thesis Link}: Fall detection algorithm (Fig 4.3). You filtered raw accelerometer data.
+        \item \textbf{Buzzwords}: Nyquist Rate, Digital Filters (Low-pass/Moving Average), Signal Magnitude Vector (SMV).
+    \end{itemize}
+
+    \item \textbf{Power Engineering}:
+    \begin{itemize}
+        \item \textbf{Topic}: Power consumption / Batteries.
+        \item \textbf{Thesis Link}: ESP32 Deep Sleep modes vs Active Wi-Fi transmission.
+        \item \textbf{Buzzwords}: Energy $E = P \cdot t$, Battery Capacity (mAh), LDO Efficiency.
+    \end{itemize}
+\end{itemize}
+
+\section{The ``Killer'' Defense Questions}
+\begin{killer}{Network Bottlenecks}
+\textbf{Q:} "You tested with 1,000 devices (Fig G.4). Theoretical max throughput of MQTT broker? What limits it?"\\
+\textbf{A:} Limits are: 1) TCP File Descriptors (OS limit), 2) RAM (per-connection overhead), 3) Crypto verification CPU load (mTLS handshakes are expensive!).
+\end{killer}
+
+\begin{killer}{RISC-V vs Xtensa}
+\textbf{Q:} "ESP32 uses Xtensa (or RISC-V in C3/S3). What is the difference between RISC and CISC?"\\
+\textbf{A:} **RISC** (Reduced Instr Set): Simple instructions, Load/Store architecture (like your ESP32). **CISC** (Complex): Complex instructions (like x86 on your server). RISC allows better pipelining.
+\end{killer}
+
+\section{Personalized Study Priorities}
+\begin{enumerate}
+    \item \textbf{High Risk (Math/Physics)}: Review \textit{Linear ODEs} (for L/C circuits) and \textit{Damped Harmonic Motion}.
+    \item \textbf{Medium Risk (Circuits)}: Review \textit{Three-phase systems} and \textit{Phasor diagrams} (active/reactive power).
+    \item \textbf{Low Risk (Programming)}: Just review \textit{Big-O notation} and \textit{Sorting algorithms} vocab.
+\end{enumerate}

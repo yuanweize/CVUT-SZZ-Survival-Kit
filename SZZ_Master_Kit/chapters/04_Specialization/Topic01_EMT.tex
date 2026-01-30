@@ -1,0 +1,38 @@
+\section{Electromagnetic Field Theory (EMT)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Foundation}: Maxwell's 4 Equations. Memorize Integral AND Differential forms.
+    \item \textbf{Static vs Dynamic}: Electrostatics ($\partial/\partial t = 0$) vs Electrodynamics (Time-varying B creates E).
+    \item \textbf{Thesis Link}: Signals on your PCB. High frequency = Transmission line effects (Reflections) if traces are long.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Gauss Law, Ampere Law, Faraday Law, Biot-Savart Law, Displacement Current}
+\end{keywords}
+
+\begin{concept}{Maxwell's Equations / 麦克斯韦方程组}
+The "Standard Model" of Electrical Engineering:
+\begin{itemize}
+    \item \textbf{Gauss's Law}: $\oint \vec{D} \cdot d\vec{S} = Q_{enc}$ (Charge creates Electric Field).
+    \item \textbf{Gauss's Law (Mag)}: $\oint \vec{B} \cdot d\vec{S} = 0$ (No magnetic monopoles).
+    \item \textbf{Faraday's Law}: $\oint \vec{E} \cdot d\vec{l} = -\frac{d\Phi_B}{dt}$ (Changing B-field creates Voltage). **Key for Induction Machines!**
+    \item \textbf{Ampere-Maxwell}: $\oint \vec{H} \cdot d\vec{l} = I_{enc} + \frac{d\Phi_D}{dt}$ (Current + Changing E-field creates B-field).
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    \vec{F} = q(\vec{E} + \vec{v} \times \vec{B}) \quad \text{(Lorentz Force)}
+\end{equation}
+\begin{equation}
+    C = \frac{\varepsilon A}{d} \quad \text{(Parallel Plate Capacitor)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Explain Skin Effect." (A: AC current flows only on the surface of conductor at high freq. Increases effective Resistance).
+    \item "Derive the capacitance of a coaxial cable using Gauss's law."
+\end{itemize}

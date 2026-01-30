@@ -1,0 +1,46 @@
+\section{Computer Architectures (APO)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Core Arch}: **RISC-V** (Load/Store arch). 32 registers (x0-x31).
+    \item \textbf{Pipeline}: 5 stages (IF, ID, EX, MEM, WB). Watch out for **Hazards**!
+    \item \textbf{Cache}: Temporal vs Spatial Locality. Miss types: Compulsory, Capacity, Conflict (3C).
+    \item \textbf{Thesis Link}: Your ESP32 uses a **Harvard Architecture** (Instruction/Data buses separated), unlike the standard Von Neumann model in x86.
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{RISC vs CISC, Pipeline Hazards, Cache Mapping, Virtual Memory (TLB), Interrupts}
+\end{keywords}
+
+\begin{concept}{Pipeline Hazards / 流水线冒险}
+The 5-stage pipeline increases throughput but introduces hazards:
+\begin{itemize}
+    \item \textbf{Structural}: Hardware resource conflict (e.g., trying to read data and fetch instruction from same memory at once).
+    \item \textbf{Data}: Operand not ready (Read-After-Write). Solved by \textit{Forwarding/Bypassing} or \textit{Stalling (NOP)}.
+    \item \textbf{Control}: Branch decision not yet known. Solved by \textit{Branch Prediction} (Static/Dynamic).
+\end{itemize}
+\end{concept}
+
+\begin{concept}{Cache Memory / 高速缓存}
+\begin{enumerate}
+    \item \textbf{Direct Mapped}: Each address maps to exactly one cache block. Simple, but high conflict misses.
+    \item \textbf{Set Associative}: A compromise (e.g., 4-way). Reduces conflict misses.
+    \item \textbf{Write Policy}: \textit{Write-Through} (safe, slow) vs \textit{Write-Back} (fast, complex).
+\end{enumerate}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    \text{CPU Time} = \text{Instruction Count} \times \text{CPI} \times \text{Cycle Time}
+\end{equation}
+\begin{equation}
+    \text{Average Memory Access Time (AMAT)} = \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Explain why a Branch Misprediction is expensive in a deep pipeline." (A: Flushes all speculative instructions).
+    \item "Translate this C code `if (a < b) a = a + 1;` into RISC-V assembly." (Hint: `blt`, `addi`).
+\end{itemize}

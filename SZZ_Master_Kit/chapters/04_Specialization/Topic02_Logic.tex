@@ -1,0 +1,42 @@
+\section{Logic Systems (LSP)}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=yellow!50!black,title=\textbf{Exam Cheat Sheet / 极速复习}]
+\begin{itemize}
+    \item \textbf{Boolean Algebra}: De Morgan's Laws ($\overline{A \cdot B} = \overline{A} + \overline{B}$).
+    \item \textbf{K-Maps}: Minimization of logic functions (grouping 1s).
+    \item \textbf{FSM}: Finite State Machines (Mealy vs Moore).
+    \item \textbf{Thesis Link}: Your ESP32 GPIOs are essentially controlled by memory-mapped \textit{registers} (Flip-flops).
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Concepts / 核心概念}
+\begin{keywords}
+\textbf{Combinational Logic, Sequential Logic, Flip-Flops (D, JK), Multiplexer, VHDL}
+\end{keywords}
+
+\begin{concept}{Sequential Logic / 时序逻辑}
+Unlike Combinational logic (Output = f(Input)), Sequential logic has **Memory**.
+\begin{itemize}
+    \item \textbf{Latch vs Flip-Flop}: Latch is level-triggered; Flip-Flop is edge-triggered (synchronous).
+    \item \textbf{Setup Time ($t_{su}$)}: Data must be stable \textit{before} clock edge.
+    \item \textbf{Hold Time ($t_{h}$)}: Data must be stable \textit{after} clock edge.
+\end{itemize}
+\end{concept}
+
+\begin{concept}{FSM (Finite State Machines) / 有限状态机}
+\begin{itemize}
+    \item \textbf{Moore}: Output depends only on \textit{Current State}. (Safer glich-wise).
+    \item \textbf{Mealy}: Output depends on \textit{Current State} AND \textit{Input}. (Reacts faster, but risky).
+\end{itemize}
+\end{concept}
+
+\subsection{Formulas / 公式}
+\begin{equation}
+    F(A,B,C) = \sum m(0, 1, 4, 7) \quad \text{(Sum of Products)}
+\end{equation}
+
+\subsection{Exam Questions / 常考题型}
+\begin{itemize}
+    \item "Design a 3-bit counter using D Flip-Flops." (A: Next state logic + Current state register).
+    \item "What is a Hazard in combinational logic?" (A: Temporary glitch due to unequal delay paths).
+\end{itemize}
