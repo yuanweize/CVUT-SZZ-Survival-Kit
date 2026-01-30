@@ -1,6 +1,39 @@
-# Ignore everything by default
-*
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# But keep this file and the README
-!.gitignore
-!README.md
+# Build directories
+build/
+dist/
+*.o
+*.obj
+
+# LaTeX generated files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Sensitive Projects / Source Code
+Thesis_src/
