@@ -1,6 +1,85 @@
 % ============================================
 % Chapter 00: Defense Strategy / 答辩策略
 % SOURCE: Jan_Koller_Opponent_Research folder
+% PERSONALIZED: Based on Study_Results_Yuan_Weize.pdf
+% ============================================
+
+% ============================================
+% MASTER PRIORITY MATRIX (Based on Transcript)
+% ============================================
+\section{SZZ Scope \& Priority Matrix / 国考范围与优先级总表}
+
+\begin{warnbox}[\textbf{[ANALYSIS]} 个人定制分析 / Personalized Analysis]
+\textbf{[CN]} 此表格基于你的成绩单 (Study\_Results\_Yuan\_Weize.pdf) 自动生成。\\
+\textbf{[EN]} This table is auto-generated from your official transcript.\\[0.5em]
+\textbf{总学分}: 204 | \textbf{加权平均}: 2.11 | \textbf{专业方向}: Power Engineering (EN1/EN2)
+\end{warnbox}
+
+\subsection{Compulsory Topics (必考 - 2 Questions) / 必修科目}
+
+\begin{center}
+\small
+\begin{tabular}{|p{1.2cm}|p{3.8cm}|c|c|p{4.5cm}|}
+\hline
+\rowcolor{gray!30} \textbf{Topic} & \textbf{Course / 科目} & \textbf{Grade} & \textbf{Priority} & \textbf{Strategy / 策略} \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{blue!10}\textbf{MATHEMATICS 数学}} \\ \hline
+1 & BE5B01LAL Linear Algebra & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[CRITICAL]}} & \textbf{SURVIVAL}: 背公式，不推导 \\ \hline
+2,3 & BE5B01DEN Numerical+DiffEq & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[CRITICAL]}} & \textbf{SURVIVAL}: Newton-Raphson 记死 \\ \hline
+4,5 & BE5B01DMG Discrete+Graph & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[CRITICAL]}} & \textbf{SURVIVAL}: 集合论+图遍历 \\ \hline
+6 & BE5B01PRS Probability & \textcolor{green}{\textbf{B}} & \textcolor{green}{\textbf{[SHOW OFF]}} & \textbf{ATTACK}: Bayes→传感器融合 \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{yellow!10}\textbf{PHYSICS 物理}} \\ \hline
+7,8,9 & BE5B02PH1 Physics 1 & \textcolor{orange}{\textbf{D}} & \textcolor{orange}{\textbf{[CAUTION]}} & \textbf{FOCUS}: F=ma→加速度计原理 \\ \hline
+10,11 & BE5B02PH2 Physics 2 & \textcolor{orange}{\textbf{D}} & \textcolor{orange}{\textbf{[CAUTION]}} & \textbf{FOCUS}: 热力学→ESP32散热 \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{green!10}\textbf{EECS CORE 电子信息核心}} \\ \hline
+12 & BE5B31ZEO Circuits & \textcolor{orange}{\textbf{D}} & \textcolor{orange}{\textbf{[CAUTION]}} & \textbf{FOCUS}: KVL/KCL→传感器电路 \\ \hline
+13,14 & BE5B34ELP Electron Devices & \textcolor{green}{\textbf{B}} & \textcolor{green}{\textbf{[SHOW OFF]}} & \textbf{ATTACK}: 半导体→你很熟练! \\ \hline
+15 & BE5B34MIK Microcontrollers & \textcolor{green}{\textbf{A}} & \textcolor{green}{\textbf{[SHOW OFF]}} & \textbf{ATTACK}: ESP32是你的主场! \\ \hline
+16 & BE5B33PRG/PGE Algorithms & \textcolor{blue}{\textbf{C/B}} & \textcolor{blue}{\textbf{[STABLE]}} & \textbf{HOLD}: 基础数据结构即可 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Specialization Topic (选考 - 1 Question) / 专业选修}
+
+\begin{center}
+\small
+\begin{tabular}{|p{1.2cm}|p{3.8cm}|c|c|p{4.5cm}|}
+\hline
+\rowcolor{gray!30} \textbf{Topic} & \textbf{Course / 科目} & \textbf{Grade} & \textbf{Status} & \textbf{Notes / 备注} \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{green!20}\textbf{[YOUR SPECIALIZATION] 你的专业方向}} \\ \hline
+22 & BE5B15EN1/EN2 Power Eng. & \textcolor{blue}{\textbf{B/C}} & \textcolor{blue}{\textbf{[FOCUS]}} & \textbf{TARGET}: 电网+变压器 \\ \hline
+18 & BE5B35LSP Logic Systems & \textcolor{blue}{\textbf{C}} & \textcolor{blue}{\textbf{[BACKUP]}} & 可作为备选专业题 \\ \hline
+20 & BE5B14SP1 Elec. Machinery & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[AVOID]}} & 成绩差，避免选此题 \\ \hline
+21 & BE5B13MVE Materials & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[AVOID]}} & 虽然修了但成绩差，避免 \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{red!10}\textbf{[CRITICAL] SURVIVAL MODE 求生模式}} \\ \hline
+23 & BE5B33KUI AI/Cybernetics & \textcolor{red}{\textbf{E}} & \textcolor{red}{\textbf{[CRITICAL]}} & \textbf{SURVIVAL}: BFS/DFS+状态空间 \\ \hline
+\multicolumn{5}{|c|}{\cellcolor{gray!20}\textbf{[SKIP] OUT OF SCOPE 不在考试范围}} \\ \hline
+17 & BE5B17EMT EM Theory & \textcolor{gray}{---} & \textcolor{gray}{SKIP} & 未修课，跳过 \\ \hline
+19 & BE5B31TES Signals & \textcolor{gray}{---} & \textcolor{gray}{SKIP} & 未修课，跳过 \\ \hline
+24 & BE5B35APO Architecture & \textcolor{gray}{---} & \textcolor{gray}{SKIP} & 未完成考试，跳过 \\ \hline
+25 & BE5B35ARI Control & \textcolor{gray}{---} & \textcolor{gray}{SKIP} & 未完成考试，跳过 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{20-Hour Time Allocation / 20小时时间分配}
+
+\begin{formulabox}[\textbf{[TIME]} Recommended Study Plan / 推荐学习计划]
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\rowcolor{gray!20} \textbf{Category} & \textbf{Hours} & \textbf{Focus} \\ \hline
+\textcolor{red}{[CRITICAL]} Math (E grades) & 5h & LAL/DEN/DMG 公式背诵 \\ \hline
+\textcolor{red}{[CRITICAL]} KUI (E grade) & 1h & BFS/DFS/A*状态搜索 \\ \hline
+\textcolor{orange}{[CAUTION]} Physics (D grades) & 4h & 力学+热力学基础 \\ \hline
+\textcolor{orange}{[CAUTION]} Circuits (D grade) & 2h & KVL/KCL 计算练习 \\ \hline
+\textcolor{green}{[SHOW OFF]} MIK(A)/ELP(B) & 2h & 论文桥接准备 \\ \hline
+\textcolor{blue}{[FOCUS]} Power Eng. (专业) & 4h & EN1/EN2 电网重点 \\ \hline
+\textbf{[THESIS]} Thesis Defense & 2h & Koller 问题演练 \\ \hline
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+% ============================================
+% Original Strategy Content Below
 % ============================================
 \section{答辩策略分析 / Defense Strategy Analysis}
 

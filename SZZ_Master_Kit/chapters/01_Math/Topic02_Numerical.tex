@@ -1,8 +1,15 @@
 % ============================================
 % Topic 02: Numerical Analysis / 数值分析
-% Course: BE5B01NM
+% Course: BE5B01DEN
+% GRADE: E | PRIORITY: [CRITICAL]
 % ============================================
-\section{数值分析 / Numerical Analysis (BE5B01NM)}
+\section{Numerical Analysis / 数值分析 (BE5B01DEN)}
+
+\begin{warnbox}[\textbf{[WARN]} GRADE E DETECTED: SURVIVAL MODE / 成绩E：求生模式]
+\textbf{[CN]} 你的数值分析成绩是 \textbf{E}。\textbf{只背这两个}：牛顿法公式 + 求根条件！\\
+\textbf{[EN]} Your Numerical grade is \textbf{E}. \textbf{ONLY memorize}: Newton-Raphson + Convergence condition!\\
+\textbf{Formula}: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$ | 收敛条件：$|f(x_0) \cdot f''(x_0)| < |f'(x_0)|^2$
+\end{warnbox}
 
 % --------------------------------------------
 % 1. Roots and Optimization
@@ -54,16 +61,21 @@
     \textbf{[CN]}: 
     你的 ESP32 固件在处理传感器数据时使用数值方法：
     \begin{itemize}
-        \item \textbf{积分 (Integration)}: 加速度计 $\to$ 速度 $\to$ 位移。这是黎曼和 (Riemann Sum) 的离散实现 ($v += a \cdot dt$)。
-        \item \textbf{微分 (Differentiation)}: 陀螺仪角度变化率计算。
-        \item \textbf{浮点数精度}: IEEE 754 标准 (float/double) 的舍入误差会随时间累积 (Drift)，导致惯性导航漂移。
+        \item \textbf{[CN]} 积分 (Integration): 加速度计 $\to$ 速度 $\to$ 位移。这是黎曼和 (Riemann Sum) 的离散实现 ($v += a \cdot dt$)\\
+              \textbf{[EN]} Integration: Accel $\to$ Vel $\to$ Pos. Discrete Riemann sum ($v += a \cdot dt$)
+        \item \textbf{[CN]} 微分 (Differentiation): 陀螞仪角度变化率计算\\
+              \textbf{[EN]} Differentiation: Gyroscope angular rate calculation
+        \item \textbf{[CN]} 浮点数精度: IEEE 754 标准 (float/double) 的舍入误差会随时间累积 (Drift)\\
+              \textbf{[EN]} Floating point precision: IEEE 754 rounding errors accumulate over time (Drift)
     \end{itemize}
 
     \tcblower
 
-    \textbf{[EN]}: 
+    \textbf{[EN] Full Mirror}: 
+    Your ESP32 firmware uses numerical methods for sensor processing:
     \begin{itemize}
-        \item \textbf{Integration}: Accel $\to$ Vel $\to$ Pos. Implemented as discrete accumulation ($v += a \cdot dt$).
-        \item \textbf{Floating Point Error}: Accumulation of rounding errors causes "Drift" in IMU navigation, requiring corrections (Sensor Fusion).
+        \item \textbf{Integration}: Accelerometer $\to$ Velocity $\to$ Position via discrete accumulation
+        \item \textbf{Differentiation}: Angular rate from gyroscope
+        \item \textbf{Error Accumulation}: Floating-point rounding causes ``Drift'' in IMU navigation, requiring sensor fusion corrections
     \end{itemize}
 \end{thesisbox}

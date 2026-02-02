@@ -31,6 +31,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{colortbl}  % For \rowcolor and \cellcolor in tables
 \usepackage{enumitem}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
@@ -120,6 +121,16 @@
     boxrule=0.5pt
 }
 
+% Tip Box (Green - for SHOW OFF / Strong subjects)
+\newtcolorbox{tipbox}[1][]{
+    colback=green!5!white,
+    colframe=green!60!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=3mm,
+    boxrule=1pt
+}
+
 % ============================================
 % BACKWARD COMPATIBILITY ENVIRONMENTS
 % (For old .tex files that use keywords/concept)
@@ -169,6 +180,7 @@
 % ============================================
 \part{答辩策略 / Defense Strategy}
 \input{chapters/00_Strategy_Analysis}
+\input{chapters/00_Strategy_Committee}
 
 % ============================================
 % PART 1: MATHEMATICS

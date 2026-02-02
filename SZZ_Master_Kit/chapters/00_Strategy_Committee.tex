@@ -1,0 +1,1123 @@
+% ============================================
+% SZZ COMMITTEE INTEL + BATTLE SCRIPTS
+% COMPLETE DOSSIER - Based on Local Intel Files + Web Verification
+% Author: Yuan Weize (2026)
+% Format: Blackboard Problems + Mnemonics + Panic Scripts
+% ============================================
+
+\section{Committee Intelligence / 委员会情报}
+
+\begin{warnbox}[Mission Briefing / 任务简报]
+\textbf{[CN]}: 这是你的6位考官的完整档案。每人包含：背景、研究方向、板书题、口试题、保命剧本。\\
+\textbf{[EN]}: Complete dossiers for all 6 examiners. Each includes: Background, Research Focus, Blackboard Problem, Oral Questions, Panic Scripts.
+\end{warnbox}
+
+% ==============================================================================
+% EXAMINER 1: Zdenek Muller (Chairman)
+% Source: Committee_Intel/01_Muller.md + fel.cvut.cz profile
+% ==============================================================================
+\newpage
+\subsection{Examiner 1: Zdenek Muller (Chairman / 主席)}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Chairman / Vice-Dean for Strategy\\
+\textbf{Department}: Electrical Power Engineering (K13115)\\
+\textbf{Profile}: \texttt{fel.cvut.cz/cs/fakulta/lide/764-zdenek-muller}
+
+\textbf{[CN] 教学方向}:
+\begin{itemize}
+    \item B1M15ENY - Elektrarny (Power Plants): 整个电厂系统
+    \item B1M15PEL - Prumyslova elektrotechnika (Industrial EE): 工业应用
+    \item B1M15DEE - Distribuce elektricke energie (Power Distribution): 电网配电
+\end{itemize}
+
+\textbf{[CN] 研究重点} (2024-2025论文):
+\begin{itemize}
+    \item ``Sustainable Energy Management for Microgrids + IoT + AI'' (2025) - 他研究IoT在电网中的应用！
+    \item ``Smart Meters in Smart Grid'' (2025) - 他关心数据协议和安全性
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: He is a \textbf{Grid Modernizer}, not an old-school coal guy. He publishes on Microgrids, IoT, and AI. He will try to bridge your small ESP32 to the massive Power Grid.
+\end{studybox}
+
+\subsubsection*{Blackboard Challenge / 板书题}
+
+\begin{studybox}{Problem: Transformer Equivalent Circuit / 变压器等效电路}
+\textbf{[CN] 场景}: 教授说：「请画出单相变压器的T型等效电路，标出各元件。」
+
+\textbf{Circuit Elements / 电路元件}:
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Symbol} & \textbf{Name (EN)} & \textbf{名称 (CN)} \\
+\hline
+$R_1$ & Primary Winding Resistance & 一次绕组电阻 \\
+$X_1$ & Primary Leakage Reactance & 一次漏抗 \\
+$R_c$ & Core Loss Resistance (parallel) & 铁芯损耗电阻 \\
+$X_m$ & Magnetizing Reactance (parallel) & 励磁电抗 \\
+$R_2'$ & Secondary Resistance (referred) & 折算后的二次电阻 \\
+$X_2'$ & Secondary Reactance (referred) & 折算后的二次漏抗 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Key Formulas / 核心公式}:
+\begin{align}
+    \frac{V_1}{V_2} &= \frac{N_1}{N_2} = a \quad \text{(Turns Ratio / 变比)} \\
+    R_2' &= a^2 R_2, \quad X_2' = a^2 X_2 \quad \text{(Impedance Referral / 阻抗折算)}
+\end{align}
+
+\tcblower
+\textbf{[EN]}: ``Draw the T-equivalent circuit of a single-phase transformer. Label all components.''
+\end{studybox}
+
+\begin{studybox}{Problem: Power Calculation / 功率计算}
+\textbf{[CN] 场景}: 「电压220V，电流10A，功率因数0.8滞后，求P和Q。」
+
+\textbf{Solution / 解答}:
+\begin{align}
+    S &= V \times I = 220 \times 10 = 2200 \text{ VA} \\
+    P &= S \cos\phi = 2200 \times 0.8 = \boxed{1760 \text{ W}} \\
+    Q &= S \sin\phi = 2200 \times 0.6 = \boxed{1320 \text{ VAR}}
+\end{align}
+Note: $\sin\phi = \sqrt{1 - 0.8^2} = 0.6$
+
+\tcblower
+\textbf{[EN]}: Use power triangle $S^2 = P^2 + Q^2$. Active power does work; Reactive power sustains fields.
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: kW vs kVA - What is the difference?]
+\textbf{[CN]}: 
+\begin{itemize}
+    \item kW (有功功率): 实际做功的功率，电表计费用这个
+    \item kVA (视在功率): 变压器容量，包含无功分量
+    \item 差别: 功率因数 $\cos\phi = P/S$
+\end{itemize}
+
+\textbf{[EN]}: ``kW is Active Power (useful work). kVA is Apparent Power (total capacity). The difference is the Power Factor.''
+
+\textbf{Mnemonic (巧记)}: 啤酒理论 - P是酒(有用)，Q是泡沫(无功)，S是杯子(总量)。
+\end{defbox}
+
+\begin{defbox}[Q2: How does your ESP32 impact the Power Grid?]
+\textbf{[CN] Attack}: 他想让你承认你的设备微不足道。
+
+\textbf{[EN] Save Script}: ``Yes, one ESP32 is negligible. BUT, if we deploy 10,000 devices as a \textbf{Virtual Power Plant (VPP)}, they can collectively perform \textbf{Demand Response} - switching off loads during peak hours. This is exactly what your Microgrid research explores, Professor.''
+
+\textbf{Panic Button}: ``My device contributes to Smart Grid data collection, which your 2025 paper on IoT-assisted energy management discusses.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR MULLER ---
+\subsubsection*{Additional Battle Scenarios / 额外战斗场景}
+
+\begin{studybox}{Blackboard: Power Triangle / 功率三角形}
+\textbf{[CN] 场景}: 「请画出你家智能家居系统的功率三角形。假设总负载2kW，功率因数0.9滞后。」\\
+\textbf{[EN] Scenario}: ``Draw the power triangle for your smart home. Assume 2kW load, PF = 0.9 lagging.''
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 有功功率已知 / \textbf{[EN]} Active power given:
+\[
+P = 2000 \text{ W}
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 由功率因数求$\sin\phi$ / \textbf{[EN]} Find $\sin\phi$ from power factor:
+\[
+\cos\phi = 0.9 \Rightarrow \sin\phi = \sqrt{1-0.81} = 0.436
+\]
+
+\textbf{Step 3 / 步骤3}: 
+\textbf{[CN]} 计算视在功率 / \textbf{[EN]} Calculate apparent power:
+\[
+S = \frac{P}{\cos\phi} = \frac{2000}{0.9} = \boxed{2222 \text{ VA}}
+\]
+
+\textbf{Step 4 / 步骤4}: 
+\textbf{[CN]} 计算无功功率 / \textbf{[EN]} Calculate reactive power:
+\[
+Q = S \sin\phi = 2222 \times 0.436 = \boxed{969 \text{ VAR}}
+\]
+
+\textbf{[CN] 画图要点}: 水平线P=2kW，垂直线Q=969VAR，斜边S=2222VA，夹角$\phi=25.8°$\\
+\textbf{[EN] Drawing}: P horizontal (2kW), Q vertical upward (969VAR), S hypotenuse (2222VA), angle $\phi=25.8°$
+
+\tcblower
+\textbf{[EN] Full Mirror}: Draw P horizontal, Q vertical (lagging = upward for inductive load), S as hypotenuse. Angle $\phi = \arccos(0.9) = 25.8°$. Remember: $S^2 = P^2 + Q^2$.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Smart Home Reactive Power / 智能家居无功功率}
+\textbf{[CN]}: 教授，这在我的系统中很重要...\\
+\textbf{[EN]}: Professor, this is important in my system...
+
+\textbf{Script / 口试剧本}: ``In my smart home setup, I have:
+\begin{itemize}
+    \item \textbf{[CN]} 路由器（开关电源）：功率因数 $\approx 0.6$ - 显著无功功率\\
+          \textbf{[EN]} Router (switching PSU): Power factor $\approx 0.6$ - significant reactive power
+    \item \textbf{[CN]} ESP32（线性稳压器）：功率因数 $\approx 1.0$ - 纯电阻负载\\
+          \textbf{[EN]} ESP32 (linear regulator): Power factor $\approx 1.0$ - purely resistive load
+    \item \textbf{[CN]} 冷却风扇：感性负载，消耗无功功率 (VAR)\\
+          \textbf{[EN]} Cooling fans: Inductive, draws reactive power (VAR)
+\end{itemize}
+
+\textbf{[CN]} 如果扩展到1000户，电网会看到显著的无功需求。您的微电网研究通过电容器组或有源PFC来解决这个问题。\\
+\textbf{[EN]} If I scale to 1000 homes, the grid sees significant reactive demand. Your Microgrid research addresses this with capacitor banks or active PFC.''
+\end{thesisbox}
+
+\begin{studybox}{Blackboard: Current Calculation / 电流计算}
+\textbf{[CN] 场景}: 「你的智能家居消耗2kW，电压230V。计算电流。如果用16A断路器够吗？」\\
+\textbf{[EN] Scenario}: ``Your smart home consumes 2kW at 230V. Calculate current. Is a 16A breaker sufficient?''
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 用欧姆定律计算电流 / \textbf{[EN]} Calculate current using Ohm's law:
+\[
+I = \frac{P}{V} = \frac{2000W}{230V} = \boxed{8.7 \text{ A}}
+\]
+
+\textbf{Step 2 / 步骤2 (Follow-up / 追问)}: 
+\textbf{[CN]} 16A断路器够用，留有余量。但如果加上启动电流...\\
+\textbf{[EN]} 16A breaker OK with margin. But consider inrush current...
+
+\begin{itemize}
+    \item \textbf{[CN]} 空调启动电流: 额定 $\times$ 5 = 43.5A (短暂)\\
+          \textbf{[EN]} AC startup current: rated $\times$ 5 = 43.5A (brief)
+    \item \textbf{[CN]} C型断路器可承受5-10倍瞬时电流\\
+          \textbf{[EN]} Type-C breaker can handle 5-10$\times$ instantaneous
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Full Mirror}: $I = P/V = 2000/230 = 8.7A$. 16A breaker has $16/8.7 = 1.84\times$ margin. For motors, consider C-type breakers that allow 5-10$\times$ inrush current.
+\end{studybox}
+
+\begin{defbox}[Q3: What is Power Quality? Why does it matter?]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{电压稳定性}: 230V $\pm$ 10\% 是欧洲标准
+    \item \textbf{频率稳定性}: 50Hz $\pm$ 0.5Hz
+    \item \textbf{谐波畸变}: THD < 5\% (IEEE 519标准)
+\end{itemize}
+
+\textbf{[EN]}: ``Power quality includes voltage stability, frequency stability, and harmonic distortion. My ESP32's switching power supply could contribute to harmonic pollution, but at milliwatt scale it's negligible. Industrial IoT deployments should consider EMC filtering.''
+
+\textbf{Thesis Link}: ``My sensors could MONITOR power quality - using ESP32's ADC to measure voltage waveform and detect anomalies.''
+\end{defbox}
+
+% ==============================================================================
+% EXAMINER 2: Jan Kyncl (Vice-Chairman)
+% Source: Committee_Intel/02_Kyncl.md
+% ==============================================================================
+\newpage
+\subsection{Examiner 2: Jan Kyncl (Vice-Chairman / 副主席)}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Vice-Chairman\\
+\textbf{Department}: Electrical Power Engineering
+
+\textbf{[CN] 教学方向}:
+\begin{itemize}
+    \item B1M15TEN - Elektricke teplo (Electrical Heat): 这是他的招牌课！
+    \item B1M15MAT - Matematicke aplikace v elektroenergetice (Applied Math)
+\end{itemize}
+
+\textbf{[CN] 研究重点} (2024-2025):
+\begin{itemize}
+    \item ``Utilizing Peltier Cells to Enhance COP'' (2024) - 热力学/热泵
+    \item 专长: 电转热、Peltier效应、照明技术
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: The \textbf{Thermo-Electrician}. He sees electricity as a source of HEAT. He also teaches Applied Math, so he may check your calculations or error analysis.
+\end{studybox}
+
+\subsubsection*{Blackboard Challenge / 板书题}
+
+\begin{studybox}{Problem: Newton's Method / 牛顿迭代法}
+\textbf{[CN] 场景}: 「用牛顿法求 $x^2 - 2 = 0$ 的根，初值 $x_0=1$，迭代两次。」
+
+\textbf{Formula / 公式}:
+\begin{equation}
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\end{equation}
+
+\textbf{Solution / 解答}:
+\begin{itemize}
+    \item $f(x) = x^2 - 2$, $f'(x) = 2x$
+    \item Iteration 1: $x_1 = 1 - \frac{1-2}{2(1)} = 1 + 0.5 = \boxed{1.5}$
+    \item Iteration 2: $x_2 = 1.5 - \frac{2.25-2}{3} = 1.5 - 0.083 = \boxed{1.417}$
+\end{itemize}
+Exact: $\sqrt{2} \approx 1.414$. Two iterations give excellent accuracy!
+
+\tcblower
+\textbf{[EN]}: Newton's Method converges quadratically - each iteration roughly doubles correct digits.
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: Three Modes of Heat Transfer]
+\textbf{[CN] 三种传热方式}:
+\begin{enumerate}
+    \item \textbf{Conduction (传导)}: 固体内部，$q = -k\nabla T$ (Fourier's Law)
+    \item \textbf{Convection (对流)}: 流体流动，$q = hA(T_s - T_\infty)$
+    \item \textbf{Radiation (辐射)}: 电磁波，$q = \epsilon\sigma AT^4$ (Stefan-Boltzmann)
+\end{enumerate}
+
+\textbf{[EN]}: ``Conduction through solids (Fourier), Convection through fluid motion, Radiation via electromagnetic waves (Stefan-Boltzmann).''
+
+\textbf{Mnemonic}: 火锅理论 - 传导=碰锅烫手，对流=汤在滚，辐射=远处感到热
+\end{defbox}
+
+\begin{defbox}[Q2: How does heat leave your ESP32 chip?]
+\textbf{[CN]}: 主要通过PCB铜箔传导，然后空气对流散发。
+
+\textbf{[EN]}: ``First by \textbf{Conduction} through PCB copper traces (high thermal conductivity ~400 W/mK). Then by \textbf{Convection} into surrounding air. Radiation is negligible at these temperatures.''
+
+\textbf{Panic Button}: ``The ESP32 has thermal shutdown at 125C. I ensured adequate ventilation in my enclosure design.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR KYNCL ---
+\subsubsection*{Additional Battle Scenarios / 额外战斗场景}
+
+\begin{studybox}{Blackboard: Thermal Resistance / 热阻计算}
+\textbf{[CN] 场景}: 「ESP32的稳压器(AMS1117)消耗功率0.5W，环境温度40°C，结温不能超过125°C。求所需热阻。」
+
+\textbf{Solution / 解答}:
+\begin{align}
+    R_{th} &= \frac{\Delta T}{P} = \frac{T_{junction} - T_{ambient}}{P_{dissipated}} \\
+    R_{th} &= \frac{125°C - 40°C}{0.5W} = \frac{85°C}{0.5W} = \boxed{170 \text{ °C/W}}
+\end{align}
+
+\textbf{[CN] 分析}: AMS1117的封装热阻约90°C/W (SOT-223)，加上PCB热阻约30°C/W，总计约120°C/W < 170°C/W。安全！
+
+\tcblower
+\textbf{[EN]}: Thermal resistance = Temperature rise / Power. Lower $R_{th}$ means better cooling.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Enclosure Ventilation / 外壳通风设计}
+\textbf{[CN]}: 教授，这在我的论文中很重要...
+
+\textbf{Script}: ``My 3D-printed enclosure needs ventilation holes because:
+\begin{itemize}
+    \item ESP32 dissipates 0.5-1W during WiFi transmission
+    \item PLA plastic is a thermal insulator ($k \approx 0.13$ W/mK)
+    \item Convection is the primary cooling mechanism
+    \item I designed slits on top and bottom for chimney effect (natural convection)
+\end{itemize}
+Without ventilation, the internal temperature would rise by:
+$$\Delta T = P \times R_{th,enclosure} \approx 1W \times 50°C/W = 50°C$$
+risking thermal throttling.''
+\end{thesisbox}
+
+\begin{studybox}{Blackboard: Lux to Lumens / 光度单位转换}
+\textbf{[CN] 场景}: 「你的光传感器测量Lux。解释Lux和Lumens的关系，如何用于智能照明？」
+
+\textbf{Solution / 解答}:
+\begin{align}
+    \text{Lux} &= \frac{\text{Lumens}}{\text{Area (m}^2\text{)}} \\
+    E &= \frac{\Phi}{A} \quad \text{(Illuminance = Luminous Flux / Area)}
+\end{align}
+
+\textbf{例子}: 1000 lm的灯泡照亮2m$^2$的桌面:
+$$E = \frac{1000 \text{ lm}}{2 \text{ m}^2} = 500 \text{ lux}$$
+
+\textbf{标准照度}:
+\begin{itemize}
+    \item 办公室: 500 lux
+    \item 客厅: 150-300 lux
+    \item 走廊: 100 lux
+\end{itemize}
+
+\tcblower
+\textbf{[EN]}: Lux measures illuminance (light on surface). Lumens measures total light output. Lux = Lumens / Area.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Smart Lighting Control / 智能照明控制}
+\textbf{[CN]}: 这直接用在我的论文中...
+
+\textbf{Script}: ``My TCS34725 light sensor outputs:
+\begin{itemize}
+    \item Raw RGB values (16-bit per channel)
+    \item Clear channel for overall brightness
+    \item I convert to Lux using the sensor datasheet formula
+\end{itemize}
+The smart home automation rule:
+$$\text{IF Lux} < 300 \text{ AND Motion detected THEN turn on lights}$$
+This saves energy by only illuminating occupied spaces.''
+\end{thesisbox}
+
+\begin{defbox}[Q3: What is Thermal Runaway?]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{定义}: 温度升高导致功耗增加，功耗增加又导致温度继续升高
+    \item \textbf{例子}: 双极型晶体管的$I_C$随温度指数增加
+    \item \textbf{预防}: 负温度系数电阻(NTC)反馈，热保护电路
+\end{itemize}
+
+\textbf{[EN]}: ``Thermal runaway is a positive feedback loop where higher temperature increases power dissipation, which further increases temperature. Common in BJTs and batteries. My ESP32 has built-in thermal shutdown to prevent this.''
+\end{defbox}
+
+% ==============================================================================
+% EXAMINER 3: Jan Koller (OPPONENT - DANGER)
+% Source: Committee_Intel/03_Koller.md
+% ==============================================================================
+\newpage
+\subsection{Examiner 3: Jan Koller (Opponent / 对手) [CRITICAL]}
+
+\begin{warnbox}[DANGER: This is YOUR Thesis Opponent]
+\textbf{Risk Level}: CRITICAL\\
+\textbf{[CN]}: 这是你的论文对手！物理系背景，研究等离子体和材料表面处理。\\
+\textbf{[EN]}: He is your thesis opponent. Physics background. Researches plasma and surface treatment.
+\end{warnbox}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Member / Thesis Opponent\\
+\textbf{Department}: Physics (Connection)\\
+\textbf{Profile}: \texttt{fel.cvut.cz/en/faculty/people/27607-jan-koller}
+
+\textbf{[CN] 研究重点} (2024):
+\begin{itemize}
+    \item ``Surface properties of polyimide treated by plasma jet'' - 材料表面处理
+    \item ``Low-Temperature Copper Deposition for Flexible Electronics'' - PCB制造！
+    \item 关键: 他研究等离子体改性材料表面
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: The \textbf{Materialist}. He cares about SURFACES and LAYERS. If you have a PCB or plastic enclosure, he may ask about material properties. He is NOT a solar expert (previous hallucination corrected).
+\end{studybox}
+
+\subsubsection*{Blackboard Challenge / 板书题}
+
+\begin{studybox}{Problem: Newton's Second Law / 牛顿第二定律}
+\textbf{[CN] 场景}: 「写出牛顿第二定律。2kg物体受6N力，求加速度。」
+
+\textbf{Formula / 公式}:
+\begin{equation}
+    \vec{F} = m\vec{a} \quad \Rightarrow \quad a = \frac{F}{m}
+\end{equation}
+
+\textbf{Solution / 解答}:
+\begin{equation}
+    a = \frac{6 \text{ N}}{2 \text{ kg}} = \boxed{3 \text{ m/s}^2}
+\end{equation}
+
+\textbf{Mnemonic}: F = ma, 「肥妈」- 推肥妈要用大力
+
+\tcblower
+\textbf{[EN]}: ``Force equals mass times acceleration. Unit: Newton = kg$\cdot$m/s$^2$.''
+\end{studybox}
+
+\begin{studybox}{Problem: Simple Harmonic Motion / 简谐振动}
+\textbf{[CN] 场景}: 「弹簧 $k=100$ N/m，质量 $m=1$ kg，求振动角频率。」
+
+\textbf{Formula / 公式}:
+\begin{equation}
+    F = -kx \quad \text{(Hooke's Law)}
+\end{equation}
+\begin{equation}
+    \omega = \sqrt{\frac{k}{m}}, \quad T = 2\pi\sqrt{\frac{m}{k}}
+\end{equation}
+
+\textbf{Solution / 解答}:
+\begin{equation}
+    \omega = \sqrt{\frac{100}{1}} = \boxed{10 \text{ rad/s}}, \quad f = \frac{10}{2\pi} \approx 1.59 \text{ Hz}
+\end{equation}
+
+\tcblower
+\textbf{[EN]}: SHM equation: $x(t) = A\cos(\omega t + \phi)$. Spring frequency depends only on $k$ and $m$.
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: State Newton's Three Laws]
+\textbf{[CN]}:
+\begin{enumerate}
+    \item \textbf{惯性定律}: 物体保持静止或匀速，除非受外力 (Inertia)
+    \item \textbf{F=ma}: 力等于质量乘加速度 (Core equation)
+    \item \textbf{作用反作用}: 力成对出现，大小相等方向相反 (Action-Reaction)
+\end{enumerate}
+
+\textbf{[EN]}: ``1st: Object maintains state unless acted upon. 2nd: F=ma. 3rd: Every action has equal opposite reaction.''
+\end{defbox}
+
+\begin{defbox}[Q2: How does your accelerometer work? (Thesis Link)]
+\textbf{[CN]}: 加速度计测量「比力」= 加速度 - 重力。静止时Z轴读 $\approx 9.8$ m/s$^2$。
+
+\textbf{[EN]}: ``The accelerometer measures \textbf{specific force}. At rest, it reads gravitational acceleration $g \approx 9.8$ m/s$^2$ along the vertical axis. During free fall, it reads near zero - this is how I detect falls.''
+
+\textbf{Panic Button}: ``The MPU6050 uses MEMS technology - a tiny proof mass on silicon springs. Deflection is measured capacitively.''
+\end{defbox}
+
+\begin{defbox}[Q3: How is copper deposited on your PCB? (His Research!)]
+\textbf{[CN]}: 标准PCB用电镀法 - 铜离子在电解液中沉积到基板上。
+
+\textbf{[EN]}: ``Standard PCBs use \textbf{electroplating} - copper ions deposit onto the substrate in an electrolytic bath. Your research explores low-temperature plasma-assisted deposition for flexible substrates, which is more advanced than commercial PCBs.''
+
+\textbf{Escape}: ``I used off-the-shelf PCBs and focused on firmware and sensor integration.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR KOLLER (SURVIVAL MODE!) ---
+\subsubsection*{Additional Battle Scenarios (Survival Mode!) / 额外战斗场景 (求生模式!)}
+
+\begin{warnbox}[Physics Survival: Know These Cold!]
+\textbf{[CN]}: Koller教授是你的论文对手+物理系背景。这些题必须练到闭眼能写！
+\end{warnbox}
+
+\begin{studybox}{Blackboard: Centripetal Force / 向心力}
+\textbf{[CN] 场景}: 「写出向心力公式。解释这与你的跌倒检测有什么关系？」
+
+\textbf{Solution / 解答}:
+\begin{equation}
+    F_c = \frac{mv^2}{r} = m\omega^2 r = m \cdot a_c
+\end{equation}
+
+其中向心加速度:
+\begin{equation}
+    a_c = \frac{v^2}{r} = \omega^2 r
+\end{equation}
+
+\textbf{[CN] 数值例子}: 人转身，手臂长$r=0.6m$，角速度$\omega=2$rad/s:
+$$a_c = \omega^2 r = 4 \times 0.6 = 2.4 \text{ m/s}^2$$
+
+\tcblower
+\textbf{[EN]}: Centripetal force keeps object in circular motion. Points toward center. $F_c = mv^2/r$.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Fall Detection Rotation / 跌倒检测中的旋转}
+\textbf{[CN]}: 教授，这直接用在我的论文中...
+
+\textbf{Script}: ``During a fall, the body rotates. My MPU6050 gyroscope measures angular velocity $\omega$ in rad/s. I can calculate:
+\begin{itemize}
+    \item \textbf{Rotation angle}: $\theta = \int \omega \, dt$
+    \item \textbf{Centripetal acceleration}: Contributes to total acceleration reading
+    \item \textbf{Fall signature}: Rapid rotation (> 100°/s) + impact (> 3g)
+\end{itemize}
+The sensor fusion combines accelerometer ($a$) and gyroscope ($\omega$) using a Complementary Filter or Kalman Filter.''
+\end{thesisbox}
+
+\begin{studybox}{Blackboard: I-V Curves / 伏安特性曲线}
+\textbf{[CN] 场景}: 「画出电阻和二极管的I-V曲线，指出关键区别。」
+
+\textbf{Resistor / 电阻}:
+\begin{itemize}
+    \item 线性: $I = V/R$
+    \item 过原点的直线，斜率$= 1/R$
+\end{itemize}
+
+\textbf{Diode / 二极管}:
+\begin{itemize}
+    \item \textbf{正向偏置}: $V > V_{th} \approx 0.7V$ (Si), 电流指数上升
+    \item \textbf{反向偏置}: 极小漏电流$I_s$ (nA级)
+    \item \textbf{击穿区}: $V < -V_{BR}$, 电流剧增
+\end{itemize}
+
+\textbf{Shockley方程}:
+\begin{equation}
+    I = I_s \left( e^{V/(nV_T)} - 1 \right), \quad V_T = \frac{kT}{q} \approx 26\text{ mV}
+\end{equation}
+
+\tcblower
+\textbf{[EN]}: Resistor: linear through origin. Diode: exponential after threshold, tiny leakage in reverse.
+\end{studybox}
+
+\begin{studybox}{Blackboard: MEMS Accelerometer Principle / MEMS加速度计原理}
+\textbf{[CN] 场景}: 「解释MEMS加速度计如何测量'g'。」
+
+\textbf{Core Principle / 核心原理}:
+\begin{enumerate}
+    \item 内部有一个微型弹簧-质量系统 (Spring-Mass)
+    \item 加速度导致质量块相对于框架位移
+    \item 位移通过电容变化测量（间距变化改变电容）
+\end{enumerate}
+
+\textbf{公式}:
+\begin{align}
+    F &= ma = kx \\
+    x &= \frac{ma}{k} = \frac{a}{\omega_0^2}
+\end{align}
+
+其中$\omega_0 = \sqrt{k/m}$是谐振频率。
+
+\textbf{电容检测}:
+\begin{equation}
+    C = \frac{\epsilon A}{d} \quad \Rightarrow \quad \Delta C \propto \Delta d \propto a
+\end{equation}
+
+\tcblower
+\textbf{[EN]}: MEMS accelerometer = tiny spring-mass system. Acceleration displaces proof mass, capacitance change is measured. It's SHM physics at microscale!
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: MPU6050 MEMS Details / MPU6050细节}
+\textbf{[CN]}: 这是我论文的核心传感器...
+
+\textbf{Script}: ``The MPU6050 in my thesis uses:
+\begin{itemize}
+    \item \textbf{Proof mass}: ~10$\mu$g polysilicon
+    \item \textbf{Spring constant}: Designed for $\pm$16g range
+    \item \textbf{Resonant frequency}: ~5kHz (much higher than human motion)
+    \item \textbf{Capacitance detection}: Differential (noise cancellation)
+\end{itemize}
+At rest, the Z-axis reads $\approx 1g$ because gravity pulls the proof mass down. During free fall, it reads $\approx 0g$ because the mass and frame fall together.''
+\end{thesisbox}
+
+\begin{defbox}[Q4: What is Hooke's Law? Limitations?]
+\textbf{[CN]}:
+\begin{equation}
+    F = -kx \quad \text{(线性弹性，负号表示恢复力)}
+\end{equation}
+
+\textbf{限制}:
+\begin{itemize}
+    \item 仅适用于弹性限度内
+    \item 超过弹性限度，塑性变形（永久形变）
+    \item 超过极限强度，断裂
+\end{itemize}
+
+\textbf{[EN]}: ``Hooke's Law applies only within elastic limit. Beyond that, plastic deformation occurs. My MEMS sensor operates well within elastic range - displacement is nanometers.''
+\end{defbox}
+
+% ==============================================================================
+% EXAMINER 4: Adam Boura (The Ally)
+% Source: Committee_Intel/04_Boura.md
+% ==============================================================================
+\newpage
+\subsection{Examiner 4: Adam Boura (Member / 潜在盟友)}
+
+\begin{thmbox}[ALLY: He understands sensors]
+\textbf{[CN]}: 他是做传感器的，懂校准的痛苦。你的论文用了传感器，他是你的盟友！\\
+\textbf{[EN]}: He builds actual sensors. He knows calibration pain. Since your thesis uses sensors, he is your ally!
+\end{thmbox}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Member\\
+\textbf{Department}: Microelectronics\\
+\textbf{Profile}: \texttt{fel.cvut.cz/en/faculty/people/294-adam-boura}
+
+\textbf{[CN] 教学方向}:
+\begin{itemize}
+    \item B2B34SNB - Biomedical Sensors: 生物医学传感器
+    \item AD2B34SEI - Sensors in Electronics: 电子传感器
+    \item B2B34MSY - Microsystems (MEMS): 微系统
+\end{itemize}
+
+\textbf{[CN] 研究重点} (2025):
+\begin{itemize}
+    \item ``Optimum wavelength for POF-based soil moisture sensor'' - 光纤土壤传感器
+    \item ``GaN-based LLC converter transformer'' - 电力电子
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: The \textbf{Practical Sensor Builder}. He builds optical fiber (POF) sensors for soil moisture. He knows the pain of calibration, drift, and noise.
+\end{studybox}
+
+\subsubsection*{Blackboard Challenge / 板书题}
+
+\begin{studybox}{Problem: Diode V-I Characteristic / 二极管伏安特性}
+\textbf{[CN] 场景}: 「画出硅二极管的伏安特性曲线。」
+
+\textbf{Key Points / 关键点}:
+\begin{itemize}
+    \item \textbf{Forward Bias}: $V > 0.7V$ (Si), current rises exponentially
+    \item \textbf{Reverse Bias}: Small leakage current $I_s$ (nA range)
+    \item \textbf{Breakdown}: $V < -V_{BR}$, current surges (Zener/Avalanche)
+\end{itemize}
+
+\textbf{Shockley Equation}:
+\begin{equation}
+    I = I_s \left( e^{V/(nV_T)} - 1 \right), \quad V_T = \frac{kT}{q} \approx 26 \text{ mV}
+\end{equation}
+
+\tcblower
+\textbf{[EN]}: ``Silicon diode turns on at ~0.7V forward bias. In reverse, only leakage flows until breakdown.''
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: Accuracy vs Precision]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{Accuracy (准确度)}: 测量值与真值的接近程度 (Systematic error)
+    \item \textbf{Precision (精密度)}: 多次测量的重复性 (Random error)
+\end{itemize}
+
+\textbf{Mnemonic}: 飞镖靶 - Precision=打得集中, Accuracy=打中靶心
+
+\textbf{[EN]}: ``Accuracy is closeness to true value. Precision is repeatability. A sensor can be precise but not accurate if it has systematic offset.''
+\end{defbox}
+
+\begin{defbox}[Q2: Your cheap sensors drift. How do you trust them?]
+\textbf{[CN]}: 它们确实漂移，但家用IoT原型更关心相对变化而非绝对值。
+
+\textbf{[EN]}: ``Yes, they drift - especially over temperature and time. BUT for home IoT, \textbf{relative changes} matter more than absolute values. For medical applications, I would use calibrated sensors with traceability, as taught in your Biomedical Sensors course.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR BOURA ---
+\subsubsection*{Additional Battle Scenarios / 额外战斗场景}
+
+\begin{studybox}{Blackboard: ADC Resolution / ADC分辨率计算}
+\textbf{[CN] 场景}: 「ESP32有12位ADC，参考电压3.3V。计算分辨率（最小可分辨电压）。」
+
+\textbf{Solution / 解答}:
+\begin{align}
+    \text{Resolution} &= \frac{V_{ref}}{2^n} = \frac{3.3V}{2^{12}} = \frac{3.3V}{4096} \\
+    &= \boxed{0.806 \text{ mV}} \approx 0.8 \text{ mV}
+\end{align}
+
+\textbf{Follow-up}: 实际有效分辨率 (ENOB):
+\begin{equation}
+    \text{ENOB} = \frac{\text{SINAD} - 1.76}{6.02} \approx 9-10 \text{ bits for ESP32}
+\end{equation}
+
+ESP32的ADC噪声约10-20mV，实际有效分辨率约10位。
+
+\tcblower
+\textbf{[EN]}: 12-bit ADC: $2^{12} = 4096$ levels. Resolution = 3.3V/4096 = 0.8mV theoretically, but noise limits effective resolution.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: ADC Nonlinearity Fix / ADC非线性校正}
+\textbf{[CN]}: 教授，这是我在论文中遇到的实际问题...
+
+\textbf{Script}: ``The ESP32 ADC has known issues:
+\begin{itemize}
+    \item \textbf{Nonlinearity}: Up to 6\% error at extremes
+    \item \textbf{Noise}: 20-50mV peak-to-peak
+\end{itemize}
+
+\textbf{My software fixes}:
+\begin{enumerate}
+    \item \textbf{Lookup Table (LUT)}: Pre-calibrated correction values
+    \item \textbf{Moving Average Filter}: 16-sample average reduces noise
+    \item \textbf{Multisampling}: Take 64 samples, discard outliers
+\end{enumerate}
+
+Code snippet:
+\begin{lstlisting}[language=C]
+uint32_t adc_filtered = 0;
+for(int i=0; i<16; i++) {
+    adc_filtered += analogRead(pin);
+}
+adc_filtered /= 16;  // Moving average
+\end{lstlisting}
+''
+\end{thesisbox}
+
+\begin{studybox}{Blackboard: Signal-to-Noise Ratio / 信噪比}
+\textbf{[CN] 场景}: 「你的温度传感器信号100mV，噪声10mV。计算SNR (dB)。」
+
+\textbf{Solution / 解答}:
+\begin{equation}
+    \text{SNR}_{dB} = 20 \log_{10}\left(\frac{V_{signal}}{V_{noise}}\right) = 20 \log_{10}\left(\frac{100}{10}\right) = 20 \log_{10}(10) = \boxed{20 \text{ dB}}
+\end{equation}
+
+\textbf{经验法则}:
+\begin{itemize}
+    \item < 20 dB: 信号几乎被噪声淹没
+    \item 20-40 dB: 可用但需要滤波
+    \item > 40 dB: 高质量信号
+\end{itemize}
+
+\tcblower
+\textbf{[EN]}: SNR in dB = 20 log(Signal/Noise). 20dB means signal is 10x noise. Aim for > 40dB in precision applications.
+\end{studybox}
+
+\begin{defbox}[Q3: What is Quantization Error?]
+\textbf{[CN]}:
+\begin{equation}
+    \text{Quantization Error}_{max} = \pm \frac{1}{2} \text{LSB} = \pm \frac{V_{ref}}{2^{n+1}}
+\end{equation}
+
+对于12位3.3V ADC:
+$$\text{Error}_{max} = \pm \frac{3.3V}{2^{13}} = \pm 0.4 \text{ mV}$$
+
+\textbf{[EN]}: ``Quantization error is the difference between actual voltage and nearest digital level. Maximum is $\pm$0.5 LSB. This is fundamental to any ADC and cannot be eliminated, only reduced by using more bits.''
+\end{defbox}
+
+\begin{thesisbox}{Thesis Bridge: Sensor Fusion / 传感器融合}
+\textbf{[CN]}: 这是我论文的核心技术...
+
+\textbf{Script}: ``I use multiple sensors measuring the same phenomenon:
+\begin{itemize}
+    \item \textbf{DHT22}: Temperature $\pm$0.5°C
+    \item \textbf{BMP280}: Temperature $\pm$1.0°C (but better pressure)
+\end{itemize}
+
+\textbf{Fusion strategy}:
+\begin{equation}
+    T_{fused} = w_1 T_{DHT} + w_2 T_{BMP}, \quad w_1 + w_2 = 1
+\end{equation}
+
+Weights based on inverse variance (more accurate sensor gets higher weight). This is related to Kalman filter's optimal estimation.''
+\end{thesisbox}
+
+% ==============================================================================
+% EXAMINER 5: Jan Bauer (PWM Expert)
+% Source: Committee_Intel/05_Bauer.md
+% ==============================================================================
+\newpage
+\subsection{Examiner 5: Jan Bauer (Member / 考官)}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Member\\
+\textbf{Department}: Electric Drives\\
+\textbf{Profile}: \texttt{fel.cvut.cz/en/faculty/people/687-jan-bauer}
+
+\textbf{[CN] 教学方向}:
+\begin{itemize}
+    \item B3B34MKS - Microprocessors for Power Systems: 教芯片
+    \item B1M14PVR - Digital Control of Electric Drives: 教代码
+\end{itemize}
+
+\textbf{[CN] 研究重点} (2025):
+\begin{itemize}
+    \item ``Digital Implementation of Discontinuous PWMs'' - PWM算法实现
+    \item ``Analytical Harmonic Suppression in Overmodulated Drives'' - 谐波抑制
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: The \textbf{Firmware Architect}. He is obsessed with PWM algorithms and harmonic suppression. He wants to know HOW you calculated the duty cycle and whether you filtered the signal.
+\end{studybox}
+
+\subsubsection*{Blackboard Challenge / 板书题}
+
+\begin{studybox}{Problem: PWM Duty Cycle / PWM占空比}
+\textbf{[CN] 场景}: 「画一个50\%占空比、1kHz频率的PWM波形。解释如何控制LED亮度。」
+
+\textbf{Formulas / 公式}:
+\begin{align}
+    T &= \frac{1}{f} = \frac{1}{1000} = 1 \text{ ms} \\
+    D &= \frac{T_{on}}{T} = 50\% \quad \Rightarrow \quad T_{on} = 0.5 \text{ ms} \\
+    V_{avg} &= V_{max} \times D = 3.3 \times 0.5 = 1.65 \text{ V}
+\end{align}
+
+\textbf{[CN]}: 人眼看不到1kHz闪烁，只感受平均亮度。D=100\%最亮，D=0\%熄灭。
+
+\tcblower
+\textbf{[EN]}: ``PWM simulates analog via fast switching. Human eye perceives average brightness due to persistence of vision.''
+\end{studybox}
+
+\begin{studybox}{Problem: Timer Calculation / 定时器计算}
+\textbf{[CN] 场景}: 「ESP32时钟80MHz，16位定时器，产生1ms中断，求分频系数。」
+
+\textbf{Solution / 解答}:
+\begin{itemize}
+    \item Want: $T = 1$ ms
+    \item Set Prescaler = 80 $\Rightarrow$ Timer clock = 1 MHz (1 tick = 1 $\mu$s)
+    \item Count to 1000 $\Rightarrow$ $T = 1000 \times 1\mu s = \boxed{1 \text{ ms}}$
+\end{itemize}
+
+\tcblower
+\textbf{[EN]}: ``Prescaler divides clock. Counter counts ticks. Interrupt fires when counter reaches target.''
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: Polling vs Interrupts]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{Polling (轮询)}: CPU不断检查状态，浪费资源
+    \item \textbf{Interrupt (中断)}: 事件发生时硬件通知CPU，高效
+\end{itemize}
+
+\textbf{[EN]}: ``Polling wastes CPU cycles. Interrupts let CPU do other work until event occurs. I use timer interrupts for 10Hz sensor sampling.''
+\end{defbox}
+
+\begin{defbox}[Q2: What is the harmonic content of PWM? (His Research!)]
+\textbf{[CN]}: 方波PWM包含基波和奇次谐波(3次、5次...)，傅里叶分析可知。
+
+\textbf{[EN]}: ``Square wave PWM contains fundamental plus odd harmonics (3rd, 5th...) per Fourier analysis. For LED dimming, harmonics are irrelevant. For motor drives, I would add LC filtering.''
+
+\textbf{Escape}: ``My application didn't require harmonic analysis, but I know your research focuses on this for high-power drives.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR BAUER ---
+\subsubsection*{Additional Battle Scenarios / 额外战斗场景}
+
+\begin{studybox}{Blackboard: Timer Prescaler for 1Hz / 1Hz定时器预分频计算}
+\textbf{[CN] 场景}: 「ESP32时钟80MHz，16位定时器(0-65535)，要产生精确1Hz中断。求预分频值和计数值。」
+
+\textbf{Solution / 解答}:
+
+\textbf{目标}: $T = 1$ s, $f_{clk} = 80$ MHz
+
+\textbf{方法1}: 预分频80，计数1,000,000（超过16位！）
+
+\textbf{方法2}: 预分频8000，计数10,000
+\begin{align}
+    f_{timer} &= \frac{80 \text{ MHz}}{8000} = 10 \text{ kHz} \\
+    \text{Count} &= 10,000 \text{ (fits in 16 bits)} \\
+    T &= \frac{10,000}{10,000 \text{ Hz}} = \boxed{1 \text{ s}}
+\end{align}
+
+\textbf{方法3}: 预分频80，计数10,000，设置10次中断触发1次事件
+\begin{align}
+    f_{timer} &= \frac{80 \text{ MHz}}{80} = 1 \text{ MHz} \\
+    T_{interrupt} &= \frac{10,000}{1 \text{ MHz}} = 10 \text{ ms} \\
+    100 \times 10 \text{ ms} &= 1 \text{ s}
+\end{align}
+
+\tcblower
+\textbf{[EN]}: For 1Hz from 80MHz: Prescaler 8000, Count 10000. Or use software counter with faster interrupt.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: MQTT Keep-Alive as Watchdog / MQTT保活机制}
+\textbf{[CN]}: 教授，这和我的论文直接相关...
+
+\textbf{Script}: ``MQTT protocol has a Keep-Alive mechanism similar to a watchdog timer:
+\begin{itemize}
+    \item \textbf{Keep-Alive interval}: Set to 60 seconds in my config
+    \item \textbf{Client sends PINGREQ}: Every 60s if no other traffic
+    \item \textbf{Broker expects response}: If no PINGRESP in 1.5x interval, connection closed
+\end{itemize}
+
+This is functionally identical to a hardware watchdog:
+\begin{lstlisting}[language=C]
+// Hardware watchdog (ESP32)
+esp_task_wdt_reset(); // Feed watchdog every loop
+
+// MQTT 'software watchdog'
+mqtt.loop();  // Handles keep-alive automatically
+\end{lstlisting}
+
+If my ESP32 crashes, the MQTT broker detects it within 90 seconds and publishes a Last Will and Testament (LWT) message.''
+\end{thesisbox}
+
+\begin{studybox}{Blackboard: PWM Frequency Selection / PWM频率选择}
+\textbf{[CN] 场景}: 「LED调光应该用什么PWM频率？电机控制呢？」
+
+\textbf{Analysis / 分析}:
+
+\textbf{LED调光}:
+\begin{itemize}
+    \item 人眼闪烁融合频率: ~60 Hz
+    \item 推荐: 1-10 kHz (无闪烁，无可闻噪声)
+    \item 太高: 开关损耗增加
+\end{itemize}
+
+\textbf{电机控制}:
+\begin{itemize}
+    \item 低频(<1kHz): 可闻噪声，电流纹波大
+    \item 高频(>10kHz): 开关损耗，EMI问题
+    \item 推荐: 4-20 kHz (超声波范围)
+\end{itemize}
+
+\textbf{ESP32 PWM配置}:
+\begin{lstlisting}[language=C]
+ledcSetup(channel, 5000, 8); // 5kHz, 8-bit resolution
+ledcAttachPin(LED_PIN, channel);
+ledcWrite(channel, 128);  // 50% duty cycle
+\end{lstlisting}
+
+\tcblower
+\textbf{[EN]}: LED: 1-10kHz (no flicker, no audible noise). Motor: 4-20kHz (ultrasonic, reduced switching loss).
+\end{studybox}
+
+\begin{defbox}[Q3: What is Dead Time in H-Bridge?]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{定义}: 上下管切换时的短暂关断时间
+    \item \textbf{目的}: 防止直通（Shoot-through）短路
+    \item \textbf{典型值}: 100ns - 1$\mu$s
+\end{itemize}
+
+\textbf{公式}:
+\begin{equation}
+    t_{dead} > t_{off,max} - t_{on,min}
+\end{equation}
+
+\textbf{[EN]}: ``Dead time prevents simultaneous conduction of high-side and low-side switches, which would cause a short circuit. Critical in motor drives and power electronics.''
+
+\textbf{Thesis Link}: ``My ESP32 project doesn't drive motors directly, but if I added one, I would use the MCPWM peripheral which has built-in dead time generation.''
+\end{defbox}
+
+% ==============================================================================
+% EXAMINER 6: Petr Karafiat (Industry)
+% Source: Committee_Intel/06_Karafiat.md
+% ==============================================================================
+\newpage
+\subsection{Examiner 6: Petr Karafiat (Industry / 企业代表)}
+
+\begin{studybox}{Intel Dossier / 情报档案}
+\textbf{Role}: Member (Industry Expert)\\
+\textbf{Job Title}: Odborny reditel (Technical Director) / Director for Engineering and Ecology\\
+\textbf{Company}: Teplarna Kladno s.r.o. (Alpiq Generation CZ)
+
+\textbf{[CN] 关键洞察}:
+\begin{itemize}
+    \item 他不是普通技术员，是技术总监，管CAPEX(资本支出)和战略现代化
+    \item 他的头衔包含``生态''，关心排放和可持续性
+    \item 他从工业角度思考：成本、可靠性、维护
+\end{itemize}
+
+\tcblower
+\textbf{[EN] Forensic Profile}: The \textbf{Executive Engineer}. He thinks in terms of plant-wide systems, ROI, and ecological standards. He will NOT ask obscure formulas - he will ask practical questions about reliability and cost.
+\end{studybox}
+
+\subsubsection*{Oral Questions / 口试题}
+
+\begin{defbox}[Q1: Why ESP32 instead of Raspberry Pi?]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{Reliability}: ESP32用Flash(可靠), RPi用SD卡(易坏)
+    \item \textbf{Real-time}: ESP32跑RTOS(确定性), RPi跑Linux(不确定)
+    \item \textbf{Cost}: ESP32约\$5, RPi约\$50
+    \item \textbf{Power}: ESP32可Deep Sleep(10$\mu$A), RPi至少500mA
+\end{itemize}
+
+\textbf{[EN]}: ``Reliability (Flash vs SD card), Real-time (RTOS vs Linux), Cost (\$5 vs \$50), Power (10$\mu$A sleep vs 500mA minimum).''
+\end{defbox}
+
+\begin{defbox}[Q2: What is the MTBF of your system?]
+\textbf{[CN]}: MTBF = Mean Time Between Failures. 系统寿命取决于最弱组件。
+
+\textbf{[EN]}: ``MTBF depends on weakest component. ESP32 Flash: >100k write cycles. No SD card eliminates a common failure mode. For home use, I estimate 5-10 year lifespan. Industrial deployment would need extended temperature components and conformal coating.''
+\end{defbox}
+
+\begin{defbox}[Q3: Who maintains this after you leave?]
+\textbf{[CN]}: 学生项目的常见问题。我的答案：文档化。
+
+\textbf{[EN]}: ``I documented everything: code comments, README files (bilingual), GitHub repository. I used standard frameworks (ESPHome, MQTT) with large communities. The next engineer can clone and continue.''
+
+\textbf{Panic Button}: ``This would be scope for a Master's thesis or industrial project - adding conformal coating, IP65 enclosure, and extended temperature testing.''
+\end{defbox}
+
+% --- EXPANDED QUESTIONS FOR KARAFIAT ---
+\subsubsection*{Additional Battle Scenarios / 额外战斗场景}
+
+\begin{defbox}[Q4: What is the weak point of your system?]
+\textbf{[CN]}: 主动暴露弱点比被动被抓到更好。
+
+\textbf{[EN] Honest Answer}: ``The weakest point is the \textbf{Raspberry Pi SD card} in my Home Assistant server:
+\begin{itemize}
+    \item SD cards have limited write cycles (~10,000 for consumer grade)
+    \item Power loss during write causes corruption
+    \item I mitigated this by: (1) Using industrial SD card, (2) Reducing log writes, (3) Daily backup to NAS
+\end{itemize}
+
+For production, I would use:
+\begin{itemize}
+    \item SSD via USB adapter
+    \item Or dedicated embedded board with eMMC storage
+    \item UPS for clean shutdown
+\end{itemize}''
+
+\textbf{Why this answer works}: Shows awareness of limitations AND how to fix them.
+\end{defbox}
+
+\begin{studybox}{Oral: Cost-Benefit Analysis / 成本效益分析}
+\textbf{[CN] 场景}: 「对比ESP32和工业PLC的成本和适用场景。」
+
+\textbf{Comparison / 对比}:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Attribute} & \textbf{ESP32} & \textbf{Industrial PLC} \\
+\hline
+Unit Cost & \$5 & \$200-500 \\
+Development Tool & Free (Arduino) & \$500-2000 license \\
+Reliability & Consumer grade & Industrial grade \\
+Temperature Range & 0-70°C & -40 to +85°C \\
+Certifications & None & CE, UL, IEC 61131 \\
+Support & Community & Vendor (SLA) \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{结论}: ESP32适合原型/家用，PLC适合工厂/关键任务
+
+\tcblower
+\textbf{[EN]}: ESP32 for prototyping and home use. PLC for industrial deployment. Know when to upgrade.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Industrial Scaling Path / 工业化路径}
+\textbf{[CN]}: 教授，这是我对论文未来工作的思考...
+
+\textbf{Script}: ``If Alpiq wanted to deploy my system in a power plant:
+\begin{enumerate}
+    \item \textbf{Phase 1 - Pilot}: Keep ESP32, add industrial enclosure (IP65)
+    \item \textbf{Phase 2 - Reliability}: Replace with industrial MCU (STM32 industrial grade)
+    \item \textbf{Phase 3 - Certification}: Get CE marking, integrate with SCADA via Modbus
+    \item \textbf{Phase 4 - Scale}: Partner with automation vendor (Siemens, ABB)
+\end{enumerate}
+
+The code architecture (MQTT, Home Assistant) transfers directly. Only hardware needs upgrading.''
+\end{thesisbox}
+
+\begin{defbox}[Q5: How do you ensure cyber security?]
+\textbf{[CN]}:
+\begin{itemize}
+    \item \textbf{MQTT + TLS}: 加密通信 (我的论文已实现)
+    \item \textbf{Authentication}: Username/Password + Certificate
+    \item \textbf{Firewall}: Home Assistant不直接暴露到互联网
+    \item \textbf{Updates}: OTA更新机制 (ESPHome支持)
+\end{itemize}
+
+\textbf{[EN]}: ``Security layers: TLS encryption for MQTT, certificate-based authentication, no direct internet exposure (VPN required for remote access), OTA updates for security patches.''
+
+\textbf{Weak Point Admission}: ``I used self-signed certificates. Production would need proper PKI with certificate rotation.''
+\end{defbox}
+
+\begin{defbox}[Q6: What standards apply to your system?]
+\textbf{[CN]}:
+
+\textbf{通信标准}:
+\begin{itemize}
+    \item MQTT v3.1.1 (OASIS standard)
+    \item WiFi IEEE 802.11 b/g/n
+    \item JSON for data format (RFC 8259)
+\end{itemize}
+
+\textbf{安全标准}:
+\begin{itemize}
+    \item TLS 1.2+ (RFC 5246)
+    \item X.509 certificates
+\end{itemize}
+
+\textbf{如果工业化}:
+\begin{itemize}
+    \item IEC 62443 (Industrial Cybersecurity)
+    \item CE marking (EMC + LVD)
+\end{itemize}
+
+\textbf{[EN]}: ``I followed MQTT and TLS standards. For industrial deployment, IEC 62443 cybersecurity framework would apply.''
+\end{defbox}
+
+% ==============================================================================
+% EMERGENCY CHEAT SHEET
+% ==============================================================================
+\newpage
+\section{Emergency Cheat Sheet / 紧急速查表}
+
+\begin{thmbox}[6 Formulas You MUST Know Tonight]
+\begin{enumerate}
+    \item $V = IR$ \quad (Ohm's Law)
+    \item $P = VI = I^2R$ \quad (Power/Joule Heating)
+    \item $F = ma$ \quad (Newton's 2nd)
+    \item $S^2 = P^2 + Q^2$ \quad (Power Triangle)
+    \item $\cos\phi = P/S$ \quad (Power Factor)
+    \item $x_{n+1} = x_n - f(x_n)/f'(x_n)$ \quad (Newton's Method)
+\end{enumerate}
+\end{thmbox}
+
+\begin{warnbox}[3 Pivot Phrases When You Blank Out]
+\begin{enumerate}
+    \item ``I don't recall the exact formula, BUT in my Thesis I applied this by...''
+    \item ``Excellent question. I focused on [X], and your point about [Y] is noted for future work.''
+    \item ``In industry (like Alpiq), I would consult the relevant standard (IEC/IEEE).''
+\end{enumerate}
+\end{warnbox}
+
+\begin{thesisbox}[Your Thesis Shields]
+\textbf{Strengths to pivot to}:
+\begin{itemize}
+    \item IoT/Smart Home: ESP32, MQTT, Home Assistant
+    \item Sensors: Accelerometer, Gyroscope, Temperature, Humidity, Light
+    \item Practical: Working prototype, GitHub documentation
+    \item Application: Fall detection for elderly care
+\end{itemize}
+\textbf{[CN]}: 你的论文是你的盾牌。任何问题都可以转移到这些话题上。
+\end{thesisbox}

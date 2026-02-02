@@ -1,67 +1,485 @@
-% ============================================
+% ============================================================================
 % Topic 01: Linear Algebra / 线性代数
-% Course: BE5B01LAG
-% ============================================
-\section{线性代数 / Linear Algebra (BE5B01LAG)}
+% Blackboard + Mnemonic Style for SZZ Exam
+% GRADE: E | PRIORITY: [CRITICAL]
+% ============================================================================
 
-% --------------------------------------------
-% 1. Matrices and Systems
-% --------------------------------------------
-\begin{studybox}{矩阵与方程组 / Matrices \& Linear Systems}
-    \textbf{[CN] 定义}: 
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{线性方程组}: 可以用矩阵方程 $A\mathbf{x}=\mathbf{b}$ 表示。
-        \item \textbf{秩 (Rank)}: 矩阵中线性无关的行/列的最大数目。决定方程组解的情况。
-        \item \textbf{高斯消元法}: 将矩阵转化为行阶梯形矩阵以求解的方法。
-    \end{itemize}
-    \tcblower
-    \textbf{[EN] Definition}: 
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{Linear System}: Represented as $A\mathbf{x}=\mathbf{b}$.
-        \item \textbf{Rank}: Max number of linearly independent rows/cols. Determines solution existence (Frobenius Theorem).
-        \item \textbf{Gaussian Elimination}: Method to convert matrix to Row Echelon Form (REF).
-    \end{itemize}
+\section{Linear Algebra / 线性代数}
+\label{sec:linear-algebra}
+
+\begin{warnbox}[\textbf{[WARN]} GRADE E DETECTED: SURVIVAL MODE / 成绩E：求生模式]
+\textbf{[CN]} 你的线性代数成绩是 \textbf{E}。\textbf{不要试图推导}，直接背诵公式！\\
+\textbf{[EN]} Your Linear Algebra grade is \textbf{E}. \textbf{DO NOT derive}. Memorize formulas directly!\\
+\textbf{Strategy}: 矩阵乘法→记「行乘列」| 行列式→记「对角线法则」| 特征值→记 $\det(A-\lambda I)=0$
+\end{warnbox}
+
+% ----------------------------------------------------------------------------
+% 1. MATRIX MULTIPLICATION / 矩阵乘法
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Matrix Multiplication / 矩阵乘法}
+矩阵乘法 $\mathbf{C} = \mathbf{A} \cdot \mathbf{B}$ 的元素计算公式：
+\[
+c_{ij} = \sum_{k=1}^{n} a_{ik} \cdot b_{kj}
+\]
+\textbf{口诀}：「行乘列，逐项加」--- 第 $i$ 行与第 $j$ 列对应相乘再求和。
+
+\tcblower
+\textbf{[EN]}: Matrix multiplication $\mathbf{C} = \mathbf{A} \cdot \mathbf{B}$ computes each element $c_{ij}$ as the dot product of the $i$-th row of $\mathbf{A}$ and the $j$-th column of $\mathbf{B}$.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: 2x2 Matrix Multiplication / 2阶矩阵乘法}
+\textbf{[CN] 场景}: 「请计算以下两个矩阵的乘积。」
+
+给定：
+\[
+\mathbf{A} = \begin{pmatrix} 2 & 3 \\ 1 & 4 \end{pmatrix}, \quad
+\mathbf{B} = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}
+\]
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 计算 $c_{11}$（第1行 $\times$ 第1列）\\
+\textbf{[EN]} Calculate $c_{11}$ (Row 1 $\times$ Column 1)
+\[
+c_{11} = 2 \times 5 + 3 \times 7 = 10 + 21 = 31
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 计算 $c_{12}$（第1行 $\times$ 第2列）\\
+\textbf{[EN]} Calculate $c_{12}$ (Row 1 $\times$ Column 2)
+\[
+c_{12} = 2 \times 6 + 3 \times 8 = 12 + 24 = 36
+\]
+
+\textbf{Step 3 / 步骤3}: 
+\textbf{[CN]} 计算 $c_{21}$（第2行 $\times$ 第1列）\\
+\textbf{[EN]} Calculate $c_{21}$ (Row 2 $\times$ Column 1)
+\[
+c_{21} = 1 \times 5 + 4 \times 7 = 5 + 28 = 33
+\]
+
+\textbf{Step 4 / 步骤4}: 
+\textbf{[CN]} 计算 $c_{22}$（第2行 $\times$ 第2列）\\
+\textbf{[EN]} Calculate $c_{22}$ (Row 2 $\times$ Column 2)
+\[
+c_{22} = 1 \times 6 + 4 \times 8 = 6 + 32 = 38
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{\mathbf{C} = \begin{pmatrix} 31 & 36 \\ 33 & 38 \end{pmatrix}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「横看成岭侧成峰」--- 横着取A的行，竖着取B的列，对位相乘再相加。
+
+\tcblower
+\textbf{[EN] Full Mirror}: For 2x2 matrices, each element $c_{ij}$ is computed by multiplying corresponding elements of Row $i$ from A and Column $j$ from B, then summing. \textbf{Mnemonic}: ``Row meets Column'' --- take rows from A horizontally, columns from B vertically, multiply element-wise and sum.
 \end{studybox}
 
-% --------------------------------------------
-% 2. Eigenvalues
-% --------------------------------------------
-\begin{studybox}{特征值与特征向量 / Eigenvalues \& Eigenvectors}
-    \textbf{[CN] 定义}: 
-    对于方阵 $A$，如果存在非零向量 $\mathbf{v}$ 和标量 $\lambda$，使得 $A\mathbf{v} = \lambda \mathbf{v}$，则 $\lambda$ 是特征值，$\mathbf{v}$ 是特征向量。
-    几何意义：矩阵变换后方向不变，只改变长度。
-    \tcblower
-    \textbf{[EN] Definition}: 
-    For square matrix $A$, if $A\mathbf{v} = \lambda \mathbf{v}$ ($\mathbf{v} \neq 0$), then $\lambda$ is the Eigenvalue and $\mathbf{v}$ is the Eigenvector.
-    Geometric: The vector direction remains invariant under transformation $A$.
-\end{studybox}
+% ----------------------------------------------------------------------------
+% 2. DETERMINANT / 行列式
+% ----------------------------------------------------------------------------
 
-\begin{formulabox}
-\textbf{特征方程 / Characteristic Equation}:
-\begin{equation}
-    \det(A - \lambda I) = 0
-\end{equation}
-\textbf{行列式 (Determinant)}: $\det(A) = \prod \lambda_i$ (特征值之积).
-\textbf{迹 (Trace)}: $\text{tr}(A) = \sum \lambda_i$ (特征值之和).
+\begin{formulabox}{Determinant Formulas / 行列式公式}
+\textbf{2x2 Determinant / 2阶行列式}:
+\[
+\det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc
+\]
+
+\textbf{3x3 Sarrus Rule / 3阶萨吕法则}:
+\[
+\det\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix} = aei + bfg + cdh - ceg - bdi - afh
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 
+\begin{itemize}
+    \item 2阶：「主对角减副对角」
+    \item 3阶：「三条右斜加，三条左斜减」
+\end{itemize}
+
+\tcblower
+\textbf{[EN]}: For 2x2: multiply diagonals and subtract. For 3x3 Sarrus: add three right-diagonal products, subtract three left-diagonal products.
 \end{formulabox}
 
-% --------------------------------------------
-% Thesis Connection
-% --------------------------------------------
-\begin{thesisbox}[论文关联 / Project Application]
-    \textbf{[CN]}: 
-    \begin{itemize}
-        \item \textbf{传感器融合}: 卡尔曼滤波 (Kalman Filter) 严重依赖矩阵运算 (协方差矩阵 $P$ 的更新和求逆)。虽然你使用的是互补滤波，但理解矩阵是理解 KF 的基础。
-        \item \textbf{旋转矩阵}: 描述 IMU 姿态 (Roll/Pitch/Yaw) 时使用 3x3 旋转矩阵或四元数。
-        \item \textbf{PCA}: 主成分分析用于数据降维，本质上是求协方差矩阵的特征值。
-    \end{itemize}
+\begin{studybox}{Blackboard Challenge: Determinant Calculation / 行列式计算}
+\textbf{[CN] 场景}: 「计算这个3阶行列式的值。」
 
-    \tcblower
+给定：
+\[
+\mathbf{A} = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}
+\]
 
-    \textbf{[EN]}: 
-    \begin{itemize}
-        \item \textbf{Sensor Fusion}: Kalman Filtering relies on Matrix Algebra (Covariance Matrix $P$ inversion). 
-        \item \textbf{Rotation}: 3x3 Rotation Matrices describe IMU orientation in 3D space.
-        \item \textbf{PCA}: Principal Component Analysis (Data reduction) is essentially finding Eigenvalues of the covariance matrix.
-    \end{itemize}
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 使用 Sarrus 法则，先计算三条「右斜」对角线乘积之和\\
+\textbf{[EN]} Using Sarrus rule, first sum the three ``right-diagonal'' products:
+\[
+(1 \times 5 \times 9) + (2 \times 6 \times 7) + (3 \times 4 \times 8) = 45 + 84 + 96 = 225
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 计算三条「左斜」对角线乘积之和\\
+\textbf{[EN]} Sum the three ``left-diagonal'' products:
+\[
+(3 \times 5 \times 7) + (2 \times 4 \times 9) + (1 \times 6 \times 8) = 105 + 72 + 48 = 225
+\]
+
+\textbf{Step 3 / 步骤3}: 
+\textbf{[CN]} 右斜减左斜得行列式\\
+\textbf{[EN]} Subtract left from right to get determinant:
+\[
+\det(\mathbf{A}) = 225 - 225 = \boxed{0}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「右加左减」--- 右下斜加起来，左下斜减出去。行列式为0意味着矩阵奇异（不可逆）。
+
+\tcblower
+\textbf{[EN] Full Mirror}:
+\begin{itemize}
+    \item \textbf{Step 1}: Sum products along 3 right-diagonals (top-left to bottom-right)
+    \item \textbf{Step 2}: Sum products along 3 left-diagonals (top-right to bottom-left)
+    \item \textbf{Step 3}: Subtract left sum from right sum
+\end{itemize}
+\textbf{Result}: Zero determinant means singular (non-invertible) matrix. \textbf{Mnemonic}: ``Right-add, left-subtract''
+\end{studybox}
+
+\begin{warnbox}{Common Mistakes / 常见错误}
+\begin{enumerate}
+    \item \textbf{[CN]} Sarrus 仅适用于 3x3：更高阶需用余子式展开或行变换\\
+          \textbf{[EN]} Sarrus ONLY works for 3x3: use cofactor expansion for larger matrices
+    \item \textbf{[CN]} 符号错误：记住是「右加左减」，不要搞反\\
+          \textbf{[EN]} Sign error: remember ``right-add, left-subtract'', don't reverse
+    \item \textbf{[CN]} 行列式性质：交换两行/列，行列式变号\\
+          \textbf{[EN]} Determinant property: swapping rows/columns flips the sign
+\end{enumerate}
+\end{warnbox}
+
+% ----------------------------------------------------------------------------
+% 3. EIGENVALUES AND EIGENVECTORS / 特征值与特征向量
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Eigenvalue Definition / 特征值定义}
+若存在非零向量 $\mathbf{v}$ 使得：
+\[
+\mathbf{A}\mathbf{v} = \lambda \mathbf{v}
+\]
+则 $\lambda$ 为矩阵 $\mathbf{A}$ 的\textbf{特征值}，$\mathbf{v}$ 为对应的\textbf{特征向量}。
+
+\textbf{特征方程 / Characteristic Equation}:
+\[
+\det(\mathbf{A} - \lambda \mathbf{I}) = 0
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「特征值让矩阵变伸缩」--- 矩阵作用于特征向量只改变长度，不改变方向。
+
+\tcblower
+\textbf{[EN]}: An eigenvalue $\lambda$ scales the eigenvector $\mathbf{v}$ without changing its direction. Find eigenvalues by solving the characteristic equation.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Eigenvalue Calculation / 特征值计算}
+\textbf{[CN] 场景}: 「求这个矩阵的特征值。」
+
+给定：
+\[
+\mathbf{A} = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}
+\]
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 构造 $\mathbf{A} - \lambda \mathbf{I}$\\
+\textbf{[EN]} Construct $\mathbf{A} - \lambda \mathbf{I}$:
+\[
+\mathbf{A} - \lambda \mathbf{I} = \begin{pmatrix} 4-\lambda & 1 \\ 2 & 3-\lambda \end{pmatrix}
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 计算特征多项式（令行列式为0）\\
+\textbf{[EN]} Compute characteristic polynomial (set determinant = 0):
+\[
+\det(\mathbf{A} - \lambda \mathbf{I}) = (4-\lambda)(3-\lambda) - (1)(2) = 0
+\]
+
+\textbf{Step 3 / 步骤3}: 
+\textbf{[CN]} 展开并求解二次方程\\
+\textbf{[EN]} Expand and solve quadratic equation:
+\begin{align*}
+(4-\lambda)(3-\lambda) - 2 &= 0 \\
+12 - 4\lambda - 3\lambda + \lambda^2 - 2 &= 0 \\
+\lambda^2 - 7\lambda + 10 &= 0 \\
+(\lambda - 5)(\lambda - 2) &= 0
+\end{align*}
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{\lambda_1 = 5, \quad \lambda_2 = 2}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「减 $\lambda$ 求零」--- 主对角线减 $\lambda$，行列式等于零，解方程得特征值。
+
+\tcblower
+\textbf{[EN] Full Mirror}:
+\begin{itemize}
+    \item \textbf{Step 1}: Construct $\mathbf{A} - \lambda \mathbf{I}$ by subtracting $\lambda$ from diagonal
+    \item \textbf{Step 2}: Set $\det(\mathbf{A} - \lambda \mathbf{I}) = 0$ (characteristic equation)
+    \item \textbf{Step 3}: Solve resulting polynomial for eigenvalues
+\end{itemize}
+\textbf{Mnemonic}: ``Subtract $\lambda$, set det to zero'' --- eigenvalues are roots of characteristic polynomial.
+\end{studybox}
+
+% ----------------------------------------------------------------------------
+% 4. THESIS APPLICATION / 论文应用
+% ----------------------------------------------------------------------------
+
+\begin{thesisbox}{Thesis Application: Kalman Filter / 论文应用：卡尔曼滤波器}
+\textbf{[CN] 与论文的联系}:
+
+在 IoT 传感器系统中，\textbf{卡尔曼滤波器 (Kalman Filter)} 是处理噪声数据的核心算法，它大量使用线性代数：
+
+\textbf{状态预测方程}:
+\[
+\hat{\mathbf{x}}_{k|k-1} = \mathbf{F}_k \hat{\mathbf{x}}_{k-1|k-1} + \mathbf{B}_k \mathbf{u}_k
+\]
+
+\textbf{协方差预测}:
+\[
+\mathbf{P}_{k|k-1} = \mathbf{F}_k \mathbf{P}_{k-1|k-1} \mathbf{F}_k^T + \mathbf{Q}_k
+\]
+
+\textbf{卡尔曼增益}:
+\[
+\mathbf{K}_k = \mathbf{P}_{k|k-1} \mathbf{H}_k^T (\mathbf{H}_k \mathbf{P}_{k|k-1} \mathbf{H}_k^T + \mathbf{R}_k)^{-1}
+\]
+
+\textbf{实际应用 / Practical Applications}:
+\begin{itemize}
+    \item \textbf{[CN]} ESP32 加速度计：融合加速度和陀螞仪数据\\
+          \textbf{[EN]} ESP32 Accelerometer: fuse acceleration and gyroscope data
+    \item \textbf{[CN]} 跌倒检测：平滑传感器噪声，提高检测准确率\\
+          \textbf{[EN]} Fall Detection: smooth sensor noise, improve detection accuracy
+    \item \textbf{[CN]} 位置追踪：结合多传感器数据估计位置\\
+          \textbf{[EN]} Position Tracking: combine multi-sensor data to estimate position
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 「预测、更新、循环」--- Kalman 滤波的三步骤：预测下一状态，用观测更新，不断循环优化。
+
+\tcblower
+\textbf{[EN]}: The Kalman Filter is essential for IoT sensor fusion in your thesis. It uses matrix multiplication for state prediction, eigenvalues for system stability analysis, and matrix inversion for computing optimal gains. Key applications: accelerometer noise filtering, fall detection accuracy improvement, multi-sensor data fusion.
 \end{thesisbox}
+
+% ----------------------------------------------------------------------------
+% 5. ROTATION MATRIX / 旋转矩阵 (THESIS CRITICAL!)
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Rotation Matrix / 旋转矩阵}
+\textbf{[CN]} 二维旋转矩阵（逆时针旋转$\theta$角）：\\
+\textbf{[EN]} 2D Rotation matrix (counterclockwise by angle $\theta$):
+\[
+\mathbf{R}(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
+\]
+
+\textbf{性质 / Properties}:
+\begin{itemize}
+    \item \textbf{[CN]} $\det(\mathbf{R}) = 1$（保持面积/体积）\\
+          \textbf{[EN]} $\det(\mathbf{R}) = 1$ (preserves area/volume)
+    \item \textbf{[CN]} $\mathbf{R}^{-1} = \mathbf{R}^T$（正交矩阵）\\
+          \textbf{[EN]} $\mathbf{R}^{-1} = \mathbf{R}^T$ (orthogonal matrix)
+    \item \textbf{[CN]} 特征值: $e^{\pm i\theta}$（复数，模为1）\\
+          \textbf{[EN]} Eigenvalues: $e^{\pm i\theta}$ (complex, magnitude 1)
+\end{itemize}
+
+\textbf{[CN]} 三维旋转（绕Z轴）\\
+\textbf{[EN]} 3D Rotation (around Z-axis):
+\[
+\mathbf{R}_z(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}
+\]
+
+\tcblower
+\textbf{[EN] Full Mirror}: Rotation matrix is orthogonal: inverse = transpose. It preserves vector lengths and angles. Essential for 3D orientation tracking in IMU sensors.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Gyroscope Rotation / 陀螺仪旋转}
+\textbf{[CN] 场景}: 「你的传感器绕Z轴旋转了30°。写出旋转矩阵，并将向量$(1, 0)$旋转。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 构造旋转矩阵 ($\theta = 30° = \pi/6$)\\
+\textbf{[EN]} Construct rotation matrix ($\theta = 30° = \pi/6$):
+\[
+\mathbf{R}(30°) = \begin{pmatrix} \cos 30° & -\sin 30° \\ \sin 30° & \cos 30° \end{pmatrix} = \begin{pmatrix} \frac{\sqrt{3}}{2} & -\frac{1}{2} \\ \frac{1}{2} & \frac{\sqrt{3}}{2} \end{pmatrix} \approx \begin{pmatrix} 0.866 & -0.5 \\ 0.5 & 0.866 \end{pmatrix}
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 旋转向量（矩阵乘向量）\\
+\textbf{[EN]} Rotate vector (matrix times vector):
+\[
+\begin{pmatrix} x' \\ y' \end{pmatrix} = \mathbf{R} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0.866 \times 1 + (-0.5) \times 0 \\ 0.5 \times 1 + 0.866 \times 0 \end{pmatrix} = \boxed{\begin{pmatrix} 0.866 \\ 0.5 \end{pmatrix}}
+\]
+
+\textbf{Step 3 / 步骤3 (验证/Verify)}: 
+\textbf{[CN]} 检查长度是否保持\\
+\textbf{[EN]} Check if length is preserved:
+\[
+\sqrt{0.866^2 + 0.5^2} = \sqrt{0.75 + 0.25} = 1 \checkmark
+\]
+
+\tcblower
+\textbf{[EN] Full Mirror}: Apply rotation matrix by matrix-vector multiplication. Verify by checking $|\mathbf{v}'| = |\mathbf{v}|$ (length preserved). This is how gyroscope data transforms coordinate frames.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: MPU6050 Orientation / MPU6050姿态计算}
+\textbf{[CN]}: 这是我论文的核心算法...\\
+\textbf{[EN]}: This is the core algorithm in my thesis...
+
+\textbf{Script / 口试剧本}: ``My MPU6050 gyroscope outputs angular velocity $(\omega_x, \omega_y, \omega_z)$ in rad/s.
+
+\textbf{[CN]} 積分获得旋转角度 / \textbf{[EN]} Integration to get rotation angle:
+\[
+\theta(t) = \theta_0 + \int_0^t \omega(\tau) d\tau \approx \theta_{prev} + \omega \cdot \Delta t
+\]
+
+\textbf{[CN]} 旋转矩阵累积 / \textbf{[EN]} Rotation matrix accumulation:
+\[
+\mathbf{R}_{total} = \mathbf{R}_z(\theta_z) \cdot \mathbf{R}_y(\theta_y) \cdot \mathbf{R}_x(\theta_x)
+\]
+
+\textbf{[CN]} 问题：陀螞仪漂移！1分钟后累积误差可 > 5°\\
+\textbf{[EN]} Problem: Gyroscope drift! After 1 minute, accumulated error can be > 5°.
+
+\textbf{[CN]} 解决方案：与加速度计的互补滤波 / \textbf{[EN]} Solution: Complementary filter with accelerometer:
+\[
+\theta_{fused} = 0.98 \times (\theta_{prev} + \omega \cdot dt) + 0.02 \times \theta_{accel}
+\]
+
+\textbf{[CN]} 加速度计提供绝对参考（重力方向）来修正漂移。\\
+\textbf{[EN]} The accelerometer provides absolute reference (gravity direction) to correct drift.''
+\end{thesisbox}
+
+% ----------------------------------------------------------------------------
+% 6. COVARIANCE MATRIX / 协方差矩阵
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Covariance Matrix / 协方差矩阵}
+对于随机向量$\mathbf{X} = (X_1, X_2, ..., X_n)^T$:
+\[
+\mathbf{\Sigma} = E[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T]
+\]
+
+对于二维情况:
+\[
+\mathbf{\Sigma} = \begin{pmatrix} \sigma_x^2 & \sigma_{xy} \\ \sigma_{xy} & \sigma_y^2 \end{pmatrix}
+\]
+
+\textbf{性质}:
+\begin{itemize}
+    \item 对称矩阵: $\mathbf{\Sigma} = \mathbf{\Sigma}^T$
+    \item 半正定: 所有特征值 $\geq 0$
+    \item 对角线: 各变量方差
+    \item 非对角线: 变量间协方差
+\end{itemize}
+
+\tcblower
+\textbf{[EN]}: Covariance matrix captures how variables vary together. Diagonal = variances, off-diagonal = covariances.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Sensor Noise Covariance / 传感器噪声协方差}
+\textbf{[CN] 场景}: 「你的加速度计X、Y、Z轴噪声标准差分别是0.1g, 0.1g, 0.15g。假设各轴独立，写出噪声协方差矩阵。」
+
+\textbf{Solution / 解答}:
+
+各轴独立 $\Rightarrow$ 协方差为0，只有对角线有值:
+
+\[
+\mathbf{R}_{accel} = \begin{pmatrix} \sigma_x^2 & 0 & 0 \\ 0 & \sigma_y^2 & 0 \\ 0 & 0 & \sigma_z^2 \end{pmatrix} = \begin{pmatrix} 0.01 & 0 & 0 \\ 0 & 0.01 & 0 \\ 0 & 0 & 0.0225 \end{pmatrix} \text{ g}^2
+\]
+
+\textbf{单位注意}: 方差单位是原单位的平方
+
+\tcblower
+\textbf{[EN]}: For independent sensors, covariance matrix is diagonal with variances on diagonal.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Kalman Filter Tuning / 卡尔曼滤波调参}
+\textbf{[CN]}: 这是Kalman滤波的关键参数...
+
+\textbf{Script}: ``In my fall detection Kalman filter:
+
+\textbf{Process Noise Covariance $\mathbf{Q}$}:
+\begin{itemize}
+    \item Models uncertainty in system dynamics
+    \item Higher $\mathbf{Q}$ = trust measurements more
+    \item I tuned: $Q = 0.001$ for smooth motion
+\end{itemize}
+
+\textbf{Measurement Noise Covariance $\mathbf{R}$}:
+\begin{itemize}
+    \item From sensor datasheet or empirical measurement
+    \item My MPU6050: $\sigma_{accel} \approx 0.1g \Rightarrow R = 0.01 g^2$
+\end{itemize}
+
+\textbf{Tuning principle}:
+\[
+\frac{Q}{R} \uparrow \Rightarrow \text{Faster response, more noise}
+\]
+\[
+\frac{Q}{R} \downarrow \Rightarrow \text{Smoother output, slower response}
+\]
+
+For fall detection, I need fast response, so $Q/R \approx 0.1$.''
+\end{thesisbox}
+
+% ----------------------------------------------------------------------------
+% 7. LINEAR SYSTEM SOLUTION / 线性方程组求解
+% ----------------------------------------------------------------------------
+
+\begin{studybox}{Blackboard Challenge: Sensor Calibration / 传感器校准}
+\textbf{[CN] 场景}: 「你的温度传感器读数需要校准。已知两个校准点: 0°C读数100, 100°C读数900。求线性校准公式。」
+
+\textbf{Solution / 解答}:
+
+线性模型: $T = a \cdot R + b$，其中R是读数，T是真实温度
+
+\textbf{建立方程组}:
+\[
+\begin{cases}
+0 = a \times 100 + b \\
+100 = a \times 900 + b
+\end{cases}
+\]
+
+\textbf{矩阵形式}:
+\[
+\begin{pmatrix} 100 & 1 \\ 900 & 1 \end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix} 0 \\ 100 \end{pmatrix}
+\]
+
+\textbf{求解}:
+\begin{align}
+    a &= \frac{100 - 0}{900 - 100} = \frac{100}{800} = 0.125 \\
+    b &= 0 - 0.125 \times 100 = -12.5
+\end{align}
+
+\textbf{校准公式}:
+\[
+\boxed{T = 0.125 \times R - 12.5}
+\]
+
+\tcblower
+\textbf{[EN]}: Two-point calibration creates linear equation. Use matrix form for multi-point calibration (least squares).
+\end{studybox}
+
+\begin{formulabox}{Key Formulas Summary / 关键公式总结}
+\begin{enumerate}
+    \item \textbf{Matrix Multiplication}: $c_{ij} = \sum_k a_{ik} b_{kj}$
+    \item \textbf{2x2 Determinant}: $\det = ad - bc$
+    \item \textbf{3x3 Sarrus}: $\det = aei + bfg + cdh - ceg - bdi - afh$
+    \item \textbf{Characteristic Equation}: $\det(\mathbf{A} - \lambda \mathbf{I}) = 0$
+    \item \textbf{Matrix Inverse (2x2)}: $\mathbf{A}^{-1} = \frac{1}{\det(\mathbf{A})} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$
+\end{enumerate}
+
+\tcblower
+\textbf{[EN]}: Master these five formulas for the exam. Practice computing each by hand until automatic.
+\end{formulabox}

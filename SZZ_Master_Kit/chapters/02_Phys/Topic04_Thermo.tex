@@ -1,8 +1,15 @@
 % ============================================
 % Topic 04: Thermodynamics / 热力学
 % Course: BE5B02PH2
+% GRADE: D (retake) | PRIORITY: [CAUTION]
 % ============================================
-\section{热力学 / Thermodynamics (BE5B02PH2)}
+\section{Thermodynamics / 热力学 (BE5B02PH2)}
+
+\begin{warnbox}[\textcolor{orange}{\textbf{[CAUTION]}} GRADE D: FOCUS MODE / 成绩D：专注模式]
+\textbf{[CN]} 物理2补考通过 (D)。重点背诵热力学三大定律，\textbf{关联论文}：ESP32散热问题！\\
+\textbf{[EN]} PH2 passed on retake (D). Memorize 3 Laws. \textbf{Bridge to Thesis}: ESP32 heat dissipation!\\
+\textbf{Thesis Link}: ESP32温度传感器 → 热传导/热平衡 → 元件保护
+\end{warnbox}
 
 % --------------------------------------------
 % 1. Laws of Thermodynamics
@@ -28,13 +35,13 @@
 \begin{equation}
     pV = nRT = NkT
 \end{equation}
-$p$: 压强, $V$: 体积, $T$: 绝对温度 (Kelvin).
+$p$: 压强 (pressure), $V$: 体积 (volume), $T$: 绝对温度 (absolute temperature, Kelvin).
 
 \textbf{热传递 / Heat Transfer}:
 \begin{itemize}
-    \item \textbf{传导 (Conduction)}: 接触传递 (Fourier's Law).
-    \item \textbf{对流 (Convection)}: 流体流动传递.
-    \item \textbf{辐射 (Radiation)}: 电磁波传递 (Stefan-Boltzmann Law).
+    \item \textbf{[CN]} 传导 (Conduction): 接触传递 (Fourier's Law) / \textbf{[EN]} Contact transfer
+    \item \textbf{[CN]} 对流 (Convection): 流体流动传递 / \textbf{[EN]} Fluid motion transfer
+    \item \textbf{[CN]} 辐射 (Radiation): 电磁波传递 (Stefan-Boltzmann Law) / \textbf{[EN]} EM wave transfer
 \end{itemize}
 \end{formulabox}
 
@@ -44,25 +51,31 @@ $p$: 压强, $V$: 体积, $T$: 绝对温度 (Kelvin).
 \begin{thesisbox}[论文关联 / Project Application]
     \textbf{[CN]}: 
     \begin{itemize}
-        \item \textbf{ESP32 发热}: 芯片工作时消耗电能转换为热能 (焦耳热 $P=IV$)。
-        \item \textbf{散热设计}: PCB 的铜箔层充当散热片 (Heatsink)，通过\textbf{热传导}将热量散发。若封装密闭，主要依靠\textbf{热辐射}散发。
-        \item \textbf{BMP180 传感器}: 测量环境温度，依据其实是电阻随温度的变化 (热敏电阻原理) 或带隙电压基准特性。
+        \item \textbf{[CN]} ESP32 发热: 芯片工作时消耗电能转换为热能 (焦耳热 $P=IV$)\\
+              \textbf{[EN]} ESP32 Self-Heating: Chip converts electrical energy to heat (Joule heating $P=IV$)
+        \item \textbf{[CN]} 散热设计: PCB 的铜箔层充当散热片 (Heatsink)，通过\textbf{热传导}将热量散发\\
+              \textbf{[EN]} Heat Dissipation: PCB copper layers act as heatsinks via \textbf{conduction}
+        \item \textbf{[CN]} BMP180 传感器: 测量环境温度，用于补偿 MEMS 偏移漂移\\
+              \textbf{[EN]} BMP180 Sensor: Measures ambient temperature for compensating MEMS bias drift
     \end{itemize}
 
     \tcblower
 
-    \textbf{[EN]}: 
+    \textbf{[EN] Full Mirror}: 
     \begin{itemize}
-        \item \textbf{Self-Heating}: ESP32 converts electrical energy into heat ($P_{loss} \approx IV$).
-        \item \textbf{Heat Dissipation}: The PCB copper layers act as heatsinks, dissipating heat via \textbf{Conduction}.
-        \item \textbf{Temperature Sensing}: BMP180 measures temperature, critical for compensating MEMS bias drift (which is temperature-dependent).
+        \item \textbf{Self-Heating}: ESP32 converts electrical energy into heat ($P_{loss} \approx IV$)
+        \item \textbf{Heat Dissipation}: PCB copper layers act as heatsinks, dissipating heat via \textbf{Conduction}
+        \item \textbf{Temperature Sensing}: BMP180 measures temperature, critical for compensating MEMS bias drift (temperature-dependent)
     \end{itemize}
 \end{thesisbox}
 
 \begin{warnbox}[考试陷阱 / Exam Pitfalls]
     \begin{itemize}
-        \item \textbf{Kelvin Scale}: 热力学公式永远使用开尔文 ($T_K = T_C + 273.15$)。
-        \item \textbf{Adiabatic vs Isothermal}: 绝热过程 ($Q=0$) 不等于等温过程 ($T=\text{const}$)。
-        \item \textbf{Entropy meaning}: 熵是系统无序度 (Disorder) 的度量。
+        \item \textbf{[CN]} Kelvin Scale: 热力学公式永远使用开尔文 ($T_K = T_C + 273.15$)\\
+              \textbf{[EN]} Kelvin Scale: Thermodynamics formulas ALWAYS use Kelvin!
+        \item \textbf{[CN]} Adiabatic vs Isothermal: 绝热过程 ($Q=0$) 不等于等温过程 ($T=\text{const}$)\\
+              \textbf{[EN]} Adiabatic ($Q=0$) $\neq$ Isothermal ($T=\text{const}$)
+        \item \textbf{[CN]} Entropy meaning: 熵是系统无序度 (Disorder) 的度量\\
+              \textbf{[EN]} Entropy: measure of system's disorder
     \end{itemize}
 \end{warnbox}

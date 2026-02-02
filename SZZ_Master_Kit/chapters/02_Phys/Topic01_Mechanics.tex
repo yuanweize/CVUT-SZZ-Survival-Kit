@@ -1,134 +1,567 @@
-% ============================================
+% ============================================================================
 % Topic 01: Mechanics / 力学
-% Course: BE5B02PH1
-% ============================================
-\section{力学 / Mechanics (BE5B02PH1)}
+% Blackboard + Mnemonic Style for SZZ Exam
+% GRADE: D (retake) | PRIORITY: [CAUTION]
+% ============================================================================
 
-% --------------------------------------------
-% 1. Kinematics
-% --------------------------------------------
-\begin{studybox}{运动学 / Kinematics}
-    \textbf{[CN] 定义}: 
-    运动学描述物体的运动而不考虑其成因 (力)。
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{基本量}: 
-        位移 (Displacement) $\vec{r}$, 
-        速度 (Velocity) $\vec{v} = d\vec{r}/dt$, 
-        加速度 (Acceleration) $\vec{a} = d\vec{v}/dt$.
-        \item \textbf{圆周运动}: 线速度 $v=\omega r$, 向心加速度 $a_c = v^2/r$.
-    \end{itemize}
-    \tcblower
-    \textbf{[EN] Definition}: 
-    Kinematics describes motion without considering the forces that cause it.
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{Basic Quantities}: 
-        Displacement $\vec{r}$, 
-        Velocity $\vec{v} = \dot{\vec{r}}$, 
-        Acceleration $\vec{a} = \dot{\vec{v}}$.
-        \item \textbf{Circular Motion}: Linear vel $v=\omega r$, Centripetal acc $a_c = v^2/r$.
-    \end{itemize}
+\section{Mechanics / 力学}
+\label{sec:mechanics}
+
+\begin{warnbox}[\textcolor{orange}{\textbf{[CAUTION]}} GRADE D: FOCUS MODE / 成绩D：专注模式]
+\textbf{[CN]} 物理1补考通过 (D)。重点掌握 $F=ma$ 和SHM公式，\textbf{关联论文}：加速度计原理！\\
+\textbf{[EN]} Physics 1 passed on retake (D). Focus on $F=ma$ and SHM. \textbf{Bridge to Thesis}: Accelerometer principle!\\
+\textbf{Thesis Link}: MPU6050 测量 $a$，用于跌倒检测中的冲击识别。
+\end{warnbox}
+
+% ----------------------------------------------------------------------------
+% 1. NEWTON'S SECOND LAW / 牛顿第二定律
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Newton's Second Law / 牛顿第二定律}
+\textbf{公式 / Formula}:
+\[
+\mathbf{F} = m\mathbf{a} \quad \text{或 / or} \quad \mathbf{F} = \frac{d\mathbf{p}}{dt}
+\]
+
+\textbf{变量说明 / Variables}:
+\begin{itemize}
+    \item \textbf{[CN]} $\mathbf{F}$ --- 合外力 [N] / \textbf{[EN]} Net Force [N]
+    \item \textbf{[CN]} $m$ --- 质量 [kg] / \textbf{[EN]} Mass [kg]
+    \item \textbf{[CN]} $\mathbf{a}$ --- 加速度 [m/s$^2$] / \textbf{[EN]} Acceleration [m/s$^2$]
+    \item \textbf{[CN]} $\mathbf{p} = m\mathbf{v}$ --- 动量 [kg$\cdot$m/s] / \textbf{[EN]} Momentum [kg$\cdot$m/s]
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 
+\textbf{[CN]} 「力是加速度的老板」--- 力越大，加速度越大；质量越大，越难推动。\\
+\textbf{[EN]} ``Force is the boss of acceleration'' --- more force means more acceleration; more mass means harder to push.
+
+\tcblower
+\textbf{[EN] Full Mirror}: Newton's Second Law relates force to the rate of change of momentum. For constant mass: $F = ma$. Force causes acceleration inversely proportional to mass. Key insight: mass resists acceleration (inertia).
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Newton's Second Law / 牛顿第二定律计算}
+\textbf{[CN] 场景}: 「一个 $m = 2$ kg 的物体在光滑水平面上，受到 $F = 10$ N 的水平推力。求加速度和 $t = 3$ s 后的速度（初速度为零）。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 应用牛顿第二定律求加速度\\
+\textbf{[EN]} Apply Newton's Second Law to find acceleration:
+\[
+F = ma \quad \Rightarrow \quad a = \frac{F}{m} = \frac{10}{2} = 5 \text{ m/s}^2
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 使用运动学公式求速度\\
+\textbf{[EN]} Use kinematics equation to find velocity:
+\[
+v = v_0 + at = 0 + 5 \times 3 = 15 \text{ m/s}
+\]
+
+\textbf{Step 3 / 步骤3 (验算/Verify)}: 
+\textbf{[CN]} 计算位移验证\\
+\textbf{[EN]} Calculate displacement to verify:
+\[
+s = v_0 t + \frac{1}{2}at^2 = 0 + \frac{1}{2} \times 5 \times 9 = 22.5 \text{ m}
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{a = 5 \text{ m/s}^2, \quad v(3\text{s}) = 15 \text{ m/s}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 
+\textbf{[CN]} 「F除m得a，v等v0加at」--- 牛二定律和运动学公式联合使用。\\
+\textbf{[EN]} ``F divided by m gives a, v equals v0 plus at'' --- Newton's Law + kinematics combined.
+
+\tcblower
+\textbf{[EN] Full Mirror}:
+\begin{itemize}
+    \item \textbf{Step 1}: Apply $F = ma$ to solve for $a = F/m$
+    \item \textbf{Step 2}: Use $v = v_0 + at$ to find final velocity
+    \item \textbf{Step 3}: Verify with $s = v_0 t + \frac{1}{2}at^2$
+\end{itemize}
+\textbf{Key insight}: Kinematics + dynamics work together in mechanics problems.
 \end{studybox}
 
-\begin{formulabox}
-\textbf{匀加速直线运动 / Uniformly Accelerated Motion}:
-\begin{align}
-    v &= v_0 + at \\
-    x &= x_0 + v_0 t + \frac{1}{2}at^2 \\
-    v^2 &= v_0^2 + 2a(x - x_0)
-\end{align}
-\textbf{应用}: 计算自由落体距离 (Free fall distance).
+% ----------------------------------------------------------------------------
+% 2. SIMPLE HARMONIC MOTION / 简谐运动
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Simple Harmonic Motion (SHM) / 简谐运动}
+\textbf{[CN]} 弹簧-质量系统的运动方程：\\
+\textbf{[EN]} Equation of motion for spring-mass system:
+\[
+m\frac{d^2x}{dt^2} = -kx \quad \Rightarrow \quad \frac{d^2x}{dt^2} + \omega^2 x = 0
+\]
+
+\textbf{角频率 / Angular Frequency}:
+\[
+\omega = \sqrt{\frac{k}{m}}
+\]
+
+\textbf{周期 / Period}:
+\[
+T = \frac{2\pi}{\omega} = 2\pi\sqrt{\frac{m}{k}}
+\]
+
+\textbf{通解 / General Solution}:
+\[
+x(t) = A\cos(\omega t + \phi)
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 
+\textbf{[CN]} 「k大弹得快，m大晃得慢」--- 弹簧越硬（$k$大）频率越高，质量越大频率越低。\\
+\textbf{[EN]} ``Stiffer spring = faster, heavier mass = slower'' --- $k$ up means $\omega$ up; $m$ up means $\omega$ down.
+
+\tcblower
+\textbf{[EN] Full Mirror}: SHM occurs when restoring force is proportional to displacement ($F = -kx$). Angular frequency $\omega = \sqrt{k/m}$ determines how fast oscillation occurs. Period $T = 2\pi/\omega$ is time for one complete cycle.
+\end{defbox}
+
+\begin{formulabox}{SHM Key Relationships / 简谐运动关键公式}
+\textbf{位移、速度、加速度 / Displacement, Velocity, Acceleration}:
+\begin{align*}
+x(t) &= A\cos(\omega t + \phi) \\
+v(t) &= -A\omega\sin(\omega t + \phi) \\
+a(t) &= -A\omega^2\cos(\omega t + \phi) = -\omega^2 x
+\end{align*}
+
+\textbf{最大值 / Maximum Values}:
+\begin{itemize}
+    \item \textbf{[CN]} 最大位移：$x_{max} = A$（振幅）/ \textbf{[EN]} Max displacement: $x_{max} = A$ (amplitude)
+    \item \textbf{[CN]} 最大速度：$v_{max} = A\omega$（平衡点处）/ \textbf{[EN]} Max velocity: $v_{max} = A\omega$ (at equilibrium)
+    \item \textbf{[CN]} 最大加速度：$a_{max} = A\omega^2$（端点处）/ \textbf{[EN]} Max acceleration: $a_{max} = A\omega^2$ (at extremes)
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 
+\textbf{[CN]} 「位余速正加反位」--- 位移用cos，速度用sin（差90度），加速度和位移反相。\\
+\textbf{[EN]} ``x is cos, v is sin, a is opposite to x'' --- velocity leads by 90°, acceleration opposes displacement.
+
+\tcblower
+\textbf{[EN] Full Mirror}: Velocity leads displacement by 90° (phase). Acceleration is 180° out of phase with displacement (always points toward equilibrium). Max velocity occurs at equilibrium; max acceleration occurs at turning points.
 \end{formulabox}
 
-% --------------------------------------------
-% 2. Newton's Laws
-% --------------------------------------------
-\begin{studybox}{牛顿定律 / Newton's Laws}
-    \textbf{[CN] 定义}: 
-    动力学的基础。
-    \begin{enumerate}
-        \item \textbf{第一定律 (惯性)}: 物体保持静止或匀速直线运动，除非有力作用。
-        \item \textbf{第二定律}: 力等于质量乘以加速度 ($\vec{F}=m\vec{a}$)。这是整个力学的核心方程。
-        \item \textbf{第三定律}: 作用力与反作用力大小相等、方向相反。
-    \end{enumerate}
-    \tcblower
-    \textbf{[EN] Definition}: 
-    The foundation of dynamics.
-    \begin{enumerate}
-        \item \textbf{1st (Inertia)}: An object remains at rest or uniform motion unless acted upon by a force.
-        \item \textbf{2nd}: Force equals mass times acceleration ($\vec{F}=m\vec{a}$). The core equation.
-        \item \textbf{3rd}: Action and reaction are equal in magnitude and opposite in direction.
-    \end{enumerate}
+\begin{studybox}{Blackboard Challenge: Spring-Mass SHM / 弹簧振子}
+\textbf{[CN] 场景}: 「一个 $m = 0.5$ kg 的物体连接在 $k = 200$ N/m 的弹簧上。求角频率、周期和频率。若振幅 $A = 0.1$ m，求最大速度和最大加速度。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1 / 步骤1}: 
+\textbf{[CN]} 计算角频率\\
+\textbf{[EN]} Calculate angular frequency:
+\[
+\omega = \sqrt{\frac{k}{m}} = \sqrt{\frac{200}{0.5}} = \sqrt{400} = 20 \text{ rad/s}
+\]
+
+\textbf{Step 2 / 步骤2}: 
+\textbf{[CN]} 计算周期和频率\\
+\textbf{[EN]} Calculate period and frequency:
+\[
+T = \frac{2\pi}{\omega} = \frac{2\pi}{20} = \frac{\pi}{10} \approx 0.314 \text{ s}
+\]
+\[
+f = \frac{1}{T} = \frac{10}{\pi} \approx 3.18 \text{ Hz}
+\]
+
+\textbf{Step 3 / 步骤3}: 
+\textbf{[CN]} 计算最大速度\\
+\textbf{[EN]} Calculate maximum velocity:
+\[
+v_{max} = A\omega = 0.1 \times 20 = 2 \text{ m/s}
+\]
+
+\textbf{Step 4 / 步骤4}: 
+\textbf{[CN]} 计算最大加速度\\
+\textbf{[EN]} Calculate maximum acceleration:
+\[
+a_{max} = A\omega^2 = 0.1 \times 400 = 40 \text{ m/s}^2
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{\omega = 20 \text{ rad/s}, \quad T \approx 0.314 \text{ s}, \quad v_{max} = 2 \text{ m/s}, \quad a_{max} = 40 \text{ m/s}^2}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「根号k除m」--- 角频率公式简单直接，周期是角频率的倒数乘 $2\pi$。
+
+\tcblower
+\textbf{[EN]}: $\omega = \sqrt{k/m}$, then $T = 2\pi/\omega$, $v_{max} = A\omega$, $a_{max} = A\omega^2$. These are the four key quantities for SHM.
 \end{studybox}
 
-% --------------------------------------------
-% 3. Energy
-% --------------------------------------------
-\begin{studybox}{功与能 / Work and Energy}
-    \textbf{[CN] 定义}: 
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{功 (Work)}: 力在位移方向上的累积 ($W = \int \vec{F} \cdot d\vec{r}$).
-        \item \textbf{动能 (Kinetic Energy)}: 运动物体具有的能量 ($E_k = \frac{1}{2}mv^2$).
-        \item \textbf{势能 (Potential Energy)}: 位置决定的储能 (重力 $mgh$, 弹簧 $\frac{1}{2}kx^2$).
-    \end{itemize}
-    \textbf{守恒律}: 在只有保守力做功时，机械能守恒。
-    \tcblower
-    \textbf{[EN] Definition}: 
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{Work}: Integration of force over distance ($W = \vec{F} \cdot \vec{d}$).
-        \item \textbf{Kinetic Energy}: Energy of motion ($E_k = \frac{1}{2}mv^2$).
-        \item \textbf{Potential Energy}: Stored energy by position (Gravity $mgh$, Spring $\frac{1}{2}kx^2$).
-    \end{itemize}
-    \textbf{Conservation}: Total mechanical energy is constant if only conservative forces act.
+% ----------------------------------------------------------------------------
+% 3. ENERGY CONSERVATION / 能量守恒
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Energy Conservation / 能量守恒}
+\textbf{机械能守恒条件}：只有保守力做功时，机械能守恒。
+
+\[
+E_{total} = KE + PE = \text{constant}
+\]
+
+\textbf{动能 / Kinetic Energy}:
+\[
+KE = \frac{1}{2}mv^2
+\]
+
+\textbf{势能 / Potential Energy}:
+\begin{itemize}
+    \item 重力势能：$PE_g = mgh$
+    \item 弹性势能：$PE_s = \frac{1}{2}kx^2$
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 「动势互换总不变」--- 动能和势能相互转化，总能量不变。
+
+\tcblower
+\textbf{[EN]}: When only conservative forces act, mechanical energy is conserved: $KE + PE = $ constant. Energy transforms between kinetic and potential forms.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Energy Conservation / 能量守恒}
+\textbf{[CN] 场景}: 「一个 $m = 1$ kg 的球从 $h = 5$ m 高处自由落下。求落地时的速度（忽略空气阻力，$g = 10$ m/s$^2$）。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 写出初态能量（顶部，$v_0 = 0$）
+\[
+E_i = KE_i + PE_i = 0 + mgh = 1 \times 10 \times 5 = 50 \text{ J}
+\]
+
+\textbf{Step 2}: 写出末态能量（底部，$h = 0$）
+\[
+E_f = KE_f + PE_f = \frac{1}{2}mv^2 + 0
+\]
+
+\textbf{Step 3}: 应用能量守恒
+\[
+E_i = E_f \quad \Rightarrow \quad mgh = \frac{1}{2}mv^2
+\]
+
+\textbf{Step 4}: 解出速度
+\[
+gh = \frac{1}{2}v^2 \quad \Rightarrow \quad v = \sqrt{2gh} = \sqrt{2 \times 10 \times 5} = \sqrt{100} = 10 \text{ m/s}
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{v = 10 \text{ m/s}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「根号2gh」--- 自由落体末速度公式，能量守恒直接得出。
+
+\tcblower
+\textbf{[EN]}: Energy conservation: $mgh = \frac{1}{2}mv^2$, so $v = \sqrt{2gh}$. Mass cancels out, only height and gravity matter.
 \end{studybox}
 
-% --------------------------------------------
-% 4. Rigid Body
-% --------------------------------------------
-\begin{studybox}{刚体力学 / Rigid Body Mechanics}
-    \textbf{[CN] 定义}: 
-    描述具有形状大小物体的转动。
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{力矩 (Torque)}: 使物体转动的"力" ($\tau = r \times F$).
-        \item \textbf{转动惯量 (Moment of Inertia)}: 转动中的"质量" ($I = \sum mr^2$).
-        \item \textbf{转动定律}: $\tau = I \alpha$ (类比 $F=ma$).
-    \end{itemize}
-    \tcblower
-    \textbf{[EN] Definition}: 
-    Describing rotation of extended bodies.
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{Torque ($\tau$)}: The rotational equivalent of force ($\tau = r \times F$).
-        \item \textbf{Moment of Inertia ($I$)}: Rotational mass, resistance to angular acceleration.
-        \item \textbf{Newton's 2nd Law for Rotation}: $\tau = I \alpha$.
-    \end{itemize}
+\begin{studybox}{Blackboard Challenge: Spring Energy / 弹簧能量}
+\textbf{[CN] 场景}: 「弹簧振子在 SHM 中，证明总能量恒定，并求任意位置的动能和势能比例。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 写出总能量（设 $x = A\cos(\omega t)$）
+\[
+E = KE + PE = \frac{1}{2}mv^2 + \frac{1}{2}kx^2
+\]
+
+\textbf{Step 2}: 代入 $v = -A\omega\sin(\omega t)$ 和 $\omega^2 = k/m$
+\begin{align*}
+KE &= \frac{1}{2}m(A\omega)^2\sin^2(\omega t) = \frac{1}{2}kA^2\sin^2(\omega t) \\
+PE &= \frac{1}{2}kA^2\cos^2(\omega t)
+\end{align*}
+
+\textbf{Step 3}: 求和
+\[
+E = \frac{1}{2}kA^2(\sin^2 + \cos^2) = \frac{1}{2}kA^2 = \text{constant}
+\]
+
+\textbf{Step 4}: 在 $x = A/2$ 处的比例
+\[
+PE = \frac{1}{2}k\left(\frac{A}{2}\right)^2 = \frac{1}{8}kA^2 = \frac{E}{4}
+\]
+\[
+KE = E - PE = \frac{1}{2}kA^2 - \frac{1}{8}kA^2 = \frac{3}{8}kA^2 = \frac{3E}{4}
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{E_{total} = \frac{1}{2}kA^2, \quad \text{At } x = A/2: \quad KE:PE = 3:1}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「半振幅三比一」--- 位移为振幅一半时，动能是势能的三倍。
+
+\tcblower
+\textbf{[EN]}: Total SHM energy is $\frac{1}{2}kA^2$. At half amplitude, $KE:PE = 3:1$ because PE scales as $x^2$.
 \end{studybox}
 
-% --------------------------------------------
-% Thesis Connection
-% --------------------------------------------
-\begin{thesisbox}[论文关联 / Project Application]
-    \textbf{[CN]}: 
-    你的跌倒检测算法直接基于力学原理：
-    \begin{itemize}
-        \item \textbf{MPU6050 加速度计}: 测量 $\vec{F}/m$。静止时测量重力加速度 $g$。自由落体时读数为 0 (失重)。
-        \item \textbf{冲击检测}: 跌倒撞击地面时，系统经历巨大的负加速度 (减速)，导致读数飙升 ($a \gg g$)。
-        \item \textbf{陀螺仪}: 测量角速度 $\omega$，辅助判断人体姿态变化。
-    \end{itemize}
+\begin{warnbox}{Common Mistakes / 常见错误}
+\begin{enumerate}
+    \item \textbf{忘记平方}：动能 $\frac{1}{2}mv^2$，弹性势能 $\frac{1}{2}kx^2$，都有平方
+    \item \textbf{单位混乱}：确保用 SI 单位（kg, m, s, N）
+    \item \textbf{参考点选择}：势能需要选定参考点（$h=0$ 或 $x=0$）
+    \item \textbf{非保守力}：有摩擦时机械能不守恒，能量损失为热
+\end{enumerate}
 
-    \tcblower
+\tcblower
+\textbf{[EN]}: Remember the squares in energy formulas. Always use SI units. Choose a reference point for PE. Mechanical energy is NOT conserved with friction.
+\end{warnbox}
 
-    \textbf{[EN]}: 
-    Your fall detection relies on mechanics:
-    \begin{itemize}
-        \item \textbf{Accelerometer}: Measures proper acceleration. Reads $1g$ when static. Reads $\approx 0g$ during free fall (weightlessness).
-        \item \textbf{Impact}: Upon impact, the body decelerates rapidly, causing a spike in accelerometer reading ($a \gg g$).
-        \item \textbf{Gyroscope}: Measures angular velocity $\omega$ to detect orientation changes.
-    \end{itemize}
+% ----------------------------------------------------------------------------
+% 4. THESIS APPLICATION / 论文应用
+% ----------------------------------------------------------------------------
+
+\begin{thesisbox}{Thesis Application: Accelerometer and Fall Detection / 论文应用：加速度计与跌倒检测}
+\textbf{[CN] 与论文的联系}:
+
+力学原理在 IoT 跌倒检测系统中的核心应用：
+
+\textbf{1. 加速度计原理 (MEMS Accelerometer)}
+
+加速度计内部是一个微型弹簧-质量系统：
+\[
+F = ma = kx \quad \Rightarrow \quad a = \frac{k}{m}x
+\]
+通过测量位移 $x$ 即可得到加速度 $a$。
+
+\textbf{2. 跌倒检测算法}
+
+基于加速度特征的检测：
+\begin{itemize}
+    \item \textbf{自由落体相}：$|\mathbf{a}| \approx 0$（失重）
+    \item \textbf{撞击相}：$|\mathbf{a}| > 3g$（大冲击）
+    \item \textbf{静止相}：$|\mathbf{a}| \approx g$（躺在地上）
+\end{itemize}
+
+\textbf{加速度矢量幅值}:
+\[
+|\mathbf{a}| = \sqrt{a_x^2 + a_y^2 + a_z^2}
+\]
+
+\textbf{3. 能量分析}
+
+跌倒过程的能量转化：
+\[
+mgh \rightarrow \frac{1}{2}mv^2 \rightarrow \text{Impact Energy}
+\]
+撞击力估算：$F_{impact} = \frac{\Delta p}{\Delta t} = \frac{mv}{\Delta t}$
+
+\textbf{4. ESP32 实现}
+\begin{itemize}
+    \item MPU6050/ADXL345 加速度计采样率：100-500 Hz
+    \item 实时计算加速度幅值和变化率
+    \item 阈值判断 + 状态机检测跌倒
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 「零-大-稳」--- 跌倒三相：自由落体零加速度，撞击大加速度，躺下稳定加速度。
+
+\tcblower
+\textbf{[EN]}: MEMS accelerometers use spring-mass principles. Fall detection analyzes acceleration magnitude through three phases: free-fall ($|a| \approx 0$), impact ($|a| > 3g$), and rest ($|a| \approx g$). Understanding mechanics is essential for designing reliable fall detection algorithms on ESP32.
 \end{thesisbox}
 
-\begin{warnbox}[考试陷阱 / Exam Pitfalls]
-    \begin{itemize}
-        \item \textbf{Weight vs Mass}: 质量 ($m$) 是不变的，重量 ($mg$) 随重力场变化。
-        \item \textbf{Centripetal Force}: 向心力不是一种独立的力，而是重力、张力等的合力。
-        \item \textbf{Force Pairs}: 牛顿第三定律的作用力和反作用力作用在\textbf{不同}的物体上，永远不会互相抵消！
-    \end{itemize}
-\end{warnbox}
+% ----------------------------------------------------------------------------
+% 5. CENTRIPETAL FORCE / 向心力
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Centripetal Force / 向心力}
+物体做圆周运动时，指向圆心的力：
+\[
+F_c = \frac{mv^2}{r} = m\omega^2 r = m \cdot a_c
+\]
+
+其中：
+\begin{itemize}
+    \item $v$ --- 线速度 (Linear velocity) [m/s]
+    \item $r$ --- 圆周半径 (Radius) [m]
+    \item $\omega$ --- 角速度 (Angular velocity) [rad/s]
+    \item $a_c = v^2/r = \omega^2 r$ --- 向心加速度
+\end{itemize}
+
+\textbf{Mnemonic / 记忆口诀}: 「向心力是拉绳的手」--- 没有向心力，物体会沿切线飞出。
+
+\tcblower
+\textbf{[EN]}: Centripetal force keeps an object moving in a circle. Without it, the object would fly off tangentially (Newton's 1st Law).
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Centripetal Acceleration / 向心加速度}
+\textbf{[CN] 场景}: 「人转身时手臂长$r=0.6m$，角速度$\omega=3$ rad/s。求手腕处的向心加速度。」
+
+\textbf{Solution / 解答}:
+\begin{align}
+    a_c &= \omega^2 r = (3)^2 \times 0.6 = 9 \times 0.6 = \boxed{5.4 \text{ m/s}^2}
+\end{align}
+
+\textbf{比较}: $a_c = 5.4$ m/s$^2 \approx 0.55g$
+
+这个加速度会被手腕上的加速度计检测到！
+
+\tcblower
+\textbf{[EN]}: Centripetal acceleration = $\omega^2 r$. This contributes to accelerometer reading during rotation.
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Gyroscope + Rotation / 陀螺仪与旋转}
+\textbf{[CN]}: 这在跌倒检测中很重要...
+
+\textbf{Script}: ``During a fall, the body rotates. My MPU6050 measures:
+\begin{itemize}
+    \item \textbf{Accelerometer}: Linear acceleration + Centripetal acceleration + Gravity
+    \item \textbf{Gyroscope}: Angular velocity $\omega$ in rad/s
+\end{itemize}
+
+\textbf{Problem}: Accelerometer reading is contaminated by rotation:
+\[
+\mathbf{a}_{measured} = \mathbf{a}_{linear} + \boldsymbol{\omega} \times (\boldsymbol{\omega} \times \mathbf{r}) + \mathbf{g}
+\]
+
+\textbf{Solution}: Use gyroscope to calculate and subtract centripetal component:
+\[
+a_{centripetal} = \omega^2 r
+\]
+
+For typical human fall: $\omega \approx 2-5$ rad/s, $r \approx 0.5m$ $\Rightarrow$ $a_c \approx 2-12$ m/s$^2$
+
+This is significant and must be accounted for!''
+\end{thesisbox}
+
+% ----------------------------------------------------------------------------
+% 6. IMPULSE AND MOMENTUM / 冲量与动量
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Impulse-Momentum Theorem / 动量定理}
+\[
+\mathbf{J} = \int \mathbf{F} \, dt = \Delta \mathbf{p} = m\mathbf{v}_f - m\mathbf{v}_i
+\]
+
+对于恒力：
+\[
+\mathbf{F} \cdot \Delta t = m \Delta \mathbf{v}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「力乘时间改变动量」--- 越大的力作用越久，动量改变越大。
+
+\tcblower
+\textbf{[EN]}: Impulse equals change in momentum. Key for understanding collisions and impacts.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Fall Impact Force / 跌倒撞击力}
+\textbf{[CN] 场景}: 「一个70kg的人从1m高度跌倒，撞击地面时间0.1s。估算平均撞击力。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 计算落地速度（能量守恒）
+\[
+v = \sqrt{2gh} = \sqrt{2 \times 10 \times 1} = \sqrt{20} \approx 4.47 \text{ m/s}
+\]
+
+\textbf{Step 2}: 计算动量变化
+\[
+\Delta p = mv - 0 = 70 \times 4.47 = 313 \text{ kg}\cdot\text{m/s}
+\]
+
+\textbf{Step 3}: 计算平均撞击力
+\[
+F_{avg} = \frac{\Delta p}{\Delta t} = \frac{313}{0.1} = \boxed{3130 \text{ N}}
+\]
+
+\textbf{加速度}: $a = F/m = 3130/70 = 44.7$ m/s$^2 \approx \boxed{4.5g}$
+
+\tcblower
+\textbf{[EN]}: Impact force depends on stopping time. Shorter $\Delta t$ = higher force. This is why padding helps!
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Fall Detection Threshold / 跌倒检测阈值}
+\textbf{[CN]}: 这是我论文算法的核心参数...
+
+\textbf{Script}: ``Based on physics calculation:
+\begin{itemize}
+    \item Typical fall impact: 3-6g
+    \item Sitting down hard: 1-2g
+    \item Normal walking: < 1g variation
+\end{itemize}
+
+\textbf{My detection thresholds}:
+\begin{enumerate}
+    \item \textbf{Free-fall phase}: $|a| < 0.4g$ for > 200ms
+    \item \textbf{Impact phase}: $|a| > 2.5g$ peak
+    \item \textbf{Rest phase}: $|a| \approx 1g$ and lying orientation
+\end{enumerate}
+
+\textbf{Why 2.5g not 4g?}
+\begin{itemize}
+    \item Elderly falls are often slower, less violent
+    \item Want sensitivity (catch more falls) over specificity
+    \item False alarms handled by additional checks (orientation, time)
+\end{itemize}''
+\end{thesisbox}
+
+% ----------------------------------------------------------------------------
+% 7. MEMS SENSOR DETAILED PHYSICS / MEMS传感器物理详解
+% ----------------------------------------------------------------------------
+
+\begin{studybox}{Blackboard Challenge: MEMS Accelerometer Design / MEMS加速度计设计}
+\textbf{[CN] 场景}: 「MEMS加速度计的proof mass为10$\mu$g，弹簧常数$k$设计为测量$\pm$16g范围。求$k$值和最大位移。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 单位转换
+\begin{itemize}
+    \item $m = 10\mu g = 10 \times 10^{-9} kg = 10^{-8} kg$
+    \item $a_{max} = 16g = 16 \times 9.8 = 156.8$ m/s$^2$
+\end{itemize}
+
+\textbf{Step 2}: 计算最大力
+\[
+F_{max} = m \cdot a_{max} = 10^{-8} \times 156.8 = 1.57 \times 10^{-6} \text{ N} = 1.57 \mu N
+\]
+
+\textbf{Step 3}: 设计位移（典型MEMS位移约1$\mu$m满量程）
+\[
+x_{max} = 1 \mu m = 10^{-6} m
+\]
+
+\textbf{Step 4}: 计算弹簧常数
+\[
+k = \frac{F_{max}}{x_{max}} = \frac{1.57 \times 10^{-6}}{10^{-6}} = \boxed{1.57 \text{ N/m}}
+\]
+
+\textbf{Step 5}: 验证谐振频率
+\[
+f_0 = \frac{1}{2\pi}\sqrt{\frac{k}{m}} = \frac{1}{2\pi}\sqrt{\frac{1.57}{10^{-8}}} = \frac{1}{2\pi} \times 12530 \approx \boxed{2 \text{ kHz}}
+\]
+
+\tcblower
+\textbf{[EN]}: MEMS design uses F=ma and Hooke's Law. Resonant frequency should be >> signal bandwidth (human motion < 20Hz).
+\end{studybox}
+
+\begin{thesisbox}{Thesis Bridge: Why MEMS Works for Fall Detection / MEMS适用于跌倒检测}
+\textbf{[CN]}: 这解释了我的传感器选择...
+
+\textbf{Script}: ``The MPU6050 MEMS accelerometer is ideal because:
+\begin{enumerate}
+    \item \textbf{Bandwidth}: 2kHz resonance >> 20Hz human motion (no aliasing)
+    \item \textbf{Range}: $\pm$16g covers worst-case fall impact
+    \item \textbf{Resolution}: 16-bit ADC = 0.5mg per LSB (sensitive enough)
+    \item \textbf{Power}: <1mW (battery-powered wearable)
+    \item \textbf{Cost}: <\$5 (mass deployment feasible)
+\end{enumerate}
+
+\textbf{Physics insight}:
+\[
+\text{Signal BW} \ll f_0 \Rightarrow \text{Flat frequency response (no resonance effects)}
+\]
+
+If human motion were at 1kHz (it's not!), I would need a different sensor.''
+\end{thesisbox}
+
+\begin{formulabox}{Key Formulas Summary / 关键公式总结}
+\begin{enumerate}
+    \item \textbf{Newton's 2nd Law}: $F = ma$
+    \item \textbf{SHM Angular Frequency}: $\omega = \sqrt{k/m}$
+    \item \textbf{SHM Period}: $T = 2\pi\sqrt{m/k}$
+    \item \textbf{Kinetic Energy}: $KE = \frac{1}{2}mv^2$
+    \item \textbf{Gravitational PE}: $PE = mgh$
+    \item \textbf{Elastic PE}: $PE = \frac{1}{2}kx^2$
+    \item \textbf{Free Fall Velocity}: $v = \sqrt{2gh}$
+    \item \textbf{SHM Total Energy}: $E = \frac{1}{2}kA^2$
+\end{enumerate}
+
+\tcblower
+\textbf{[EN]}: Master these eight formulas. They cover force, motion, and energy --- the three pillars of mechanics.
+\end{formulabox}

@@ -1,8 +1,36 @@
 % ============================================
 % Topic 07: AI / 人工智能
-% Course: BE5B33UI
+% Course: BE5B33KUI
+% GRADE: E | PRIORITY: [CRITICAL]
 % ============================================
-\section{人工智能 / Artificial Intelligence (BE5B33UI)}
+\section{Artificial Intelligence / 人工智能 (BE5B33KUI)}
+
+\begin{warnbox}[\textbf{[WARN]} GRADE E DETECTED: SURVIVAL MODE / 成绩E：求生模式]
+\textbf{[CN]} KUI成绩是 \textbf{E}。\textbf{只背核心概念}：状态空间搜索 (BFS/DFS/A*) + 启发式函数！\\
+\textbf{[EN]} KUI grade is \textbf{E}. \textbf{ONLY memorize}: State Space Search (BFS/DFS/A*) + Heuristics!\\
+\textbf{Thesis Link}: 跳倒检测中的阈值判断 vs AI分类器 → ``Heuristic-based rule in my thesis could be upgraded to ML classifier``
+\end{warnbox}
+
+% --------------------------------------------
+% CORE SURVIVAL CONTENT: State Space Search
+% --------------------------------------------
+\begin{formulabox}[\textbf{[MUST KNOW]} State Space Search / 状态空间搜索]
+\textbf{[CN] 核心概念}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{状态空间}: 所有可能状态的集合 (Initial State $\to$ Goal State)
+    \item \textbf{BFS (广度优先)}: 层层搜索，\textbf{完备性} (Complete)，内存消耗大 $O(b^d)$
+    \item \textbf{DFS (深度优先)}: 先往深走，\textbf{不完备}，内存 $O(bd)$ 但可能陷入无限循环
+    \item \textbf{A* 算法}: $f(n) = g(n) + h(n)$，$h(n)$ 是启发式函数
+\end{itemize}
+\tcblower
+\textbf{[EN] Key Concepts}:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{State Space}: Set of all possible states (Initial $\to$ Goal)
+    \item \textbf{BFS}: Level-by-level, \textbf{Complete}, Memory $O(b^d)$
+    \item \textbf{DFS}: Go deep first, \textbf{NOT complete}, Memory $O(bd)$
+    \item \textbf{A*}: $f(n) = g(n) + h(n)$, where $h(n)$ is heuristic (admissible = never overestimates)
+\end{itemize}
+\end{formulabox}
 
 % --------------------------------------------
 % 1. Classification

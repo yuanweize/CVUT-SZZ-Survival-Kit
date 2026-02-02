@@ -1,58 +1,333 @@
-% ============================================
+% ============================================================================
 % Topic 03: Differential Equations / 微分方程
-% Course: BE5B01DIF
-% ============================================
-\section{微分方程 / Differential Equations (BE5B01DIF)}
+% Course: BE5B01DEN
+% GRADE: E | PRIORITY: [CRITICAL]
+% ============================================================================
 
-% --------------------------------------------
-% 1. First Order ODE
-% --------------------------------------------
-\begin{studybox}{一阶微分方程 / First Order ODE}
-    \textbf{[CN] 定义}: 
-    涉及函数 $y$ 及其一阶导数 $y'$ 的方程。
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{分离变量法}: 将 $x$ 和 $y$ 分别移到等号两边求解。
-        \item \textbf{线性方程}: $y' + p(x)y = q(x)$。
-    \end{itemize}
-    \tcblower
-    \textbf{[EN] Definition}: 
-    Equation involving independent variable $x$, function $y$, and derivative $y'$.
-    \begin{itemize}[leftmargin=*]
-        \item \textbf{Separable}: Can be rewritten as $f(y)dy = g(x)dx$.
-        \item \textbf{Linear}: Standard form $y' + p(x)y = q(x)$. Integrating factor method.
-    \end{itemize}
+\section{Differential Equations / 微分方程}
+\label{sec:differential-equations}
+
+\begin{warnbox}[\textbf{[WARN]} GRADE E DETECTED: SURVIVAL MODE / 成绩E：求生模式]
+\textbf{[CN]} DEN成绩是 \textbf{E}。\textbf{只背核心模式}：可分离方程 + 一阶线性方程解法！\\
+\textbf{[EN]} DEN grade is \textbf{E}. \textbf{ONLY memorize}: Separable ODE + First-order linear solution!\\
+\textbf{Key Pattern}: $\frac{dy}{dx} = g(x)h(y) \Rightarrow \int \frac{dy}{h(y)} = \int g(x)dx$
+\end{warnbox}
+
+% ----------------------------------------------------------------------------
+% 1. SEPARABLE ODE / 可分离变量微分方程
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Separable ODE / 可分离变量微分方程}
+如果一阶微分方程可以写成以下形式：
+\[
+\frac{dy}{dx} = f(x) \cdot g(y)
+\]
+则称其为\textbf{可分离变量方程}。
+
+\textbf{求解方法}：将含 $y$ 的项移到左边，含 $x$ 的项移到右边，两边积分。
+\[
+\int \frac{1}{g(y)} \, dy = \int f(x) \, dx
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「分家过日子」--- $x$ 和 $y$ 各自分开，各自积分。
+
+\tcblower
+\textbf{[EN]}: A separable ODE can be written as $\frac{dy}{dx} = f(x)g(y)$. Solve by separating variables and integrating both sides.
+\end{defbox}
+
+\begin{studybox}{Blackboard Challenge: Separable ODE / 可分离变量方程}
+\textbf{[CN] 场景}: 「请求解微分方程 $\frac{dy}{dx} = xy$，初始条件 $y(0) = 1$。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 分离变量（$y$ 移左，$x$ 移右）
+\[
+\frac{dy}{dx} = xy \quad \Rightarrow \quad \frac{1}{y} \, dy = x \, dx
+\]
+
+\textbf{Step 2}: 两边积分
+\[
+\int \frac{1}{y} \, dy = \int x \, dx
+\]
+\[
+\ln|y| = \frac{x^2}{2} + C
+\]
+
+\textbf{Step 3}: 指数化求解 $y$
+\[
+|y| = e^{\frac{x^2}{2} + C} = e^C \cdot e^{\frac{x^2}{2}}
+\]
+令 $A = \pm e^C$，则：
+\[
+y = A \cdot e^{\frac{x^2}{2}}
+\]
+
+\textbf{Step 4}: 代入初始条件 $y(0) = 1$
+\[
+1 = A \cdot e^{0} = A \quad \Rightarrow \quad A = 1
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{y = e^{\frac{x^2}{2}}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「分、积、解、代」--- 分离变量、积分、解出函数、代入初值。
+
+\tcblower
+\textbf{[EN]}: Separate variables, integrate both sides, solve for $y$, apply initial condition. The solution is a Gaussian-like exponential function.
 \end{studybox}
 
-\begin{formulabox}
-\textbf{二阶线性常系数 ODE}:
-\begin{equation}
-    ay'' + by' + cy = 0
-\end{equation}
-特征方程: $ar^2 + br + c = 0$.
-解的形式取决于判别式 $\Delta = b^2 - 4ac$:
-\begin{itemize}
-    \item $\Delta > 0$: $y = C_1 e^{r_1 x} + C_2 e^{r_2 x}$ (Overdamped)
-    \item $\Delta = 0$: $y = C_1 e^{rx} + C_2 x e^{rx}$ (Critically Damped)
-    \item $\Delta < 0$: $y = e^{\alpha x}(C_1 \cos \beta x + C_2 \sin \beta x)$ (Underdamped)
-\end{itemize}
+% ----------------------------------------------------------------------------
+% 2. RC CIRCUIT ODE / RC电路微分方程
+% ----------------------------------------------------------------------------
+
+\begin{formulabox}{RC Circuit ODE / RC电路微分方程}
+\textbf{电路方程}:
+\[
+RC\frac{dV}{dt} + V = V_{in}
+\]
+
+\textbf{时间常数 / Time Constant}:
+\[
+\tau = RC
+\]
+
+\textbf{通解 / General Solution}:
+\[
+V(t) = V_{in} + (V_0 - V_{in}) e^{-t/\tau}
+\]
+
+其中 $V_0$ 是初始电压。
+
+\textbf{Mnemonic / 记忆口诀}: 「RC 决定快慢」--- $\tau = RC$ 越大，充放电越慢；5个 $\tau$ 后基本稳定。
+
+\tcblower
+\textbf{[EN]}: The RC time constant $\tau = RC$ determines how fast the circuit responds. After $5\tau$, the voltage reaches approximately 99.3\% of its final value.
 \end{formulabox}
 
-% --------------------------------------------
-% Thesis Connection
-% --------------------------------------------
-\begin{thesisbox}[论文关联 / Project Application]
-    \textbf{[CN]}: 
-    物理系统通常由微分方程建模：
-    \begin{itemize}
-        \item \textbf{RC 电路}: 电容充电过程遵循一阶 ODE ($RC \frac{dV}{dt} + V = V_{in}$)。解是指数衰减函数。
-        \item \textbf{机械振动}: 加速度 ($a=x''$) 与力 ($F=-kx-bv$) 的关系构成二阶 ODE ($mx'' + bx' + kx = 0$)。这解释了\textbf{过阻尼}和\textbf{欠阻尼}现象。
-    \end{itemize}
+\begin{studybox}{Blackboard Challenge: RC Circuit / RC电路求解}
+\textbf{[CN] 场景}: 「一个 RC 电路，$R = 10\text{k}\Omega$，$C = 100\mu\text{F}$，初始电压 $V_0 = 0$，接入 $V_{in} = 5V$。求 $V(t)$ 和达到 $3V$ 所需时间。」
 
-    \tcblower
+\textbf{Solution / 解答}:
 
-    \textbf{[EN]}: 
-    \begin{itemize}
-        \item \textbf{RC Circuit}: Modeled by 1st order ODE. Solution involves time constant $\tau=RC$.
-        \item \textbf{Vibration}: Mass-Spring-Damper system is a 2nd order ODE ($mx'' + bx' + kx = 0$). Explains Overdamped vs Underdamped responses in sensors.
-    \end{itemize}
+\textbf{Step 1}: 计算时间常数
+\[
+\tau = RC = (10 \times 10^3) \times (100 \times 10^{-6}) = 1 \text{ s}
+\]
+
+\textbf{Step 2}: 写出电压方程（$V_0 = 0$，$V_{in} = 5$）
+\[
+V(t) = V_{in} + (V_0 - V_{in}) e^{-t/\tau} = 5 + (0 - 5) e^{-t/1}
+\]
+\[
+V(t) = 5(1 - e^{-t})
+\]
+
+\textbf{Step 3}: 求达到 $3V$ 的时间
+\[
+3 = 5(1 - e^{-t})
+\]
+\[
+\frac{3}{5} = 1 - e^{-t} \quad \Rightarrow \quad e^{-t} = \frac{2}{5}
+\]
+\[
+-t = \ln(0.4) \quad \Rightarrow \quad t = -\ln(0.4) \approx 0.916 \text{ s}
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{V(t) = 5(1 - e^{-t}) \text{ V}, \quad t_{3V} \approx 0.916 \text{ s}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「充电指数升，放电指数降」--- 充电从0向目标爬升，放电从高向0衰减，都是指数变化。
+
+\tcblower
+\textbf{[EN]}: For charging: $V(t) = V_{in}(1 - e^{-t/\tau})$. For discharging: $V(t) = V_0 e^{-t/\tau}$. The time constant $\tau$ determines the rate of change.
+\end{studybox}
+
+\begin{warnbox}{Common Mistakes / 常见错误}
+\begin{enumerate}
+    \item \textbf{单位换算错误}：$\text{k}\Omega$ 和 $\mu\text{F}$ 要先换成基本单位
+    \item \textbf{充放电公式混淆}：充电用 $(1-e^{-t/\tau})$，放电用 $e^{-t/\tau}$
+    \item \textbf{忘记初始条件}：必须明确 $V_0$ 是多少
+\end{enumerate}
+
+\tcblower
+\textbf{[EN]}: Always convert units first. Do not confuse charging ($1-e^{-t/\tau}$) with discharging ($e^{-t/\tau}$). Always specify initial conditions.
+\end{warnbox}
+
+% ----------------------------------------------------------------------------
+% 3. SECOND ORDER ODE / 二阶微分方程
+% ----------------------------------------------------------------------------
+
+\begin{defbox}{Second Order Linear ODE / 二阶线性微分方程}
+标准形式：
+\[
+a\frac{d^2y}{dt^2} + b\frac{dy}{dt} + cy = 0
+\]
+
+\textbf{特征方程 / Characteristic Equation}:
+\[
+ar^2 + br + c = 0
+\]
+
+\textbf{判别式 / Discriminant}: $\Delta = b^2 - 4ac$
+
+\textbf{Mnemonic / 记忆口诀}: 「微分变代数」--- 把 $\frac{d^2y}{dt^2}$ 换成 $r^2$，$\frac{dy}{dt}$ 换成 $r$，解代数方程。
+
+\tcblower
+\textbf{[EN]}: Replace derivatives with powers of $r$ to get the characteristic equation. The discriminant determines the type of solution.
+\end{defbox}
+
+\begin{formulabox}{Three Damping Cases / 三种阻尼情况}
+设特征方程的根为 $r_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+
+\textbf{Case 1: Overdamped / 过阻尼} ($\Delta > 0$)
+\[
+y(t) = C_1 e^{r_1 t} + C_2 e^{r_2 t}
+\]
+两个不同实根，系统缓慢回到平衡。
+
+\textbf{Case 2: Critically Damped / 临界阻尼} ($\Delta = 0$)
+\[
+y(t) = (C_1 + C_2 t) e^{r t}
+\]
+重根 $r = -b/(2a)$，最快无振荡回到平衡。
+
+\textbf{Case 3: Underdamped / 欠阻尼} ($\Delta < 0$)
+\[
+y(t) = e^{\alpha t}(C_1 \cos\omega t + C_2 \sin\omega t)
+\]
+其中 $\alpha = -b/(2a)$，$\omega = \sqrt{4ac - b^2}/(2a)$
+
+\textbf{Mnemonic / 记忆口诀}: 
+「过阻尼像老人走路（慢吞吞），临界阻尼像关门（刚好不震），欠阻尼像弹簧（来回晃）」
+
+\tcblower
+\textbf{[EN]}: Overdamped = slow return, Critically damped = fastest non-oscillatory return, Underdamped = oscillatory decay.
+\end{formulabox}
+
+\begin{studybox}{Blackboard Challenge: Second Order ODE / 二阶微分方程}
+\textbf{[CN] 场景}: 「求解 $\frac{d^2y}{dt^2} + 5\frac{dy}{dt} + 6y = 0$，判断阻尼类型。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 写出特征方程（$a=1, b=5, c=6$）
+\[
+r^2 + 5r + 6 = 0
+\]
+
+\textbf{Step 2}: 计算判别式
+\[
+\Delta = b^2 - 4ac = 25 - 24 = 1 > 0
+\]
+
+\textbf{Step 3}: 求特征根
+\[
+r = \frac{-5 \pm \sqrt{1}}{2} = \frac{-5 \pm 1}{2}
+\]
+\[
+r_1 = -2, \quad r_2 = -3
+\]
+
+\textbf{Step 4}: 写出通解
+\[
+y(t) = C_1 e^{-2t} + C_2 e^{-3t}
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{y(t) = C_1 e^{-2t} + C_2 e^{-3t}, \quad \text{Overdamped / 过阻尼}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「判别式定乾坤」--- $\Delta > 0$ 过阻尼，$\Delta = 0$ 临界，$\Delta < 0$ 欠阻尼。
+
+\tcblower
+\textbf{[EN]}: Since $\Delta > 0$, we have two distinct real roots, indicating an overdamped system. The solution is a sum of two decaying exponentials.
+\end{studybox}
+
+\begin{studybox}{Blackboard Challenge: Underdamped Case / 欠阻尼情况}
+\textbf{[CN] 场景}: 「求解 $\frac{d^2y}{dt^2} + 2\frac{dy}{dt} + 5y = 0$。」
+
+\textbf{Solution / 解答}:
+
+\textbf{Step 1}: 特征方程（$a=1, b=2, c=5$）
+\[
+r^2 + 2r + 5 = 0
+\]
+
+\textbf{Step 2}: 判别式
+\[
+\Delta = 4 - 20 = -16 < 0 \quad \text{(Underdamped)}
+\]
+
+\textbf{Step 3}: 复数根
+\[
+r = \frac{-2 \pm \sqrt{-16}}{2} = \frac{-2 \pm 4i}{2} = -1 \pm 2i
+\]
+
+\textbf{Step 4}: 写出通解（$\alpha = -1$，$\omega = 2$）
+\[
+y(t) = e^{-t}(C_1 \cos 2t + C_2 \sin 2t)
+\]
+
+\textbf{Final Answer / 最终答案}:
+\[
+\boxed{y(t) = e^{-t}(C_1 \cos 2t + C_2 \sin 2t), \quad \text{Underdamped / 欠阻尼}}
+\]
+
+\textbf{Mnemonic / 记忆口诀}: 「复数根带振荡」--- 虚部变角频率 $\omega$，实部变衰减率 $\alpha$。
+
+\tcblower
+\textbf{[EN]}: Complex roots $\alpha \pm i\omega$ give oscillatory solutions with exponential decay. The imaginary part becomes the angular frequency, the real part becomes the decay rate.
+\end{studybox}
+
+% ----------------------------------------------------------------------------
+% 4. THESIS APPLICATION / 论文应用
+% ----------------------------------------------------------------------------
+
+\begin{thesisbox}{Thesis Application: Sensor Signal Processing / 论文应用：传感器信号处理}
+\textbf{[CN] 与论文的联系}:
+
+微分方程在 IoT 传感器系统中的应用：
+
+\textbf{1. RC 滤波器设计}
+\begin{itemize}
+    \item ESP32 的 ADC 输入常需要 RC 低通滤波器
+    \item 时间常数 $\tau = RC$ 决定截止频率 $f_c = \frac{1}{2\pi RC}$
+    \item 滤除高频噪声，保留有用信号
+\end{itemize}
+
+\textbf{2. 传感器动态响应}
+\begin{itemize}
+    \item 温度传感器响应近似一阶系统：$\tau \frac{dT}{dt} + T = T_{env}$
+    \item 加速度计的机械结构是二阶系统
+    \item 阻尼比决定响应速度和超调量
+\end{itemize}
+
+\textbf{3. 跌倒检测算法}
+\[
+\text{Impact} = \frac{d|\mathbf{a}|}{dt} \quad \text{(加速度变化率)}
+\]
+用一阶微分方程建模人体运动状态转换。
+
+\textbf{Mnemonic / 记忆口诀}: 「滤波看RC，响应看阻尼」--- RC电路是低通滤波器，阻尼比决定系统振荡行为。
+
+\tcblower
+\textbf{[EN]}: Differential equations model RC filters (noise reduction), sensor response dynamics (temperature, accelerometer), and fall detection algorithms (impact detection via acceleration derivatives). Understanding time constants and damping is crucial for IoT system design.
 \end{thesisbox}
+
+\begin{formulabox}{Key Formulas Summary / 关键公式总结}
+\begin{enumerate}
+    \item \textbf{Separable ODE}: $\int \frac{1}{g(y)} dy = \int f(x) dx$
+    \item \textbf{RC Time Constant}: $\tau = RC$
+    \item \textbf{RC Charging}: $V(t) = V_{in}(1 - e^{-t/\tau})$
+    \item \textbf{Characteristic Equation}: $ar^2 + br + c = 0$
+    \item \textbf{Discriminant}: $\Delta = b^2 - 4ac$
+    \item \textbf{Underdamped Solution}: $y = e^{\alpha t}(C_1 \cos\omega t + C_2 \sin\omega t)$
+\end{enumerate}
+
+\tcblower
+\textbf{[EN]}: These six formulas cover the essential ODE techniques for the exam. Practice identifying which type of ODE you are dealing with.
+\end{formulabox}
