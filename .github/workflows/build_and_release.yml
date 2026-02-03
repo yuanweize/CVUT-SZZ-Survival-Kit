@@ -30,9 +30,10 @@ jobs:
       - name: Fix Font Setup (Linux Bypass)
         working-directory: SZZ_Master_Kit
         run: |
-          # The document uses Mac fonts (Heiti SC). On CI (Ubuntu), we must swap them.
-          # We will replace "Heiti SC" with "WenQuanYi Micro Hei" in the tex file temporarily.
+          # The document uses Mac fonts (Heiti SC, STSong). On CI (Ubuntu), we must swap them.
+          # We will replace them with "WenQuanYi Micro Hei" which we installed above.
           sed -i 's/Heiti SC/WenQuanYi Micro Hei/g' szz_guide.tex
+          sed -i 's/STSong/WenQuanYi Micro Hei/g' szz_guide.tex
           sed -i 's/Songti SC/WenQuanYi Micro Hei/g' szz_guide.tex
 
       - name: Build PDF
