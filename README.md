@@ -6,83 +6,101 @@
 > **State Final Examination (SZZ) & Bachelor Thesis Defense Resources**
 > **国家毕业考试 (SZZ) 与毕业论文答辩资源**
 
-This repository is a comprehensive collection of study materials, strategic research, and preparation guides for the **State Final Examination (SZZ)** and **Bachelor Thesis Defense** at **Czech Technical University in Prague, Faculty of Electrical Engineering (FEE)**.
+This repository is a comprehensive collection of strategic intelligence, "Kill Zone" defenses, and study materials for the **State Final Examination (SZZ)** and **Bachelor Thesis Defense** at **Czech Technical University in Prague, Faculty of Electrical Engineering (FEE)**.
+
+---
+
+## 🚨 EMERGENCY MODE (20-Hour Countdown) / 紧急模式
+
+**If you have less than 24 hours remaining, IGNORE EVERYTHING ELSE and read this PDF:**
+
+👉 **[`SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_EMERGENCY.pdf`](./SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_EMERGENCY.pdf)** 👈
+
+*   **Battle Scripts**: Exact words to say to each of the 6 Committee Members.
+*   **Mnemonics**: "Beer Theory" for Power, "Hot Pot" for Heat Transfer.
+*   **Panic Scripts**: How to pivot back to your Thesis when you forget a definition.
 
 ---
 
 ## 📂 Repository Structure / 仓库结构
 
-### 🕵️ `Jan_Koller_Opponent_Research/` — Opponent Strategy Guide / 对手战略指南
-**The "Final Boss" Analysis — 11 Theses Reviewed**
-*   Deep analysis of Opponent **Jan Koller's** grading patterns, "kill zones", and winning strategies.
-*   Bilingual (EN/CN) detailed reports for each thesis.
-*   **Your Thesis (Thesis 11)**: Specific defense preparation with predicted questions.
-*   📖 See: [`Jan_Koller_Opponent_Research/README.md`](./Jan_Koller_Opponent_Research/README.md)
+### 1. 🛡️ Thesis Defense / 毕业答辩
 
----
+*   **`Committee_Intel/`** — **Forensic Intelligence**
+    *   Detailed dossiers on every committee member (Müller, Kyncl, Koller, etc.).
+    *   Contains their research obsessions, teaching focus, and verified "hard data".
+*   **`Jan_Koller_Opponent_Research/`** — **The "Boss Fight"**
+    *   Analysis of Opponent **Jan Koller**.
+    *   Includes strategy on how to handle his specialized questions (Plasma/Physics).
+*   **`PPT/`** — **Presentation Assets**
+    *   Your final defense slides and speech script.
+*   **`Thesis_src/`** — **Source Code**
+    *   The compiled code for the thesis project.
 
-### 📐 `Math/` — Mathematics / 数学
-*   Linear Algebra, Differential Equations, Probability Theory, Discrete Math.
-*   Weekly summaries (Week 3-13).
+### 2. ⚔️ State Exam / 国家考试 (SZZ)
 
-### ⚡ `Phys/` — Physics / 物理
-*   Mechanics, Oscillations, Electromagnetic Fields, Thermodynamics, Wave Optics.
+*   **`SZZ_Master_Kit/`** — **The Core System**
+    *   **`szz_guide.tex`**: The master LaTeX file that compiles essentially EVERYTHING.
+    *   **`chapters/00_Strategy_Committee.tex`**: The **Battle Script** (Emergency Strategy).
+    *   **`chapters/01_Math`**: Linear Algebra, Numerical, DiffEq, Discrete, Graph, Probability.
+    *   **`chapters/02_Phys`**: Mechanics, Oscillations, Fields, Thermo, Waves.
+    *   **`chapters/03_EECS_Core`**: Circuits, Semiconductors, Electronics, Microcontrollers, Algo.
+    *   **`chapters/04_Specialization`**: EMT, Logic, Signals, Machines, Materials, Power, AI, Arch, Control.
+    *   **Usage**: Run `make` in this directory.
 
-### 🔌 `CIRCUIT/` — Circuit Theory / 电路理论
-*   Circuit analysis notes and sample exams.
+*   **Subject Folders (Raw Notes)**:
+    *   `Math/`: Weekly summaries (Week 3-13).
+    *   `Phys/`: Physics notes.
+    *   `CIRCUIT/`: Circuit theory samples.
+    *   `EECS/`: Electronics & CS notes.
+    *   `PRS/`: Probability & Statistics.
+    *   `Specialization/`: Specialized topics.
 
-### 💻 `EECS/` — Electronics & Computer Science / 电子与计算机
-*   Semiconductor Physics, Embedded Systems, Communication Protocols.
+*   **Reference Materials**:
+    *   `jimmy复习.pdf`: Legacy review notes.
+    *   `鸡鸡整理的国考复习pdf/`: Self-compiled study notes (ARI, DEN, etc.).
 
-### 📊 `PRS/` — Probability & Statistics / 概率与统计
-*   Probability definitions, exercises, and exam samples.
+### 3. 🛠️ Utilities / 工具
 
-### 🔧 `Specialization/` — Specialization Topics / 专业课
-*   AC/DC Machines, Protection Devices, Transformers, Power Systems, Logic Circuits, Electrical Materials.
-
----
-
-### 📝 `SZZ_Master_Kit/` — LaTeX Exam Kit / LaTeX国考复习模板
-A structured LaTeX project for compiling all SZZ topics into a single document.
-*   `chapters/01_Math/` — Math topics
-*   `chapters/02_Phys/` — Physics topics
-*   `chapters/03_EECS_Core/` — Core EE/CS topics
-*   `chapters/04_Specialization/` — Specialization topics
-*   📖 See: [`SZZ_Master_Kit/README.md`](./SZZ_Master_Kit/README.md)
-
-### 📄 `自己整理的国考复习pdf/` — Self-Compiled Study PDFs / 自整理复习资料
-*   ARI, DEN, DMG, ELP, EN12, LSP, SP1, MIK review notes.
-
-### 📄 `jimmy复习.pdf` — Additional Review Material / 额外复习资料
+*   **`generate_topics.sh`**:
+    *   Bash script to auto-generate the LaTeX structure for new topics in `SZZ_Master_Kit`.
 
 ---
 
 ## 🚀 Key Defense Strategy (Summary) / 答辩核心策略
 
-| Aspect / 方面 | Insight / 洞察 |
-|---|---|
-| **Opponent / 对手** | Jan Koller — "The Pragmatic Pedant" (务实的学究) |
-| **Key Insight / 核心洞察** | He values **Hardware/Engineering Effort** over pure theory. |
-| **Kill Zones / 雷区** | Atypical flowcharts, missing units on graphs, vague contribution claims. |
-| **Top Advice / 首要建议** | **Bring your hardware device to the defense!** |
-| **Predicted Question / 预测问题** | "Why use Acc + Gyro for fall detection?" → **Sensor Fusion** |
+| Target / 目标 | Focus / 关注点 | Tactic / 战术 |
+|---|---|---|
+| **Zdeněk Müller** (Chairman) | Power Plants & Grid | **Macro View**: Talk about Smart Grids & VPPs. |
+| **Jan Kyncl** | Heat & Lighting | **Efficiency**: Mention heat dissipation & lumen/watt. |
+| **Jan Koller** | Physics | **First Principles**: $F=ma$, Photoelectric Effect. |
+| **Adam Bouřa** | Sensors | **Precision**: Discuss noise filtering & calibration. |
+| **Jan Bauer** | Microprocessors | **Low Level**: Mention Registers, PWM & Interrupts. |
+| **Petr Karafiát** | Industry (Alpiq) | **ROI & Reliability**: Cost vs. MTBF. |
 
 ---
 
-## 🛠️ Usage / 使用方法
+## 🛠️ Build Instructions / 编译指南
+
+To regenerate the Survival Kit PDF:
 
 ```bash
-# Clone the repository
-git clone https://github.com/yuanweize/CVUT-SZZ-Survival-Kit.git
-
-# Build the LaTeX SZZ Kit (requires XeLaTeX)
+# 1. Enter the Kit Directory
 cd SZZ_Master_Kit
+
+# 2. Compile (Standard)
 make
+
+# 3. Clean Build Artifacts
+make clean
 ```
+
+*Requirements: TeX Live (MacTeX) with `latexmk` and `xelatex`.*
 
 ---
 
 ## 📜 License / 许可证
+
 MIT License. See [LICENSE](./LICENSE) for details.
 
 ---
