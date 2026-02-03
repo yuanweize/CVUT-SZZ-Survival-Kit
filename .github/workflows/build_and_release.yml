@@ -1,0 +1,70 @@
+name: Build and Release SZZ Survival Kit
+
+on:
+  push:
+    paths:
+      - 'SZZ_Master_Kit/**'
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build PDF
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live (XeLaTeX & LuaLaTeX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-luatex texlive-lang-chinese texlive-science latexmk
+          # Install Heiti SC equivalent font for Linux (WenQuanYi Micro Hei) to avoid font errors
+          sudo apt-get install -y fonts-wqy-microhei xfonts-wqy
+
+      - name: Fix Font Setup (Linux Bypass)
+        working-directory: SZZ_Master_Kit
+        run: |
+          # The document uses Mac fonts (Heiti SC). On CI (Ubuntu), we must swap them.
+          # We will replace "Heiti SC" with "WenQuanYi Micro Hei" in the tex file temporarily.
+          sed -i 's/Heiti SC/WenQuanYi Micro Hei/g' szz_guide.tex
+          sed -i 's/Songti SC/WenQuanYi Micro Hei/g' szz_guide.tex
+
+      - name: Build PDF
+        working-directory: SZZ_Master_Kit
+        run: |
+          # Creating version file if not exists
+          if [ ! -f .version ]; then echo "1.0" > .version; fi
+          
+          # Run make (Note: Makefile uses 'lualatex' as COMPILER variable)
+          make build_pdf
+
+      - name: Identify Output File
+        id: get_output
+        working-directory: SZZ_Master_Kit
+        run: |
+          # Find the generated PDF (v*.pdf)
+          PDF_FILE=$(ls CVUT_SZZ_Survival_Kit_v*.pdf | head -n 1)
+          echo "pdf_path=SZZ_Master_Kit/$PDF_FILE" >> $GITHUB_OUTPUT
+          echo "pdf_name=$PDF_FILE" >> $GITHUB_OUTPUT
+          
+          # Extract version for release tag
+          VERSION=$(cat .version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: success()
+        with:
+          tag_name: v${{ steps.get_output.outputs.version }}
+          name: SZZ Survival Kit v${{ steps.get_output.outputs.version }}
+          files: ${{ steps.get_output.outputs.pdf_path }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
