@@ -44,6 +44,9 @@ jobs:
       - name: Build PDF
         working-directory: SZZ_Master_Kit
         run: |
+          # Clean up any existing versioned PDFs to avoid confusion
+          rm -f CVUT_SZZ_Survival_Kit_v*.pdf
+          
           # Creating version file if not exists
           if [ ! -f .version ]; then echo "1.0" > .version; fi
           
@@ -54,8 +57,17 @@ jobs:
         id: get_output
         working-directory: SZZ_Master_Kit
         run: |
-          # Find the generated PDF (v*.pdf)
-          PDF_FILE=$(ls CVUT_SZZ_Survival_Kit_v*.pdf | head -n 1)
+          # Extract version for release tag (The Single Source of Truth)
+          VERSION=$(cat .version)
+          
+          # Construct the expected PDF filename explicitly
+          PDF_FILE="CVUT_SZZ_Survival_Kit_v${VERSION}.pdf"
+          
+          # Verify the file actually exists
+          if [ ! -f "$PDF_FILE" ]; then
+            echo "Error: Expected output file $PDF_FILE not found!"
+            exit 1
+          fi
           
           # Create a fixed-name copy for the repository (convenient access)
           cp "$PDF_FILE" CVUT_SZZ_Survival_Kit_latest.pdf
@@ -63,9 +75,6 @@ jobs:
           echo "pdf_path=SZZ_Master_Kit/$PDF_FILE" >> $GITHUB_OUTPUT
           echo "repo_pdf_path=SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf" >> $GITHUB_OUTPUT
           echo "pdf_name=$PDF_FILE" >> $GITHUB_OUTPUT
-          
-          # Extract version for release tag
-          VERSION=$(cat .version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Update README with New Version
