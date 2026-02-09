@@ -103,12 +103,18 @@ jobs:
             # 1. Commit local changes first
             git commit -m "chore: release v${{ steps.get_output.outputs.version }} [skip ci]"
             
-            # 2. Pull latest main and rebase our commit on top
+            # 2. Stash any unstaged changes (e.g., build artifacts) to allow rebase
+            git stash
+            
+            # 3. Pull latest main and rebase our commit on top
             # This handles cases where main updated while we were building
             git pull --rebase origin main
             
-            # 3. Push the result
+            # 4. Push the result
             git push origin main
+            
+            # Optional: Pop stash if we needed those files (likely not needed for CI)
+            # git stash pop || true
           fi
 
       - name: Create Release
