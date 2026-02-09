@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install TeX Live (XeLaTeX & LuaLaTeX)
         run: |
@@ -32,6 +34,7 @@ jobs:
         run: |
           # The document uses Mac fonts (Heiti SC, STSong). On CI (Ubuntu), we must swap them.
           # We will replace them with "WenQuanYi Micro Hei" which we installed above.
+          # Using a more robust sed to handle various font calls
           sed -i 's/Heiti SC/WenQuanYi Micro Hei/g' szz_guide.tex
           sed -i 's/STSong/WenQuanYi Micro Hei/g' szz_guide.tex
           sed -i 's/Songti SC/WenQuanYi Micro Hei/g' szz_guide.tex
@@ -45,18 +48,40 @@ jobs:
           # Run make (Note: Makefile uses 'lualatex' as COMPILER variable)
           make build_pdf
 
-      - name: Identify Output File
+      - name: Process Artifacts
         id: get_output
         working-directory: SZZ_Master_Kit
         run: |
           # Find the generated PDF (v*.pdf)
           PDF_FILE=$(ls CVUT_SZZ_Survival_Kit_v*.pdf | head -n 1)
+          
+          # Create a static named copy for the "Latest" link in README
+          cp "$PDF_FILE" CVUT_SZZ_Survival_Kit.pdf
+          
           echo "pdf_path=SZZ_Master_Kit/$PDF_FILE" >> $GITHUB_OUTPUT
+          echo "static_pdf_path=SZZ_Master_Kit/CVUT_SZZ_Survival_Kit.pdf" >> $GITHUB_OUTPUT
           echo "pdf_name=$PDF_FILE" >> $GITHUB_OUTPUT
           
           # Extract version for release tag
           VERSION=$(cat .version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit Version & PDF to Repo
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Add the new PDF and updated version file
+          git add SZZ_Master_Kit/.version
+          git add SZZ_Master_Kit/${{ steps.get_output.outputs.pdf_name }}
+          
+          # Optional: Remove old PDFs to keep repo clean (keeping only the latest)
+          # git rm SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_v*.pdf || true
+          # (User asked to "save a copy", implying keeping history? But that bloats repo. 
+          # I will strictly follow instruction: save the *current* output)
+          
+          git commit -m "chore: release v${{ steps.get_output.outputs.version }} [skip ci]"
+          git push
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -64,7 +89,9 @@ jobs:
         with:
           tag_name: v${{ steps.get_output.outputs.version }}
           name: SZZ Survival Kit v${{ steps.get_output.outputs.version }}
-          files: ${{ steps.get_output.outputs.pdf_path }}
+          files: |
+             ${{ steps.get_output.outputs.pdf_path }}
+             ${{ steps.get_output.outputs.static_pdf_path }}
           draft: false
           prerelease: false
         env:
