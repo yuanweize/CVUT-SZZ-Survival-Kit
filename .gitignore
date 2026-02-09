@@ -37,3 +37,6 @@ venv/
 
 # Sensitive Projects / Source Code
 Thesis_src/
+# Specific file exclusions
+Jan_Koller_Opponent_Research/11_My_Thesis/reports/study_results.pdf
+
