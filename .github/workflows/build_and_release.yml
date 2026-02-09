@@ -77,27 +77,14 @@ jobs:
           echo "pdf_name=$PDF_FILE" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Update README with New Version
-        run: |
-          VERSION="${{ steps.get_output.outputs.version }}"
-          
-          # Only update the badge text to reflect the new version
-          # Pattern matches: badge/Download-SZZ_Survival_Kit_(v.*)-2ea44f
-          # We update the version part to (vX.X)
-          sed -i "s|SZZ_Survival_Kit_(.*)-2ea44f|SZZ_Survival_Kit_(v${VERSION})-2ea44f|g" README.md
-          
-          # Legacy/Fallback cleanup (if any)
-          sed -i "s|badge/PDF-.*-blue|badge/Download-SZZ_Survival_Kit_(v${VERSION})-2ea44f|g" README.md
-
-      - name: Commit Version, PDF & README
+      - name: Commit Version & PDF
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          # Add the fixed-name PDF, updated version file, and updated README
+          # Add the fixed-name PDF and updated version file
           git add SZZ_Master_Kit/.version
           git add SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf
-          git add README.md
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
@@ -110,14 +97,10 @@ jobs:
             git stash
             
             # 3. Pull latest main and rebase our commit on top
-            # This handles cases where main updated while we were building
             git pull --rebase origin main
             
             # 4. Push the result
             git push origin main
-            
-            # Optional: Pop stash if we needed those files (likely not needed for CI)
-            # git stash pop || true
           fi
 
       - name: Create Release
