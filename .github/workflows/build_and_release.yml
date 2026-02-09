@@ -79,21 +79,15 @@ jobs:
 
       - name: Update README with New Version
         run: |
-          PDF_NAME="${{ steps.get_output.outputs.pdf_name }}"
           VERSION="${{ steps.get_output.outputs.version }}"
           
-          # Update the Download Badge Link to point to the specific Release Asset
-          RELEASE_LINK="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${PDF_NAME}"
+          # Only update the badge text to reflect the new version
+          # Pattern matches: badge/Download-SZZ_Survival_Kit_(v.*)-2ea44f
+          # We update the version part to (vX.X)
+          sed -i "s|SZZ_Survival_Kit_(.*)-2ea44f|SZZ_Survival_Kit_(v${VERSION})-2ea44f|g" README.md
           
-          # Robust replacement: look for the badge link structure
-          # Uses `|` delimiter to avoid escaping slashes
-          # Matches: (https://github.com/.../releases...)
-          # Replaces with: (${RELEASE_LINK})
-          
-          sed -i "s|https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases)|${RELEASE_LINK})|g" README.md
-          
-          # Also update the badge text to show version (e.g. PDF-v4.3-blue)
-          sed -i "s|badge/PDF-.*-blue|badge/PDF-v${VERSION}-blue|g" README.md
+          # Legacy/Fallback cleanup (if any)
+          sed -i "s|badge/PDF-.*-blue|badge/Download-SZZ_Survival_Kit_(v${VERSION})-2ea44f|g" README.md
 
       - name: Commit Version, PDF & README
         run: |

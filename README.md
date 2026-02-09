@@ -9,7 +9,8 @@
 <div align="center">
 
 <!-- PDF_LINK_PLACEHOLDER -->
-[![Download PDF](https://img.shields.io/badge/PDF-v4.5-blue?style=for-the-badge&logo=adobe-acrobat-reader&logoColor=white)](https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases/download/v4.4/CVUT_SZZ_Survival_Kit_v4.3.pdf)
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest_Release-blue?style=for-the-badge&logo=github)](https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases/latest)
+[![View Online PDF](https://img.shields.io/badge/View-Online_PDF-2ea44f?style=for-the-badge&logo=adobe-acrobat-reader&logoColor=white)](./SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf)
 
 | **Resource / 资源** | **Description / 说明** |
 | :--- | :--- |
