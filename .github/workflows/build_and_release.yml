@@ -21,6 +21,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+          fetch-depth: 0
 
       - name: Install TeX Live (XeLaTeX & LuaLaTeX)
         run: |
@@ -72,28 +74,34 @@ jobs:
           VERSION="${{ steps.get_output.outputs.version }}"
           
           # Update the Download Badge Link to point to the specific Release Asset
-          # This ensures the badge always delivers the correct versioned file from Releases
           RELEASE_LINK="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${PDF_NAME}"
-          sed -i "s|https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases/latest/download/.*)|${RELEASE_LINK})|g" README.md
-          # Fallback patterns
-          sed -i "s|badge/PDF-.*-blue|badge/PDF-v${VERSION}-blue|g" README.md
+          
+          # Robust replacement: look for the badge link structure
+          # Uses `|` delimiter to avoid escaping slashes
+          # Matches: (https://github.com/.../releases...)
+          # Replaces with: (${RELEASE_LINK})
+          
           sed -i "s|https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases)|${RELEASE_LINK})|g" README.md
+          
+          # Also update the badge text to show version (e.g. PDF-v4.3-blue)
+          sed -i "s|badge/PDF-.*-blue|badge/PDF-v${VERSION}-blue|g" README.md
 
       - name: Commit Version, PDF & README
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
+          # Ensure we are on main branch to avoid detached HEAD issues
+          git checkout main
+          git pull origin main
+          
           # Add the fixed-name PDF, updated version file, and updated README
           git add SZZ_Master_Kit/.version
           git add SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf
           git add README.md
           
-          # Clean up any accidental versioned PDFs in the repo root (we only want 'latest.pdf' in repo)
-          # git rm SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_v*.pdf || true
-          
-          git commit -m "chore: release v${{ steps.get_output.outputs.version }} [skip ci]"
-          git push
+          # Commit only if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: release v${{ steps.get_output.outputs.version }} [skip ci]" && git push)
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
