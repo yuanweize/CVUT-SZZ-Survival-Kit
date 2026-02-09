@@ -1,11 +1,20 @@
+# 🎓 CVUT SZZ Survival Kit / 捷克理工大学国考生存包
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![University](https://img.shields.io/badge/CTU-FEE-blue)](https://fel.cvut.cz/)
+
 > **State Final Examination (SZZ) & Bachelor Thesis Defense Resources**
 > **国家毕业考试 (SZZ) 与毕业论文答辩资源**
 
 <div align="center">
 
-[![Download PDF](https://img.shields.io/badge/Download-Survival_Kit_(Latest)-ff0000?style=for-the-badge&logo=adobe-acrobat-reader&logoColor=white)](https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases/latest/download/CVUT_SZZ_Survival_Kit.pdf)
+<!-- PDF_LINK_PLACEHOLDER -->
+[![Download PDF](https://img.shields.io/badge/PDF-Get_Current_Version-blue?style=for-the-badge&logo=adobe-acrobat-reader&logoColor=white)](https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases)
 
-[**[Official Announcements / 官方公告]**](https://intranet.fel.cvut.cz/cz/education/announce/2513.html) | [**[Exam Topics / 考试范围]**](https://intranet.fel.cvut.cz/en/education/bachelor/topicsEECS.html)
+| **Resource / 资源** | **Description / 说明** |
+| :--- | :--- |
+| [📜 **Official SZZ Rules**](https://intranet.fel.cvut.cz/cz/education/announce/2513.html) | Dean's Directive for Final State Exams |
+| [📚 **Exam Topics (EECS)**](https://intranet.fel.cvut.cz/en/education/bachelor/topicsEECS.html) | Official list of questions for the oral exam |
 
 </div>
 
