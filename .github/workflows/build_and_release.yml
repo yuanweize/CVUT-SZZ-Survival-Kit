@@ -55,7 +55,11 @@ jobs:
           # Find the generated PDF (v*.pdf)
           PDF_FILE=$(ls CVUT_SZZ_Survival_Kit_v*.pdf | head -n 1)
           
+          # Create a fixed-name copy for the repository (convenient access)
+          cp "$PDF_FILE" CVUT_SZZ_Survival_Kit_latest.pdf
+          
           echo "pdf_path=SZZ_Master_Kit/$PDF_FILE" >> $GITHUB_OUTPUT
+          echo "repo_pdf_path=SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf" >> $GITHUB_OUTPUT
           echo "pdf_name=$PDF_FILE" >> $GITHUB_OUTPUT
           
           # Extract version for release tag
@@ -67,11 +71,11 @@ jobs:
           PDF_NAME="${{ steps.get_output.outputs.pdf_name }}"
           VERSION="${{ steps.get_output.outputs.version }}"
           
-          # 1. Update the Download Badge Link to point to the specific Release Asset
-          # Pattern: https://github.com/.../download/vX.X/Filename_vX.X.pdf
+          # Update the Download Badge Link to point to the specific Release Asset
+          # This ensures the badge always delivers the correct versioned file from Releases
           RELEASE_LINK="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${PDF_NAME}"
           sed -i "s|https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases/latest/download/.*)|${RELEASE_LINK})|g" README.md
-          # Fallback if the specific sed above fails (e.g. if link is generic): match the badge line
+          # Fallback patterns
           sed -i "s|badge/PDF-.*-blue|badge/PDF-v${VERSION}-blue|g" README.md
           sed -i "s|https://github.com/yuanweize/CVUT-SZZ-Survival-Kit/releases)|${RELEASE_LINK})|g" README.md
 
@@ -80,12 +84,12 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          # Add the new PDF, updated version file, and updated README
+          # Add the fixed-name PDF, updated version file, and updated README
           git add SZZ_Master_Kit/.version
-          git add SZZ_Master_Kit/${{ steps.get_output.outputs.pdf_name }}
+          git add SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf
           git add README.md
           
-          # Optional: Remove old PDFs to keep repo clean (keeping only the latest)
+          # Clean up any accidental versioned PDFs in the repo root (we only want 'latest.pdf' in repo)
           # git rm SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_v*.pdf || true
           
           git commit -m "chore: release v${{ steps.get_output.outputs.version }} [skip ci]"

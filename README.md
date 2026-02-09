@@ -26,7 +26,7 @@ This repository is a comprehensive collection of strategic intelligence, "Kill Z
 
 **If you have less than 24 hours remaining, IGNORE EVERYTHING ELSE and read this PDF:**
 
-👉 **[`SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_EMERGENCY.pdf`](./SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_EMERGENCY.pdf)** 👈
+👉 **[`SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf`](./SZZ_Master_Kit/CVUT_SZZ_Survival_Kit_latest.pdf)** 👈
 
 *   **Battle Scripts**: Exact words to say to each of the 6 Committee Members.
 *   **Mnemonics**: "Beer Theory" for Power, "Hot Pot" for Heat Transfer.
